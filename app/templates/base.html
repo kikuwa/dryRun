@@ -107,7 +107,7 @@
             background: rgba(100, 116, 139, 0.8);
         }
     </style>
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 <body class="h-screen overflow-hidden" x-data="{ notifications: [] }" @notify.window="notifications.push($event.detail); setTimeout(() => notifications.shift(), 3000)">
 <div class="flex h-full">
@@ -129,17 +129,14 @@
 <div class="px-4 py-2 mt-2 mb-1">
     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">数据工程流水线</span>
 </div>
-<a class="{{ 'sidebar-item-active' if active_page == 'data_engineering' else 'sidebar-item' }}" href="{{ url_for('data_tool.pu_bagging') }}">
-<span class="material-symbols-outlined text-[22px]">model_training</span>
-<span class="text-sm font-medium">PU Learning</span>
-</a>
-<a class="{{ 'sidebar-item-active' if active_page == 'feature_engineering' else 'sidebar-item' }}" href="{{ url_for('data_tool.ensemble_feature_selection') }}">
-<span class="material-symbols-outlined text-[22px]">hub</span>
-<span class="text-sm font-medium">AutoML 特征筛选</span>
-</a>
+
 <a class="{{ 'sidebar-item-active' if active_page == 'multi_source_data' else 'sidebar-item' }}" href="{{ url_for('risk_cot_views.multi_source_data') }}">
 <span class="material-symbols-outlined text-[22px]">dataset</span>
 <span class="text-sm font-medium">多源数据</span>
+</a>
+
+<a class="{{ 'sidebar-item-active' if active_page == 'feature_selection' else 'sidebar-item' }}" href="{{ url_for('data_tool.feature_selection') }}">
+<span class="text-sm font-medium">特征筛选</span>
 </a>
 <div class="px-4 py-2 mt-2 mb-1">
     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">COT工程</span>

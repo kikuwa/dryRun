@@ -1,0 +1,327 @@
+{% extends "base.html" %}
+
+{% block title %}特征筛选 - 金融风控AI系统{% endblock %}
+
+{% block header %}
+<div class="flex items-center gap-4 w-full">
+    <h2 class="text-[11px] font-semibold text-slate-500 flex items-center gap-2">
+    <span>数据工程</span>
+    <span class="text-slate-700">/</span>
+    <span class="text-slate-500 uppercase tracking-wider">特征筛选</span>
+    </h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-[1400px] mx-auto w-full space-y-6" x-data="featureSelectionApp()">
+    
+    <!-- Hero / Header -->
+    <div class="relative bg-white rounded-2xl p-8 shadow-sm border border-slate-200 overflow-hidden mb-6">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full -mr-10 -mt-10 pointer-events-none"></div>
+        
+        <div class="relative z-10">
+            <h1 class="text-3xl font-bold text-slate-900 mb-4">特征筛选</h1>
+            <p class="text-slate-500 max-w-2xl leading-relaxed text-sm">
+                针对金融风控场景特点采用 Bagging 集成学习策略。
+                通过多次迭代训练，从海量未标注数据中挖掘关键特征。
+            </p>
+        </div>
+
+        <div class="mt-8 flex items-center gap-4">
+            <button @click="runFeatureSelection" 
+                    :disabled="loading"
+                    class="px-8 py-3 bg-primary text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-[0.98]">
+                <span class="material-symbols-outlined text-[20px]" :class="{'animate-spin': loading}" x-text="loading ? 'sync' : 'rocket_launch'"></span>
+                <span x-text="loading ? '正在训练模型...' : '开始训练模型'">开始训练模型</span>
+            </button>
+            
+            <div class="relative">
+                <input type="file" x-ref="fileInput" accept=".csv" class="hidden" @change="handleFileSelect($event)">
+                <button @click="$refs.fileInput.click()" 
+                        :disabled="uploading"
+                        class="px-6 py-3 bg-white border border-slate-200 text-slate-600 text-sm font-bold rounded-xl hover:bg-slate-50 transition-all flex items-center gap-2 disabled:opacity-70">
+                    <span class="material-symbols-outlined text-[20px]" :class="{'animate-bounce': uploading}">upload_file</span>
+                    <span x-text="uploading ? '正在上传...' : '上传训练数据'">上传训练数据</span>
+                </button>
+            </div>
+            
+
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Logs -->
+        <div class="lg:col-span-3 flex flex-col h-full" x-show="false">
+            <!-- Terminal / Logs -->
+            <div class="bg-slate-900 rounded-2xl p-0 shadow-lg border border-slate-800 flex flex-col overflow-hidden transition-all duration-300 ease-in-out h-full"
+                 :class="isLogExpanded ? 'fixed inset-4 z-50 h-auto' : 'relative w-full'">
+                
+                <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950/50 flex-none h-[53px] box-border cursor-pointer"
+                     @dblclick="isLogExpanded = !isLogExpanded">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-slate-500 text-[16px]">terminal</span>
+                        <span class="text-[11px] font-mono text-slate-400 font-bold tracking-wider">SYSTEM LOGS</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button @click="isLogExpanded = !isLogExpanded" class="text-slate-500 hover:text-slate-300 text-xs flex items-center gap-1 px-2 py-1 rounded hover:bg-white/5 transition-colors">
+                            <span class="material-symbols-outlined text-[16px]" x-text="isLogExpanded ? 'close_fullscreen' : 'open_in_full'"></span>
+                        </button>
+                        <button @click="logs = []" class="text-slate-500 hover:text-slate-300 text-xs flex items-center gap-1 px-2 py-1 rounded hover:bg-white/5 transition-colors">
+                            <span class="material-symbols-outlined text-[16px]">delete</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex-1 p-4 overflow-y-auto font-mono text-xs text-slate-300 space-y-1 custom-scrollbar" x-ref="logContainer">
+                    <template x-for="(log, idx) in logs" :key="idx">
+                        <div class="break-words border-l-2 pl-3 py-0.5" :class="{'border-red-500 text-red-400': log.type === 'error', 'border-green-500 text-green-400': log.type === 'success', 'border-slate-700': log.type === 'info'}">
+                            <span class="opacity-50 mr-2 text-[10px]" x-text="log.time"></span>
+                            <span x-text="log.message"></span>
+                        </div>
+                    </template>
+                    <div x-show="logs.length === 0" class="text-slate-600 italic text-center mt-10">
+                        <span class="material-symbols-outlined text-4xl mb-2 opacity-20">dvr</span>
+                        <p>等待任务启动...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Results -->
+        <div class="lg:col-span-9 flex flex-col gap-6">
+            
+            <!-- Before Training: Dataset Feature Showcase -->
+            <div x-show="!results" class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                <h3 class="text-sm font-bold text-slate-800 mb-6 flex items-center gap-2">
+                    <span class="w-1 h-4 bg-primary rounded-full"></span>
+                    数据集特征展示
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-6 rounded-xl bg-slate-50 border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="material-symbols-outlined text-primary text-2xl">dataset</span>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium">数据集信息</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            当前已加载的训练数据文件，包含金融风控场景中的样本信息。
+                            点击「开始训练模型」按钮，系统将自动分析数据并提取重要特征。
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-slate-50 border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="material-symbols-outlined text-primary text-2xl">trending_up</span>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium">预期结果</div>
+                                <div class="text-lg font-bold text-slate-800">风险洞察</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            训练完成后，将展示特征重要性排名和关键特征列表，
+                            为您提供直观的风险评估依据。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- After Training: Results -->
+            <div x-show="results" class="space-y-6">
+                <!-- Row 1: Stats & Features -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Original Features -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span class="w-1 h-4 bg-primary rounded-full"></span>
+                            原始数据集特征维度
+                        </h3>
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="text-xs text-slate-500 font-medium mb-1">特征总数</div>
+                            <div class="text-2xl font-black text-slate-800" x-text="results.original_feature_count"></div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <div class="text-xs text-slate-500">样本数量</div>
+                                <div class="text-xs text-slate-500 text-right" x-text="results.sample_count"></div>
+                                <div class="text-xs text-slate-500">正样本比例</div>
+                                <div class="text-xs text-slate-500 text-right" x-text="results.positive_ratio + '%'">2.5%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selected Features -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span class="w-1 h-4 bg-primary rounded-full"></span>
+                            优选特征统计
+                        </h3>
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="text-xs text-slate-500 font-medium mb-1">优选特征数量</div>
+                            <div class="text-2xl font-black text-slate-800">50</div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <div class="text-xs text-slate-500">特征压缩率</div>
+                                <div class="text-xs text-slate-500 text-right" x-text="results.feature_compression_rate + '%'">25%</div>
+                                <div class="text-xs text-slate-500">模型训练时间</div>
+                                <div class="text-xs text-slate-500 text-right" x-text="results.training_time + 's'">45s</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Top 50 Features Table -->
+                <div class="bg-white rounded-2xl p-0 shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[18px]">trophy</span>
+                            Top 50 关键特征
+                        </h3>
+                        <div class="flex gap-2">
+                            <a href="{{ url_for('data_tool.download_feature_importance') }}" class="text-xs font-bold text-primary hover:text-blue-700 hover:underline flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">download</span> 下载特征重要性
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Table Header -->
+                    <div class="grid grid-cols-12 px-6 py-3 bg-slate-50 border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                        <div class="col-span-1">排名</div>
+                        <div class="col-span-4">特征名称</div>
+                        <div class="col-span-3">中文名称</div>
+                        <div class="col-span-2 text-center">重要性得分</div>
+                        <div class="col-span-2 text-right">相对重要性</div>
+                    </div>
+
+                    <!-- Table Body -->
+                    <div class="overflow-y-auto max-h-[500px]">
+                        <template x-for="(feat, idx) in (results ? results.top_features : [])" :key="idx">
+                            <div class="grid grid-cols-12 px-6 py-3 border-b border-slate-50 hover:bg-blue-50/30 transition-colors items-center">
+                                <div class="col-span-1">
+                                    <span class="w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold" 
+                                          :class="idx < 3 ? 'bg-primary/10 text-primary' : 'bg-slate-100 text-slate-400'" 
+                                          x-text="idx + 1"></span>
+                                </div>
+                                <div class="col-span-4 text-slate-600 font-medium truncate" :title="feat.feature" x-text="feat.feature"></div>
+                                <div class="col-span-3 text-slate-500 truncate" :title="feat.chinese_name" x-text="feat.chinese_name || '无'">无</div>
+                                <div class="col-span-2 text-center">
+                                    <span class="font-mono text-slate-700" x-text="feat.importance.toFixed(4)"></span>
+                                </div>
+                                <div class="col-span-2 text-right">
+                                    <div class="flex items-center gap-2 justify-end">
+                                        <div class="w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden hidden md:block">
+                                            <div class="bg-primary h-full transition-all duration-1000" :style="`width: ${(feat.importance / results.top_features[0].importance) * 100}%`"></div>
+                                        </div>
+                                        <span class="font-bold text-primary font-mono" x-text="Math.round((feat.importance / results.top_features[0].importance) * 100) + '%'">100%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function featureSelectionApp() {
+        return {
+            loading: false,
+            uploading: false,
+            currentFile: 'data/train.csv',
+            isLogExpanded: false,
+            logs: [],
+            results: null,
+
+            handleFileSelect(event) {
+                const file = event.target.files[0];
+                if (file) this.uploadFile(file);
+            },
+            
+            async uploadFile(file) {
+                if (!file) return;
+                
+                // Simple validation
+                if (!file.name.endsWith('.csv')) {
+                    window.dispatchEvent(new CustomEvent('notify', { detail: { message: '只允许上传 CSV 文件', type: 'error' } }));
+                    return;
+                }
+                
+                this.uploading = true;
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                try {
+                    const res = await fetch('{{ url_for("data_tool.upload_file") }}', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await res.json();
+                    
+                    if (data.success) {
+                        this.currentFile = file.name;
+                        this.addLog(`文件 ${file.name} 上传成功`, 'success');
+                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: '文件上传成功', type: 'success' } }));
+                    } else {
+                        throw new Error(data.error);
+                    }
+                } catch (e) {
+                    console.error('Upload error:', e);
+                    this.addLog(`上传失败: ${e.message}`, 'error');
+                    window.dispatchEvent(new CustomEvent('notify', { detail: { message: e.message || '上传失败', type: 'error' } }));
+                } finally {
+                    this.uploading = false;
+                }
+            },
+
+            addLog(message, type = 'info') {
+                const time = new Date().toLocaleTimeString();
+                this.logs.push({ time, message, type });
+                this.$nextTick(() => {
+                    const container = this.$refs.logContainer;
+                    if (container) container.scrollTop = container.scrollHeight;
+                });
+            },
+
+            async runFeatureSelection() {
+                this.loading = true;
+                this.logs = [];
+                this.results = null;
+                this.addLog('正在启动特征筛选模型...', 'info');
+
+                try {
+                    const res = await fetch('{{ url_for("data_tool.run_feature_selection") }}', {
+                        method: 'POST'
+                    });
+                    const data = await res.json();
+
+                    // Split log by lines and add them
+                    if (data.log) {
+                        data.log.split('\n').forEach(line => {
+                            if (line.trim()) this.addLog(line);
+                        });
+                    }
+                    if (data.stderr) {
+                        data.stderr.split('\n').forEach(line => {
+                            if (line.trim()) this.addLog(line, 'error');
+                        });
+                    }
+
+                    if (data.success) {
+                        this.addLog('模型运行成功', 'success');
+                        this.results = data;
+                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: '模型运行完成', type: 'success' } }));
+                    } else {
+                        this.addLog('模型运行失败: ' + data.error, 'error');
+                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: '运行失败', type: 'error' } }));
+                    }
+                } catch (e) {
+                    this.addLog('网络请求错误: ' + e.message, 'error');
+                } finally {
+                    this.loading = false;
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

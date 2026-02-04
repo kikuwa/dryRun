@@ -19,12 +19,15 @@
             <h1 class="text-2xl font-bold text-slate-900 tracking-tight">多源数据管理</h1>
             <p class="text-slate-500 text-sm mt-1">集成多源数据，提供数据类型统计与分析结果展示</p>
         </div>
-        <button @click="refreshData" 
-                :disabled="loading"
-                class="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-sm font-medium rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-            <span class="material-symbols-outlined text-[18px]" :class="{'animate-spin': loading}">refresh</span>
-            刷新数据
-        </button>
+        <div class="flex items-center gap-3">
+            <button @click="refreshData" 
+                    :disabled="loading"
+                    class="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-sm font-medium rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span class="material-symbols-outlined text-[18px]" :class="{'animate-spin': loading}">refresh</span>
+                刷新数据
+            </button>
+
+        </div>
     </div>
 
     <!-- Data Overview Cards -->

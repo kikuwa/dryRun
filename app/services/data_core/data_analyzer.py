@@ -414,8 +414,10 @@ class DataAnalyzer:
         return True
 
 if __name__ == "__main__":
-    # 数据文件路径
-    data_file = "d:\\code\\dryRun\\RiskControl\\data\\application_data.csv"
+    # 使用相对路径
+    import os
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    data_file = os.path.join(base_dir, 'data', 'application_data.csv')
     
     # 创建并运行分析器
     analyzer = DataAnalyzer(data_file)

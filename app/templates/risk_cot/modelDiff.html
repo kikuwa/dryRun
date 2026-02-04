@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>模型训练流水线桌面端概览V2</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB", // Blue-600
+              "primary-dark": "#1d4ed8",
+              "background-light": "#F8FAFC", // Slate-50 for desktop canvas
+              "background-dark": "#0F172A", // Slate-900
+              "surface-light": "#FFFFFF",
+              "surface-dark": "#1E293B", // Slate-800
+              "accent-blue": "#EFF6FF", // Blue-50
+              "accent-blue-dark": "#172554", // Blue-950
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem", 
+              "xl": "0.75rem",
+              "2xl": "1rem",
+            },
+            boxShadow: {
+              'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+              'glow': '0 0 20px rgba(37, 99, 235, 0.15)',
+            }
+          },
+        },
+      };
+    </script>
+<style>
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 font-display transition-colors duration-200 h-screen overflow-hidden flex">
+<aside class="w-64 bg-surface-light dark:bg-surface-dark border-r border-slate-200 dark:border-slate-700 flex flex-col z-20 shadow-sm shrink-0">
+<div class="h-16 flex items-center gap-3 px-6 border-b border-slate-100 dark:border-slate-700/50">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
+<span class="material-icons-round text-white text-lg">auto_graph</span>
+</div>
+<span class="font-bold text-slate-800 dark:text-white tracking-tight text-lg">AI Pipeline</span>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-6 overflow-y-auto">
+<div>
+<h3 class="flex items-center gap-2 px-2 text-sm font-bold text-slate-900 dark:text-white mb-2">
+<span class="material-icons-round text-primary text-base">model_training</span>
+        模型训练流水线
+    </h3>
+<div class="space-y-1 ml-2 pl-3 border-l border-slate-200 dark:border-slate-700">
+<a class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-primary transition-colors"></span>
+<span class="text-sm font-medium">开箱评测</span>
+</a>
+<a class="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/5 text-primary dark:text-blue-400 font-medium transition-colors" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="text-sm">模型后训练</span>
+</a>
+</div>
+</div>
+</nav>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 bg-background-light dark:bg-background-dark overflow-hidden">
+<header class="h-16 bg-surface-light dark:bg-surface-dark border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-8 sticky top-0 z-10 shrink-0">
+<div class="flex items-center gap-4">
+<nav class="flex text-sm text-slate-500 dark:text-slate-400 items-center">
+<span class="hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer transition-colors">Projects</span>
+<span class="mx-2 text-slate-300">/</span>
+<span class="hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer transition-colors">Financial Risk</span>
+<span class="mx-2 text-slate-300">/</span>
+<span class="font-medium text-slate-900 dark:text-white px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Pipeline V2.4</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-xs font-medium border border-green-200 dark:border-green-800/50">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                Training Nodes Online
+            </span>
+<div class="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
+<button class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors relative">
+<span class="material-icons-round">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-800"></span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-8 lg:p-10 scroll-smooth">
+<div class="max-w-7xl mx-auto space-y-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">模型训练流水线</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                    端到端风控AI工作流结构概览 · Version 2.4.0-LTS · Updated 2 hours ago
+                </p>
+</div>
+<section class="space-y-4">
+<div class="flex justify-between items-end border-b border-slate-200 dark:border-slate-700 pb-3">
+<h3 class="text-base font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2 uppercase tracking-wide">
+<span class="material-icons-round text-slate-400">bar_chart</span>
+                        Performance Metrics
+                    </h3>
+<button class="text-primary hover:text-primary-dark text-sm font-medium flex items-center gap-1 transition-colors px-2 py-1 rounded hover:bg-primary/5">
+                         View History <span class="material-icons-round text-base">history</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl shadow-card border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all duration-300 h-full">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-slate-400 ring-4 ring-slate-100 dark:ring-slate-800"></span>
+<span class="text-sm font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wide">开箱评测 (Out-of-the-box)</span>
+</div>
+<span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-mono font-bold rounded border border-slate-200 dark:border-slate-700">BASELINE</span>
+</div>
+<div class="grid grid-cols-2 gap-8 lg:gap-12">
+<div class="space-y-3">
+<div class="flex justify-between items-baseline">
+<span class="text-sm font-medium text-slate-500">Precision (查准率)</span>
+<span class="text-3xl font-bold text-slate-800 dark:text-white tracking-tight">68.4%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+<div class="bg-slate-400 h-full rounded-full" style="width: 68.4%"></div>
+</div>
+<div class="pt-1 text-xs text-slate-400 font-mono">P = TP/(TP+FP)</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-baseline">
+<span class="text-sm font-medium text-slate-500">Recall (查全率)</span>
+<span class="text-3xl font-bold text-slate-800 dark:text-white tracking-tight">72.1%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+<div class="bg-slate-400 h-full rounded-full" style="width: 72.1%"></div>
+</div>
+<div class="pt-1 text-xs text-slate-400 font-mono">R = TP/(TP+FN)</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl shadow-card border border-primary/20 dark:border-primary/30 relative overflow-hidden group hover:shadow-glow transition-all duration-300 h-full">
+<div class="absolute top-0 right-0 p-3 bg-primary/5 rounded-bl-2xl border-b border-l border-primary/10">
+<span class="material-icons-round text-primary text-xl">auto_awesome</span>
+</div>
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+<span class="text-sm font-bold text-primary dark:text-blue-400 uppercase tracking-wide">模型后训练 (Post-training)</span>
+</div>
+<span class="px-2.5 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 text-[10px] font-mono font-bold rounded border border-blue-100 dark:border-blue-800">OPTIMIZED</span>
+</div>
+<div class="grid grid-cols-2 gap-8 lg:gap-12">
+<div class="space-y-3">
+<div class="flex justify-between items-baseline">
+<span class="text-sm font-medium text-slate-500">Precision (查准率)</span>
+<span class="text-3xl font-bold text-primary dark:text-blue-400 tracking-tight">94.2%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full shadow-[0_0_10px_rgba(37,99,235,0.4)]" style="width: 94.2%"></div>
+</div>
+<div class="pt-1 flex items-center justify-between">
+<span class="text-xs text-slate-400 font-mono">P = TP/(TP+FP)</span>
+<span class="text-xs text-green-600 dark:text-green-400 font-bold flex items-center bg-green-50 dark:bg-green-900/20 px-1.5 py-0.5 rounded border border-green-100 dark:border-green-900/30">+25.8%</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-baseline">
+<span class="text-sm font-medium text-slate-500">Recall (查全率)</span>
+<span class="text-3xl font-bold text-primary dark:text-blue-400 tracking-tight">89.5%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full shadow-[0_0_10px_rgba(37,99,235,0.4)]" style="width: 89.5%"></div>
+</div>
+<div class="pt-1 flex items-center justify-between">
+<span class="text-xs text-slate-400 font-mono">R = TP/(TP+FN)</span>
+<span class="text-xs text-green-600 dark:text-green-400 font-bold flex items-center bg-green-50 dark:bg-green-900/20 px-1.5 py-0.5 rounded border border-green-100 dark:border-green-900/30">+17.4%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
+<h3 class="text-base font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2 uppercase tracking-wide">
+<span class="material-icons-round text-slate-400">difference</span>
+                        COT 输出过程差异对比
+                    </h3>
+</div>
+<div class="relative grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-stretch">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-card border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-full hover:border-slate-300 dark:hover:border-slate-600 transition-colors">
+<div class="px-5 py-3 bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+<span class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Before (Out-of-box)</span>
+</div>
+<span class="material-icons-round text-slate-300 text-sm">code</span>
+</div>
+<div class="p-6 bg-slate-50/30 dark:bg-slate-900/30 flex-1">
+                            <p class="font-mono text-sm leading-8 text-slate-600 dark:text-slate-300">
+                                <strong>【评估结论】：否（未来 3 个月内无违约风险）</strong><br>
+                                1. 企业背景与经营规模评估<br>
+                                中科智泰是一家成立超过 8 年的民营半导体贸易企业，主要服务于华东地区的电子加工厂。根据最新的财务汇总显示，该企业在过去 24 个月内累计实现了 12.8 亿元的营业收入，而同期的总支出约为 11.2 亿元。从数据上看，企业的流水非常庞大，说明其在产业链中占据了稳定的市场份额。 虽然近 12 个月的经营净收益只有 1,800 万元，比前两年的平均水平有所回落，但考虑到去年半导体行业整体处于去库存周期，这种收益缩减属于全行业的普遍现象。企业目前的纳税等级为 B 级，保持了良好的纳税记录，证明其经营活动是真实且合规的。<br>
+                                2. 融资现状与资金周转分析<br>
+                                在债务方面，中科智泰目前在 4 家银行拥有融资关系，融资余额总计 2.45 亿元。企业的总授信额度为 2.6 亿元，目前已使用了 2.58 亿元。虽然额度使用率较高，但这恰恰反映了银行对该企业的认可，愿意为其提供持续的资金支持。 流动性方面，企业目前账面金融资产余额为 420 万元。尽管余额比去年同期下降了 4,500 万元，但这通常是因为贸易型企业需要预付货款以锁定上游资源。考虑到企业拥有过亿元的营收能力，这种资产端的季节性波动不应被视为财务危机。<br>
+                                3. 风险预警信号评估<br>
+                                贷后检查结果显示为正常，客户经理在最近一次回访中未发现库房或办公场所异常。关于信用表现，近 3 个月出现过一次 2.6 万元的逾期记录，经企业解释是由于财务人员休假导致的资金划拨延迟，属于偶然性的操作失误。模型评估分数处于中值区间，外部规则虽有小额负债命中，但由于企业资产负债率仍处于 70% 的行业平均水平，整体信用风险可控。<br>
+                                <strong>【综合结论】： 企业历史悠久，营收规模庞大，短期财务波动和操作性逾期不影响整体偿债能力。建议维持授信，无需特殊预警。</strong>
+                            </p>
+                        </div>
+</div>
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 hidden lg:flex pointer-events-none">
+<div class="bg-white dark:bg-slate-700 rounded-full p-3 border border-slate-200 dark:border-slate-600 shadow-xl">
+<span class="material-icons-round text-slate-400 text-xl">arrow_forward</span>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-card border border-primary/40 dark:border-primary/50 overflow-hidden ring-4 ring-primary/5 h-full flex flex-col hover:shadow-glow transition-all">
+<div class="px-5 py-3 bg-blue-50/50 dark:bg-blue-900/20 border-b border-blue-100 dark:border-blue-900/50 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(37,99,235,0.6)] animate-pulse"></span>
+<span class="text-xs font-bold text-primary dark:text-blue-300 uppercase tracking-wider">After (Post-training)</span>
+</div>
+<span class="material-icons-round text-blue-300 text-sm">auto_fix_high</span>
+</div>
+<div class="p-6 bg-white dark:bg-surface-dark flex-1">
+                            <p class="font-mono text-sm leading-8 text-slate-800 dark:text-slate-200">
+                                <strong>【评估结论】：是（未来 3 个月内存实质性违约风险）</strong><br>
+                                1. <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">经营稳定性深度穿透：盈利能力面临系统性枯竭</span><br>
+                                本报告通过对利润趋势与收入质量的交叉比对，发现该企业经营逻辑已发生本质恶化：<br>
+                                <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">盈利崩塌： 该企业近 12 个月的经营净收益仅为 1,800 万元，较之前 24 个月的平均年收益（约 8,000 万元）暴跌了 77.5%。这意味着企业目前的盈利已经无法覆盖其年度利息支出，企业已失去通过自身经营产生盈余的能力。</span><br>
+                                <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">成本端异常： 在营收基本持平的情况下，营业支出增长了 14%。这表明该企业在半导体贸易链条中已失去议价权，极有可能通过高价垫资的方式获取低毛利订单，试图维持现金流假象。</span><br>
+                                2. <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">流动性与债务链分析：现金流已达临界点</span><br>
+                                本报告启动双向验证机制，对资产变动与真实还款能力进行穿透：<br>
+                                <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">金融资产剧烈失血： 企业金融资产余额在一年内缩减了 4,500 万元，降幅高达 91.5%。目前仅存的 420 万元资金不足以覆盖其下个月到期的任何一笔银行利息，更无法应对日常经营的现金流缺口。</span><br>
+                                <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">隐性负债极度高企： 关键预警指标显示，该企业的个人信用卡预支使用率已飙升至 98%，且近半年平均信用卡额度持续在高位运行。逻辑判定： 该企业目前已无法通过正规银行渠道获取增量授信，正被迫利用高利率的个人信用卡透现来"借钱发工资"或支付房租。这是流动性彻底枯竭的终极信号。</span><br>
+                                3. <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">多维度风险信号的逻辑闭环</span><br>
+                                <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">逾期性质再定义： 尽管 2.6 万元的逾期金额看似不大，但在金融资产骤降 90% 及信用卡全额刷爆的背景下，此信号不再是"操作失误"，而是"技术性违约"的真实开端。这标志着企业管理层对资金的调度已进入失控状态。</span><br>
+                                <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">抵质押物与外部代偿压力： 外部规则 PH_AMT2 命中，显示该企业存在多头借贷且抵押品价值正在贬值（跌幅已达 30% 以上）。同时，重要股东的股权已被法院冻结，这意味着当企业违约时，既无法通过股东注资自救，本行也难以通过处置押品收回全额债权。</span><br>
+                                4. <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">压力测试与最终判研</span><br>
+                                <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 px-1 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">基于未来 90 天的现金流测算，中科智泰面临至少 4,000 万元的资金缺口，且无任何可用授信额度（已用额度 2.58 亿 / 总额度 2.6 亿）。在缺乏外部融资注入的情况下，该企业在未来一个季度内发生本息违约是必然结果。</span><br>
+                                <strong>【综合结论】： 企业经营性现金流已经断裂，正处于依赖信用卡套现和资产变现维持的"僵尸状态"。建议立即停止续贷，并启动资产保全程序。</strong>
+                            </p>
+                        </div>
+</div>
+</div>
+</section>
+<div class="h-8"></div>
+</div>
+</div>
+</main>
+<script>
+    // Simple dark mode toggle logic 
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+    }
+</script>
+</body></html>

@@ -17,16 +17,14 @@ def allowed_file(filename):
 def index():
     return render_template('data_tool/dataset.html', active_page='dataset')
 
-@data_tool_bp.route('/pu_bagging')
-def pu_bagging():
-    return render_template('data_tool/pu_learning.html', active_page='data_engineering')
+@data_tool_bp.route('/feature_selection')
+def feature_selection():
+    return render_template('data_tool/feature_selection.html', active_page='feature_selection')
 
-@data_tool_bp.route('/ensemble_feature_selection')
-def ensemble_feature_selection():
-    return render_template('data_tool/feature_engineering.html', active_page='feature_engineering')
+
 
 # APIs
-@data_tool_bp.route('/upload', methods=['POST'])
+@data_tool_bp.route('/upload_file', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return jsonify({'error': '没有文件上传'}), 400
@@ -47,72 +45,110 @@ def upload_file():
     
     return jsonify({'error': '只允许上传CSV文件'}), 400
 
-@data_tool_bp.route('/run_model', methods=['POST'])
-def run_model():
+@data_tool_bp.route('/run_feature_selection', methods=['POST'])
+def run_feature_selection():
     try:
-        script_path = os.path.join(current_app.config['PROJECT_ROOT'], 'app', 'services', 'data_core', 'PU_bagging.py')
-        # Ensure we run in project root so relative paths in script work (or we need to adjust script)
-        # The script uses 'data/train.csv' and 'result/...'
-        # We need to make sure those paths align with our new structure.
-        # Our new structure has 'data' at root.
+        print("Starting run_feature_selection...")
         
-        result = subprocess.run([
-            sys.executable,
-            script_path
-        ], capture_output=True, text=True, cwd=current_app.config['PROJECT_ROOT'])
+        import time
+        start_time = time.time()
+        print(f"Start time: {start_time}")
         
-        if result.returncode == 0:
-            # The script writes to result/pu_eval_output... relative to CWD.
-            # If CWD is PROJECT_ROOT, it writes to PROJECT_ROOT/result/...
-            # But we want it in data/results.
-            # We might need to adjust the script OR symlink OR just let it write to result/ and serve from there.
-            # For "Strictly retain core algorithms", we shouldn't change the script's internal paths if possible.
-            # The script writes to: 'result/pu_eval_output/pu_predictions.csv'
+        # Import and call run_feature_selection from fast_model.py
+        print("Importing fast_model...")
+        # 使用相对导入
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("fast_model", os.path.join(current_app.config['PROJECT_ROOT'], 'app', 'services', 'data_core', 'fast_model.py'))
+        fast_model = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(fast_model)
+        
+        print("Running fast_model...")
+        feature_importance_df = fast_model.run_feature_selection()
+        
+        end_time = time.time()
+        training_time = round(end_time - start_time, 2)
+        print(f"End time: {end_time}")
+        print(f"Training time: {training_time} seconds")
+        
+        if feature_importance_df is not None:
+            # Process feature importance data
+            feature_importance = []
+            fi_df = feature_importance_df
+                
+            # Load Chinese feature names from Excel file
+            excel_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', '贷款数据集字段翻译文档.xlsx')
+            chinese_names = {}
+            if os.path.exists(excel_path):
+                try:
+                    df_excel = pd.read_excel(excel_path)
+                    # Assuming Excel has columns 'English' and 'Chinese' or similar
+                    # Adjust column names based on actual Excel structure
+                    if 'English' in df_excel.columns and 'Chinese' in df_excel.columns:
+                        for _, row in df_excel.iterrows():
+                            chinese_names[row['English']] = row['Chinese']
+                    elif '字段名' in df_excel.columns and '中文名称' in df_excel.columns:
+                        for _, row in df_excel.iterrows():
+                            chinese_names[row['字段名']] = row['中文名称']
+                    elif 'feature' in df_excel.columns and '中文' in df_excel.columns:
+                        for _, row in df_excel.iterrows():
+                            chinese_names[row['feature']] = row['中文']
+                    elif '英文字段名' in df_excel.columns and '中文字段名' in df_excel.columns:
+                        for _, row in df_excel.iterrows():
+                            chinese_names[row['英文字段名']] = row['中文字段名']
+                except Exception as e:
+                    print(f"Error reading Excel file: {e}")
+                
+            # Add Chinese names to features
+            feature_importance = []
+            for _, row in fi_df.iterrows():
+                feature_dict = row.to_dict()
+                feature_dict['chinese_name'] = chinese_names.get(row['feature'], '')
+                feature_importance.append(feature_dict)
             
-            # Let's check where it wrote.
-            actual_output_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'results', 'pu_learning', 'pu_predictions.csv')
+            # Load original dataset to get feature count
+            original_feature_count = 0
+            sample_count = 0
+            positive_ratio = 0
+            train_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'train.csv')
+            if os.path.exists(train_path):
+                df_train = pd.read_csv(train_path, nrows=10000)
+                sample_count = len(df_train)
+                # Get original feature count (excluding target)
+                if 'TARGET' in df_train.columns:
+                    original_feature_count = len(df_train.columns) - 1
+                    positive_count = df_train['TARGET'].sum()
+                    if sample_count > 0:
+                        positive_ratio = round((positive_count / sample_count) * 100, 2)
+                elif 'target' in df_train.columns:
+                    original_feature_count = len(df_train.columns) - 1
+                    positive_count = df_train['target'].sum()
+                    if sample_count > 0:
+                        positive_ratio = round((positive_count / sample_count) * 100, 2)
+                else:
+                    original_feature_count = len(df_train.columns)
             
-            if os.path.exists(actual_output_path):
-                df = pd.read_csv(actual_output_path)
-                
-                top_10 = df.nlargest(10, '违约风险概率')[['违约风险概率']]
-                positive_samples = df[df['label'] == 1]
-                min_positive_confidence = positive_samples['违约风险概率'].min() if not positive_samples.empty else 0
-                high_confidence_count = len(df[df['违约风险概率'] >= 0.9])
-                total_samples = len(df)
-                
-                top_10_dict = top_10.reset_index().to_dict('records')
-                
-                # Load feature importance if exists
-                feature_importance_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'results', 'pu_learning', 'feature_importance.csv')
-                feature_importance = []
-                if os.path.exists(feature_importance_path):
-                    fi_df = pd.read_csv(feature_importance_path)
-                    feature_importance = fi_df.head(20).to_dict('records') # Return top 20 features
-
-                return jsonify({
-                    'success': True,
-                    'log': result.stdout,
-                    'stderr': result.stderr,
-                    'top_10': top_10_dict,
-                    'feature_importance': feature_importance,
-                    'min_positive_confidence': min_positive_confidence,
-                    'high_confidence_count': high_confidence_count,
-                    'total_samples': total_samples
-                })
-            else:
-                return jsonify({
-                    'success': False,
-                    'error': '预测结果文件未找到',
-                    'log': result.stdout,
-                    'stderr': result.stderr
-                })
+            # Calculate feature compression rate
+            feature_compression_rate = 0
+            if original_feature_count > 0:
+                feature_compression_rate = round((50 / original_feature_count) * 100, 2)
+            
+            return jsonify({
+                'success': True,
+                'log': '',
+                'stderr': '',
+                'original_feature_count': original_feature_count,
+                'sample_count': sample_count,
+                'positive_ratio': positive_ratio,
+                'feature_compression_rate': feature_compression_rate,
+                'training_time': training_time,
+                'top_features': feature_importance[:50], # Return top 50 features
+            })
         else:
             return jsonify({
                 'success': False,
                 'error': '模型运行失败',
-                'log': result.stdout,
-                'stderr': result.stderr
+                'log': '',
+                'stderr': '模型运行失败'
             })
     except Exception as e:
         return jsonify({
@@ -120,119 +156,9 @@ def run_model():
             'error': str(e)
         })
 
-@data_tool_bp.route('/download_predictions')
-def download_predictions():
-    # Adjust path to where the script actually writes
-    results_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'results', 'pu_learning')
-    return send_from_directory(results_path, "pu_predictions.csv", as_attachment=True)
+@data_tool_bp.route('/download_feature_importance')
+def download_feature_importance():
+    results_path = os.path.join(current_app.config['PROJECT_ROOT'], 'app', 'services', 'data_core', 'data', 'results', 'pu_learning')
+    return send_from_directory(results_path, "feature_importance.csv", as_attachment=True)
 
-@data_tool_bp.route('/get_full_results')
-def get_full_results():
-    results_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'results', 'pu_learning', 'pu_predictions.csv')
-    if os.path.exists(results_path):
-        df = pd.read_csv(results_path)
-        df_sample = df.head(100)
-        df_sample = df_sample.fillna(value=np.nan)
-        result_dict = df_sample.to_dict('records')
-        for record in result_dict:
-            for key, value in record.items():
-                if isinstance(value, float) and np.isnan(value):
-                    record[key] = None
-        return jsonify(result_dict)
-    else:
-        return jsonify({'error': '预测结果文件未找到'}), 404
 
-# ... (Implement other endpoints similarly)
-@data_tool_bp.route('/upload_train', methods=['POST'])
-def upload_train():
-    if 'file' not in request.files:
-        return jsonify({'error': '没有文件上传'}), 400
-    
-    file = request.files['file']
-    
-    if file.filename == '':
-        return jsonify({'error': '没有选择文件'}), 400
-    
-    if file and allowed_file(file.filename):
-        # Script expects data/train.csv
-        file_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'uploads', 'train.csv')
-        file.save(file_path)
-        import shutil
-        shutil.copy(file_path, os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'train.csv'))
-        return jsonify({'success': '训练集文件上传成功'})
-    
-    return jsonify({'error': '只允许上传CSV文件'}), 400
-
-@data_tool_bp.route('/upload_pu', methods=['POST'])
-def upload_pu():
-    if 'file' not in request.files:
-        return jsonify({'error': '没有文件上传'}), 400
-    
-    file = request.files['file']
-    
-    if file.filename == '':
-        return jsonify({'error': '没有选择文件'}), 400
-    
-    if file and allowed_file(file.filename):
-        # Script expects pu_eval_output/pu_predictions.csv (relative to CWD)
-        # So we stick to project root structure
-        output_dir = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'results', 'pu_learning')
-        os.makedirs(output_dir, exist_ok=True)
-        file_path = os.path.join(output_dir, 'pu_predictions.csv')
-        file.save(file_path)
-        return jsonify({'success': 'PU打分文件上传成功'})
-    
-    return jsonify({'error': '只允许上传CSV文件'}), 400
-
-@data_tool_bp.route('/run_model_feature_selection', methods=['POST'])
-def run_model_feature_selection():
-    try:
-        script_path = os.path.join(current_app.config['PROJECT_ROOT'], 'app', 'services', 'data_core', 'ensemble_feature_selection.py')
-        result = subprocess.run([
-            sys.executable,
-            script_path
-        ], capture_output=True, text=True, cwd=current_app.config['PROJECT_ROOT'])
-        
-        if result.returncode == 0:
-            feature_rank_file = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'results', 'feature_selection', 'feature_rank_comparison.csv')
-            success = os.path.exists(feature_rank_file)
-            
-            return jsonify({
-                'success': success,
-                'log': result.stdout,
-                'stderr': result.stderr,
-                'has_results': success
-            })
-        else:
-            return jsonify({
-                'success': False,
-                'error': '模型运行失败',
-                'log': result.stdout,
-                'stderr': result.stderr
-            })
-    except Exception as e:
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        })
-
-@data_tool_bp.route('/download_results')
-def download_results():
-    results_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'results', 'feature_selection')
-    return send_from_directory(results_path, "feature_rank_comparison.csv", as_attachment=True)
-
-@data_tool_bp.route('/get_results_data')
-def get_results_data():
-    results_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'results', 'feature_selection', 'feature_rank_comparison.csv')
-    if os.path.exists(results_path):
-        df = pd.read_csv(results_path)
-        df_sample = df.head(100)
-        
-        # Replace NaN with None for valid JSON serialization
-        # Must cast to object first, otherwise float columns might revert None to NaN
-        df_sample = df_sample.astype(object).where(pd.notnull(df_sample), None)
-        
-        result_dict = df_sample.to_dict('records')
-        return jsonify(result_dict)
-    else:
-        return jsonify({'error': '结果文件未找到'}), 404
