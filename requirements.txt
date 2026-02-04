@@ -1,0 +1,9 @@
+Flask
+pandas
+numpy
+lightgbm
+scikit-learn
+matplotlib
+werkzeug
+openpyxl
+openai
