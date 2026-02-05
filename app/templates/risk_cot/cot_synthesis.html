@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+
+{% block title %}COT数据合成 - 金融风控AI系统{% endblock %}
+
+{% block header %}
+<div class="flex items-center gap-4 w-full">
+    <h2 class="text-[11px] font-semibold text-slate-500 flex items-center gap-2">
+    <span>大模型风控</span>
+    <span class="text-slate-700">/</span>
+    <span class="text-slate-500 uppercase tracking-wider">COT Data Synthesis</span>
+    </h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="h-full flex flex-col gap-6" x-data="cotSynthesisApp()">
+    
+    <!-- Header Summary -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex-none">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900">COT 数据合成模块</h1>
+                <p class="text-slate-500 text-sm mt-1">智能生成原始及优化思维链，并支持专家经验注入。</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button @click="clearAllCache" 
+                        class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all flex items-center gap-2 border border-slate-200 shadow-sm">
+                    <span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+                    <span>清除所有缓存</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Workspace -->
+    <div class="flex-1 grid grid-cols-12 gap-6 min-h-0">
+        
+        <!-- Column 1: Data Sample -->
+        <div class="col-span-4 flex flex-col gap-6">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col flex-1">
+                <div class="px-5 py-4 border-b border-slate-100 bg-slate-50/50">
+                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-500 text-[20px]">inventory_2</span>
+                        <span>数据样本</span>
+                    </h3>
+                </div>
+                <div class="p-5 space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <input type="number" x-model.number="manualIndex" placeholder="输入行号..." min="0"
+                               class="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none text-sm text-slate-700 transition-all"
+                               @keydown.enter="selectManualSample">
+                        <button @click="selectManualSample" :disabled="manualIndex === '' || loadingSample"
+                                class="w-full bg-white hover:bg-slate-50 text-slate-700 font-bold rounded-xl border border-slate-200 shadow-sm transition-all flex items-center justify-center gap-2 text-xs disabled:opacity-50">
+                            <span class="material-symbols-outlined text-[18px]">pin</span>
+                            <span>指定样本</span>
+                        </button>
+                    </div>
+                    <button @click="selectRandomSample" :disabled="loadingSample"
+                            class="w-full bg-white hover:bg-slate-50 text-slate-700 font-bold py-3 rounded-xl border border-slate-200 shadow-sm transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50">
+                        <span class="material-symbols-outlined text-[20px] transition-transform" :class="{'animate-spin': loadingSample}" x-text="loadingSample ? 'sync' : 'shuffle'"></span>
+                        <span x-text="loadingSample ? '随机加载中...' : '随机加载一个新样本'"></span>
+                    </button>
+                </div>
+                <div class="px-5 pb-5 flex-1 flex flex-col min-h-0">
+                    <div class="bg-slate-50 rounded-xl border border-slate-200 flex-1 overflow-y-auto custom-scrollbar">
+                        <template x-if="!currentSample">
+                            <div class="text-center py-10 text-slate-400 italic text-sm flex flex-col justify-center h-full">
+                                <span class="material-symbols-outlined text-3xl">dataset</span>
+                                <p class="mt-2">请选择一个数据样本</p>
+                            </div>
+                        </template>
+                        <template x-if="currentSample">
+                            <div class="p-4 space-y-2" x-transition>
+                                <div class="flex justify-between items-center p-2 bg-indigo-50/50 rounded-lg">
+                                    <span class="text-xs font-bold text-indigo-700">样本索引 (Index)</span>
+                                    <span class="text-xs font-mono font-bold text-indigo-800 px-2 py-0.5 bg-indigo-100 rounded" x-text="currentSample.index"></span>
+                                </div>
+                                <div class="border-t border-slate-200 my-1"></div>
+                                <table class="w-full text-left">
+                                    <thead>
+                                        <tr>
+                                            <th class="p-1.5 text-[11px] font-bold text-slate-500">特征中文名</th>
+                                            <th class="p-1.5 text-[11px] font-bold text-slate-500">特征英文名</th>
+                                            <th class="p-1.5 text-[11px] font-bold text-slate-500 text-right">值</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template x-for="item in currentSample.data" :key="item.key">
+                                            <tr class="hover:bg-slate-100/70 rounded-md">
+                                                <td class="p-1.5 text-[11px] font-medium text-slate-800" x-text="item.name || '-'"></td>
+                                                <td class="p-1.5 text-[11px] font-mono text-slate-500" x-text="item.key"></td>
+                                                <td class="p-1.5 text-[11px] font-bold text-slate-800 text-right" x-text="item.value !== null ? item.value : 'N/A'"></td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column 2: Expert Optimization & Results -->
+        <div class="col-span-8 flex flex-col gap-6">
+            <!-- Actions Card -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                <div class="px-5 py-4 border-b border-slate-100 bg-slate-50/50">
+                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-green-500 text-[20px]">play_circle</span>
+                        <span>生成操作</span>
+                    </h3>
+                </div>
+                <div class="p-5 grid grid-cols-2 gap-4">
+                    <button @click="generateCot('original')" 
+                            :disabled="!currentSample || loadingStates.original"
+                            class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 transform active:scale-[0.98]">
+                        <span class="material-symbols-outlined text-[20px]" :class="{'animate-spin': loadingStates.original}" x-text="loadingStates.original ? 'sync' : 'lightbulb'"></span>
+                        <span>生成原始思维链</span>
+                    </button>
+                    <button @click="generateCot('optimized')" 
+                            :disabled="!currentSample || loadingStates.optimized"
+                            class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 transform active:scale-[0.98]">
+                        <span class="material-symbols-outlined text-[20px]" :class="{'animate-spin': loadingStates.optimized}" x-text="loadingStates.optimized ? 'sync' : 'auto_awesome'"></span>
+                        <span>生成优化思维链</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Expert Optimization Card -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                <div class="px-5 py-4 border-b border-slate-100 bg-slate-50/50">
+                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-purple-500 text-[20px]">psychology</span>
+                        <span>专家经验优化</span>
+                    </h3>
+                </div>
+                <div class="p-5 space-y-4">
+                    <textarea x-model="expertAdvice" 
+                              placeholder="请输入专家经验或优化建议... 例如：重点关注客户的历史违约记录和收入稳定性分析" 
+                              class="w-full h-24 p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none text-xs text-slate-700 resize-none transition-all custom-scrollbar"></textarea>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button @click="optimizePrompt" 
+                                :disabled="!expertAdvice || loadingStates.prompt"
+                                class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 transform active:scale-[0.98]">
+                            <span class="material-symbols-outlined text-[20px]" :class="{'animate-spin': loadingStates.prompt}" x-text="loadingStates.prompt ? 'sync' : 'auto_fix'"></span>
+                            <span>优化提示词</span>
+                        </button>
+                        <button @click="generateCot('expert')" 
+                                :disabled="!currentSample || !promptOptimized || loadingStates.expert"
+                                class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 transform active:scale-[0.98]">
+                            <span class="material-symbols-outlined text-[20px]" :class="{'animate-spin': loadingStates.expert}" x-text="loadingStates.expert ? 'sync' : 'psychology_alt'"></span>
+                            <span>生成专家优化思维链</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Card -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col overflow-hidden">
+                <div class="px-5 py-4 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
+                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-orange-500 text-[20px]">description</span>
+                        <span>思维链结果</span>
+                    </h3>
+                    <div class="flex bg-slate-200/50 p-0.5 rounded-lg">
+                        <button @click="activeTab = 'original'" class="px-3 py-1 text-[10px] font-bold rounded-md transition-all duration-200" :class="activeTab === 'original' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'">原始</button>
+                        <button @click="activeTab = 'optimized'" class="px-3 py-1 text-[10px] font-bold rounded-md transition-all duration-200" :class="activeTab === 'optimized' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'">优化</button>
+                        <button @click="activeTab = 'expert'" class="px-3 py-1 text-[10px] font-bold rounded-md transition-all duration-200" :class="activeTab === 'expert' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'">专家</button>
+                    </div>
+                </div>
+                <div class="flex-1 overflow-hidden relative">
+                    <div class="absolute inset-0 overflow-y-auto p-5 custom-scrollbar">
+                        <div x-show="activeTab === 'original'" x-transition.opacity.duration.300>
+                            <div x-html="renderResult(cotResults.original, 'original')" class="prose prose-sm max-w-none"></div>
+                        </div>
+                        <div x-show="activeTab === 'optimized'" x-transition.opacity.duration.300>
+                            <div x-html="renderResult(cotResults.optimized, 'optimized')" class="prose prose-sm max-w-none"></div>
+                        </div>
+                        <div x-show="activeTab === 'expert'" x-transition.opacity.duration.300>
+                            <div x-html="renderResult(cotResults.expert, 'expert')" class="prose prose-sm max-w-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function cotSynthesisApp() {
+        return {
+            // State
+            currentSample: null,
+            manualIndex: '',
+            cotResults: { original: null, optimized: null, expert: null },
+            expertAdvice: '',
+            promptOptimized: false,
+            activeTab: 'original',
+            
+            // Loading states
+            loadingSample: false,
+            loadingStates: {
+                original: false,
+                optimized: false,
+                expert: false,
+                prompt: false
+            },
+
+            init() {
+                this.loadFromCache();
+                if (!this.currentSample) {
+                    this.selectRandomSample();
+                }
+            },
+
+            // --- Caching ---
+            loadFromCache() {
+                const cachedSample = localStorage.getItem('cot_currentSample');
+                const cachedResults = localStorage.getItem('cot_cotResults');
+                if (cachedSample) {
+                    this.currentSample = JSON.parse(cachedSample);
+                    this.manualIndex = this.currentSample.index;
+                }
+                if (cachedResults) {
+                    this.cotResults = JSON.parse(cachedResults);
+                }
+            },
+
+            saveToCache() {
+                localStorage.setItem('cot_currentSample', JSON.stringify(this.currentSample));
+                localStorage.setItem('cot_cotResults', JSON.stringify(this.cotResults));
+            },
+
+            clearAllCache() {
+                localStorage.removeItem('cot_currentSample');
+                localStorage.removeItem('cot_cotResults');
+                this.currentSample = null;
+                this.resetResults();
+                this.notify('所有本地缓存已清除');
+            },
+
+            // --- Data Fetching ---
+            async selectRandomSample() {
+                this.loadingSample = true;
+                await this.fetchSample();
+                this.loadingSample = false;
+            },
+
+            async selectManualSample() {
+                if (this.manualIndex === '' || isNaN(this.manualIndex)) return;
+                this.loadingSample = true;
+                await this.fetchSample(this.manualIndex);
+                this.loadingSample = false;
+            },
+
+            async fetchSample(index = null) {
+                try {
+                    const url = index !== null ? `/risk_cot/api/cot/get_sample?index=${index}` : '/risk_cot/api/cot/get_sample';
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error(`Server error: ${res.status}`);
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+                    
+                    this.currentSample = data;
+                    this.manualIndex = data.index;
+                    this.resetResults();
+                    this.saveToCache();
+                    this.notify(`已加载样本 #${data.index}`);
+                } catch (e) {
+                    this.notify(e.message, 'error');
+                }
+            },
+
+            // --- COT Generation ---
+            async generateCot(type) {
+                if (!this.currentSample || this.loadingStates[type]) return;
+                
+                this.loadingStates[type] = true;
+                try {
+                    const payload = {
+                        index: this.currentSample.index,
+                        cot_type: type,
+                    };
+                    if (type === 'expert') {
+                        if (!this.promptOptimized) {
+                            this.notify('请先成功优化提示词', 'warning');
+                            return;
+                        }
+                        payload.expert_advice = this.expertAdvice;
+                    }
+
+                    const res = await fetch('/risk_cot/api/cot/generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!res.ok) throw new Error(`Server error: ${res.status}`);
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+
+                    this.cotResults[type] = data;
+                    this.activeTab = type;
+                    this.saveToCache();
+                    this.notify(`${type.charAt(0).toUpperCase() + type.slice(1)} CoT 生成成功`);
+                } catch (e) {
+                    this.notify(e.message, 'error');
+                } finally {
+                    this.loadingStates[type] = false;
+                }
+            },
+
+            // --- Expert Prompt Optimization ---
+            async optimizePrompt() {
+                if (!this.expertAdvice || this.loadingStates.prompt) return;
+
+                this.loadingStates.prompt = true;
+                this.promptOptimized = false;
+                try {
+                    const res = await fetch('/risk_cot/api/cot/optimize_prompt', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ expert_advice: this.expertAdvice })
+                    });
+                    if (!res.ok) throw new Error(`Server error: ${res.status}`);
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+
+                    this.promptOptimized = true;
+                    this.notify('提示词优化成功');
+                } catch (e) {
+                    this.notify(e.message, 'error');
+                } finally {
+                    this.loadingStates.prompt = false;
+                }
+            },
+
+            // --- UI & Utility ---
+            resetResults() {
+                this.cotResults = { original: null, optimized: null, expert: null };
+                this.promptOptimized = false;
+            },
+
+            notify(message, type = 'success') {
+                window.dispatchEvent(new CustomEvent('notify', { detail: { message, type } }));
+            },
+
+            renderResult(result, type) {
+                if (!result) {
+                    const messages = {
+                        original: '请先生成原始思维链',
+                        optimized: '请先生成优化思维链',
+                        expert: '请先生成专家优化思维链'
+                    };
+                    return `<div class="text-center py-10 text-slate-400 italic">
+                                <span class="material-symbols-outlined text-4xl">pending</span>
+                                <p class="mt-2">${messages[type]}</p>
+                            </div>`;
+                }
+                
+                const formattedTime = new Date(result.timestamp * 1000).toLocaleString('zh-CN');
+                const cacheBadge = result.cached ? '<span class="px-2 py-0.5 bg-green-100 text-green-700 text-[9px] font-bold rounded-full">SERVER CACHED</span>' : '';
+                
+                const content = result.content.replace(/\n/g, '<br>');
+
+                return `<div class="space-y-4">
+                            <div class="flex justify-between items-center text-xs pb-2 border-b border-slate-100">
+                                <div class="text-slate-500">
+                                    <span>生成于: </span>
+                                    <span class="font-medium text-slate-700">${formattedTime}</span>
+                                </div>
+                                ${cacheBadge}
+                            </div>
+                            <div class="text-sm leading-relaxed text-slate-800">${content}</div>
+                        </div>`;
+            }
+        };
+    }
+</script>
+
+<style>
+    .prose { line-height: 1.7; }
+    .prose br { content: ""; display: block; margin-bottom: 0.5em; }
+</style>
+{% endblock %}

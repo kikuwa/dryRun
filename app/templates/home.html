@@ -86,13 +86,26 @@
                 <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </div>
         </a>
-        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('risk_cot_views.inference') }}">
+        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('risk_cot_views.cot_synthesis') }}">
             <div>
                 <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                    <span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+                    <span class="material-symbols-outlined text-primary text-3xl">auto_graph</span>
                 </div>
                 <h5 class="text-lg font-bold text-slate-900 mb-2">COT数据合成</h5>
                 <p class="text-sm text-slate-500 leading-relaxed">思维链推理样本自动化生产</p>
+            </div>
+            <div class="mt-6 flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                <span>进入模块</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </div>
+        </a>
+        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('risk_cot_views.prompt_design') }}">
+            <div>
+                <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                    <span class="material-symbols-outlined text-primary text-3xl">edit_note</span>
+                </div>
+                <h5 class="text-lg font-bold text-slate-900 mb-2">提示词工程</h5>
+                <p class="text-sm text-slate-500 leading-relaxed">智能优化提示词模板，支持自定义规则库</p>
             </div>
             <div class="mt-6 flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider group-hover:translate-x-1 transition-transform">
                 <span>进入模块</span>

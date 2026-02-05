@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, jsonify
+from flask import Blueprint, render_template, redirect, url_for, jsonify, request
+from app.services.risk_cot.cot_synthesis_service import CotSynthesisService
 import json
 import os
 
 views_bp = Blueprint('risk_cot_views', __name__)
+cot_service = CotSynthesisService()
 
 @views_bp.route('/')
 def index():
@@ -75,3 +77,54 @@ def get_analysis_results():
     except Exception as e:
         print(f"Error reading analysis results: {e}")
         return jsonify({}), 500
+
+@views_bp.route('/cot_synthesis')
+def cot_synthesis():
+    return render_template('risk_cot/cot_synthesis.html', active_page='cot_data_synthesis')
+
+@views_bp.route('/api/cot/get_sample', methods=['GET'])
+def get_cot_sample():
+    index = request.args.get('index', type=int)
+    try:
+        result = cot_service.get_data_sample(index)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@views_bp.route('/api/cot/generate', methods=['POST'])
+def generate_cot():
+    data = request.json
+    index = data.get('index')
+    cot_type = data.get('cot_type') # 'original', 'optimized', 'expert'
+    custom_prompt = data.get('custom_prompt') # For expert mode
+    
+    if index is None or not cot_type:
+        return jsonify({'error': 'Missing parameters'}), 400
+        
+    try:
+        result = cot_service.generate_cot(index, cot_type, custom_prompt)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@views_bp.route('/api/cot/optimize_prompt', methods=['POST'])
+def optimize_prompt():
+    data = request.json
+    expert_advice = data.get('expert_advice')
+    
+    if not expert_advice:
+        return jsonify({'error': 'Missing expert advice'}), 400
+        
+    try:
+        result = cot_service.optimize_prompt_with_expert(expert_advice)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@views_bp.route('/api/cot/clear_cache', methods=['POST'])
+def clear_cot_cache():
+    try:
+        cot_service.clear_cache()
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
