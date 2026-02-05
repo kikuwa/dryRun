@@ -97,12 +97,13 @@ def generate_cot():
     index = data.get('index')
     cot_type = data.get('cot_type') # 'original', 'optimized', 'expert'
     custom_prompt = data.get('custom_prompt') # For expert mode
+    expert_advice = data.get('expert_advice') # For expert mode from our UI
     
     if index is None or not cot_type:
         return jsonify({'error': 'Missing parameters'}), 400
         
     try:
-        result = cot_service.generate_cot(index, cot_type, custom_prompt)
+        result = cot_service.generate_cot(index, cot_type, custom_prompt, expert_advice)
         return jsonify(result)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
