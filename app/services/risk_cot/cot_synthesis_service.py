@@ -17,7 +17,7 @@ class CotSynthesisService:
         self.prompt_better_file = os.path.join(self.base_dir, 'data', 'prompt_better.txt')
         self.prompt_opt_file = os.path.join(self.base_dir, 'data', 'prompt_opt.txt')
         
-        self.api_key = "sk-22374d3cc9754de982e0b0a59d2524a9"
+        self.api_key = "sk-***********9"
         self.api_url = "https://api.deepseek.com/chat/completions"
         self.model = "deepseek-reasoner"
         self.feature_translation_file = os.path.join(self.base_dir, 'data', '贷款数据集字段翻译文档.xlsx')
@@ -69,9 +69,12 @@ class CotSynthesisService:
                 raise IndexError("Index out of range")
 
             row = df.iloc[index]
-            # Convert numpy types and handle NaN for JSON serialization
             data_dict = row.to_dict()
-            
+
+            # CRITICAL: Remove the target variable to prevent data leakage to the model
+            data_dict.pop('TARGET', None)
+            data_dict.pop('target', None)
+
             # Prepare the list of features with Chinese names
             data_list = []
             for key, value in data_dict.items():
@@ -131,10 +134,13 @@ class CotSynthesisService:
             logger.error(f"Error calling LLM: {str(e)}")
             return {"error": f"Error calling LLM: {str(e)}"}
 
-    def generate_cot(self, data_index: int, cot_type: str, custom_prompt: Optional[str] = None) -> Dict[str, Any]:
+    def generate_cot(self, data_index: int, cot_type: str, custom_prompt: Optional[str] = None, expert_advice: Optional[str] = None) -> Dict[str, Any]:
         import time
-        # Check cache first
+        # For expert CoT, the cache key should be based on the advice to ensure uniqueness
         cache_key = f"{data_index}_{cot_type}"
+        if cot_type == 'expert':
+            cache_key = f"{data_index}_{cot_type}_{hash(expert_advice)}"
+
         cache = self._load_cache()
         if cache_key in cache:
             return {"content": cache[cache_key], "timestamp": time.time(), "cached": True}
@@ -146,7 +152,14 @@ class CotSynthesisService:
         data = data_result["data"]
 
         # Prepare Prompt
-        if custom_prompt:
+        if cot_type == "expert":
+            if not expert_advice:
+                return {"error": "Expert advice is required for expert CoT"}
+            optimized_prompt_result = self.optimize_prompt_with_expert(expert_advice)
+            if "error" in optimized_prompt_result:
+                return optimized_prompt_result
+            prompt_template = optimized_prompt_result["optimized_prompt"]
+        elif custom_prompt:
             prompt_template = custom_prompt
         elif cot_type == "original":
             prompt_template = self._read_file(self.prompt_ori_file)
@@ -204,7 +217,7 @@ class CotSynthesisService:
         prompt_opt = self._read_file(self.prompt_opt_file)
         
         # Combine inputs
-        full_prompt = f"{prompt_opt}\n\n【待优化的提示词 (Prompt Better)】\n{prompt_better}\n\n【专家建议】\n{expert_input}"
+        full_prompt = f"{prompt_opt}\n\n{prompt_better}\n\n【专家建议】\n{expert_input}"
         
         messages = [{"role": "user", "content": full_prompt}]
         llm_result = self._call_llm(messages)
