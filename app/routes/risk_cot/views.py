@@ -14,7 +14,7 @@ def prompt_design():
 
 @views_bp.route('/model_diff')
 def model_diff():
-    return render_template('risk_cot/modelDiff.html')
+    return render_template('risk_cot/modelDiff.html', active_page='model_diff')
 
 @views_bp.route('/inference')
 def inference():

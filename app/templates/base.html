@@ -136,7 +136,7 @@
 </a>
 
 <a class="{{ 'sidebar-item-active' if active_page == 'feature_selection' else 'sidebar-item' }}" href="{{ url_for('data_tool.feature_selection') }}">
-<span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">account_tree</span>
+<span class="material-symbols-outlined text-[22px]">account_tree</span>
 <span class="text-sm font-medium">特征工程</span>
 </a>
 <a class="{{ 'sidebar-item-active' if active_page == 'cot_synthesis' else 'sidebar-item' }}" href="{{ url_for('risk_cot_views.inference') }}">
@@ -146,7 +146,7 @@
 <div class="px-4 py-2 mt-2 mb-1">
     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">模型训练流水线</span>
 </div>
-<a class="{{ 'sidebar-item-active' if active_page == 'prompt_design' else 'sidebar-item' }}" href="{{ url_for('risk_cot_views.model_diff') }}">
+<a class="{{ 'sidebar-item-active' if active_page == 'model_diff' else 'sidebar-item' }}" href="{{ url_for('risk_cot_views.model_diff') }}">
 <span class="material-symbols-outlined text-[22px]">design_services</span>
 <span class="text-sm font-medium">模型后训练流水线</span>
 </a>

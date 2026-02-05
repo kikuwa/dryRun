@@ -60,13 +60,26 @@
         <div class="h-px flex-1 bg-slate-200/60"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('risk_cot_views.model_diff') }}">
+        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('risk_cot_views.multi_source_data') }}">
             <div>
                 <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                    <span class="material-symbols-outlined text-primary text-3xl">design_services</span>
+                    <span class="material-symbols-outlined text-primary text-3xl">dataset</span>
                 </div>
-                <h5 class="text-lg font-bold text-slate-900 mb-2">提示词设计</h5>
-                <p class="text-sm text-slate-500 leading-relaxed">提示词工程优化与智能迭代</p>
+                <h5 class="text-lg font-bold text-slate-900 mb-2">多源数据</h5>
+                <p class="text-sm text-slate-500 leading-relaxed">集成多源数据，提供数据类型统计与分析</p>
+            </div>
+            <div class="mt-6 flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                <span>进入模块</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </div>
+        </a>
+        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('data_tool.feature_selection') }}">
+            <div>
+                <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                    <span class="material-symbols-outlined text-primary text-3xl">account_tree</span>
+                </div>
+                <h5 class="text-lg font-bold text-slate-900 mb-2">特征工程</h5>
+                <p class="text-sm text-slate-500 leading-relaxed">特征筛选与处理</p>
             </div>
             <div class="mt-6 flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider group-hover:translate-x-1 transition-transform">
                 <span>进入模块</span>
@@ -86,13 +99,13 @@
                 <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </div>
         </a>
-        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('risk_cot_views.distillation') }}">
+        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('risk_cot_views.model_diff') }}">
             <div>
                 <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                    <span class="material-symbols-outlined text-primary text-3xl">compare_arrows</span>
+                    <span class="material-symbols-outlined text-primary text-3xl">design_services</span>
                 </div>
-                <h5 class="text-lg font-bold text-slate-900 mb-2">模型蒸馏对比</h5>
-                <p class="text-sm text-slate-500 leading-relaxed">对比训练前后模型推理效果差异</p>
+                <h5 class="text-lg font-bold text-slate-900 mb-2">模型后训练流水线</h5>
+                <p class="text-sm text-slate-500 leading-relaxed">模型效果评估与差异对比分析</p>
             </div>
             <div class="mt-6 flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-wider group-hover:translate-x-1 transition-transform">
                 <span>进入模块</span>
