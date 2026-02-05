@@ -34,33 +34,23 @@
     <div class="py-8 px-8 rounded-2xl bg-slate-100 border border-slate-200">
         <div class="flex items-center justify-center w-full max-w-4xl mx-auto">
             <div class="compact-node min-w-[100px]">
-                <span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">database</span>
-                <span class="text-[10px] font-semibold text-slate-700">数据集管理</span>
+                <span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">dataset</span>
+                <span class="text-[10px] font-semibold text-slate-700">多源数据</span>
             </div>
             <div class="connector-line"></div>
             <div class="compact-node min-w-[100px]">
                 <span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">account_tree</span>
-                <span class="text-[10px] font-semibold text-slate-700">数据工程</span>
-            </div>
-            <div class="connector-line"></div>
-            <div class="compact-node min-w-[100px]">
-                <span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">hub</span>
                 <span class="text-[10px] font-semibold text-slate-700">特征工程</span>
             </div>
             <div class="connector-line"></div>
             <div class="compact-node min-w-[100px]">
-                <span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">design_services</span>
-                <span class="text-[10px] font-semibold text-slate-700">提示词设计</span>
-            </div>
-            <div class="connector-line"></div>
-            <div class="compact-node min-w-[100px]">
-                <span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">psychology</span>
+                <span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">auto_graph</span>
                 <span class="text-[10px] font-semibold text-slate-700">COT数据合成</span>
             </div>
             <div class="connector-line"></div>
             <div class="compact-node min-w-[100px]">
-                <span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">compare_arrows</span>
-                <span class="text-[10px] font-semibold text-slate-700">模型蒸馏对比</span>
+                <span class="material-symbols-outlined text-slate-500 mb-1.5 text-lg">design_services</span>
+                <span class="text-[10px] font-semibold text-slate-700">模型后训练流水线</span>
             </div>
         </div>
     </div>
@@ -70,7 +60,7 @@
         <div class="h-px flex-1 bg-slate-200/60"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('risk_cot_views.prompt_design') }}">
+        <a class="bg-white shadow-sm border border-slate-200 p-8 rounded-2xl card-hover group transition-all flex flex-col justify-between min-h-[220px]" href="{{ url_for('risk_cot_views.model_diff') }}">
             <div>
                 <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
                     <span class="material-symbols-outlined text-primary text-3xl">design_services</span>

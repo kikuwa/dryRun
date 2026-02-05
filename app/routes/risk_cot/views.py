@@ -12,6 +12,10 @@ def index():
 def prompt_design():
     return render_template('risk_cot/prompt_design.html', active_page='prompt_design')
 
+@views_bp.route('/model_diff')
+def model_diff():
+    return render_template('risk_cot/modelDiff.html')
+
 @views_bp.route('/inference')
 def inference():
     return render_template('risk_cot/inference.html', active_page='cot_synthesis')
