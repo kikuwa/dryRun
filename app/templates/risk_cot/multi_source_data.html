@@ -65,17 +65,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-            <div class="flex items-start justify-between">
-                <div>
-                    <p class="text-slate-500 text-xs font-medium mb-1">数据类型数</p>
-                    <h3 class="text-2xl font-bold text-slate-900" x-text="dataOverview.dataTypeCount || '0'">0</h3>
-                </div>
-                <div class="size-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
-                    <span class="material-symbols-outlined text-[20px]">category</span>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <!-- Data Type Statistics Module -->
@@ -121,26 +111,69 @@
                                         </template>
                                     </div>
                                     <div class="overflow-x-auto">
-                                        <table class="w-full text-left text-sm">
-                                            <thead class="bg-slate-100 text-slate-600 font-bold">
-                                                <tr>
-                                                    <th class="px-4 py-2">序号</th>
-                                                    <th class="px-4 py-2">英文名称</th>
-                                                    <th class="px-4 py-2">中文名称</th>
-                                                    <th class="px-4 py-2">描述</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="divide-y divide-slate-200">
-                                                <template x-for="(feature, idx) in (type.showAllFeatures ? type.features : type.features.slice(0, type.maxVisibleFeatures))" :key="idx">
-                                                    <tr class="hover:bg-slate-100/50 transition-colors">
-                                                        <td class="px-4 py-2 text-slate-500" x-text="idx + 1"></td>
-                                                        <td class="px-4 py-2 font-mono text-slate-700" x-text="feature.en"></td>
-                                                        <td class="px-4 py-2 font-medium text-slate-800" x-text="feature.cn"></td>
-                                                        <td class="px-4 py-2 text-slate-500 text-xs" x-text="feature.desc || '-'"></td>
+                                        <!-- 结构型数据展示模板 -->
+                                        <template x-if="type.originalType !== 'time_series' && type.originalType !== 'unstructured_data'">
+                                            <table class="w-full text-left text-sm">
+                                                <thead class="bg-slate-100 text-slate-600 font-bold">
+                                                    <tr>
+                                                        <th class="px-4 py-2">序号</th>
+                                                        <th class="px-4 py-2">英文名称</th>
+                                                        <th class="px-4 py-2">中文名称</th>
+                                                        <th class="px-4 py-2">描述</th>
                                                     </tr>
-                                                </template>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody class="divide-y divide-slate-200">
+                                                    <template x-for="(feature, idx) in (type.showAllFeatures ? type.features : type.features.slice(0, type.maxVisibleFeatures))" :key="idx">
+                                                        <tr class="hover:bg-slate-100/50 transition-colors">
+                                                            <td class="px-4 py-2 text-slate-500" x-text="idx + 1"></td>
+                                                            <td class="px-4 py-2 font-mono text-slate-700" x-text="feature.en"></td>
+                                                            <td class="px-4 py-2 font-medium text-slate-800" x-text="feature.cn"></td>
+                                                            <td class="px-4 py-2 text-slate-500 text-xs" x-text="feature.desc || '-'"></td>
+                                                        </tr>
+                                                    </template>
+                                                </tbody>
+                                            </table>
+                                        </template>
+
+                                        <!-- 时序数据和非结构数据展示模板 -->
+                                        <template x-if="type.originalType === 'time_series' || type.originalType === 'unstructured_data'">
+                                            <table class="w-full text-left text-sm">
+                                                <thead class="bg-slate-100 text-slate-600 font-bold">
+                                                    <tr>
+                                                        <th class="px-4 py-2">序号</th>
+                                                        <template x-for="(col, idx) in type.columns" :key="idx">
+                                                            <th class="px-4 py-2" x-text="col"></th>
+                                                        </template>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-slate-200">
+                                                    <template x-for="(row, idx) in type.data" :key="idx">
+                                                        <tr class="hover:bg-slate-100/50 transition-colors">
+                                                            <td class="px-4 py-2 text-slate-500" x-text="idx + 1"></td>
+                                                            <template x-for="(col, colIdx) in type.columns" :key="colIdx">
+                                                                <td class="px-4 py-2 text-slate-700">
+                                                                    <!-- 检查是否为长文本（例如检查报告） -->
+                                                                    <div x-data="{ expanded: false, content: row[col] }">
+                                                                        <template x-if="typeof content === 'string' && content.length > 50">
+                                                                            <div>
+                                                                                <span x-text="expanded ? content : content.substring(0, 50) + '...'"></span>
+                                                                                <button @click="expanded = !expanded" 
+                                                                                        class="text-xs text-primary hover:underline ml-1 focus:outline-none">
+                                                                                    <span x-text="expanded ? '收起' : '展开'"></span>
+                                                                                </button>
+                                                                            </div>
+                                                                        </template>
+                                                                        <template x-if="typeof content !== 'string' || content.length <= 50">
+                                                                            <span x-text="content"></span>
+                                                                        </template>
+                                                                    </div>
+                                                                </td>
+                                                            </template>
+                                                        </tr>
+                                                    </template>
+                                                </tbody>
+                                            </table>
+                                        </template>
                                     </div>
                                     <template x-if="type.features.length > type.maxVisibleFeatures && !type.showAllFeatures">
                                         <div class="mt-3 text-center">
@@ -282,50 +315,7 @@
             </div>
         </div>
 
-        <!-- Data Summary -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                <h3 class="font-bold text-slate-800 text-sm">数据集整体统计</h3>
-                <span class="text-xs text-slate-400">关键指标概览</span>
-            </div>
-            <div class="p-6">
-                <div x-show="!loading && dataSummary">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <p class="text-xs text-slate-500 mb-1">样本量</p>
-                            <h4 class="font-bold text-slate-800" x-text="dataSummary.sampleCount"></h4>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <p class="text-xs text-slate-500 mb-1">特征数</p>
-                            <h4 class="font-bold text-slate-800" x-text="dataSummary.featureCount"></h4>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <p class="text-xs text-slate-500 mb-1">数据完整性</p>
-                            <h4 class="font-bold text-slate-800" x-text="dataSummary.completeness"></h4>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <p class="text-xs text-slate-500 mb-1">数值型特征</p>
-                            <h4 class="font-bold text-slate-800" x-text="dataSummary.numericFeatures"></h4>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <p class="text-xs text-slate-500 mb-1">分类型特征</p>
-                            <h4 class="font-bold text-slate-800" x-text="dataSummary.categoricalFeatures"></h4>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-lg">
-                            <p class="text-xs text-slate-500 mb-1">文本型特征</p>
-                            <h4 class="font-bold text-slate-800" x-text="dataSummary.textFeatures"></h4>
-                        </div>
-                    </div>
-                </div>
-                <div x-show="!loading && !dataSummary" class="py-8 text-center">
-                    <span class="material-symbols-outlined text-3xl text-slate-300 mb-3 block">summarize</span>
-                    <p class="text-slate-500 text-sm">暂无数据集统计数据</p>
-                </div>
-                <div x-show="loading" class="py-8 flex justify-center">
-                    <div class="size-8 border-4 border-slate-200 border-t-primary rounded-full animate-spin"></div>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <!-- Data Preview -->
@@ -429,7 +419,12 @@
                     this.dataPreview = data.preview || [];
                     
                     // 填充数据类型统计
-                    this.dataTypes = this.processDataTypes(data.data_types, data.field_mapping || data.fieldMapping || {});
+                    this.dataTypes = this.processDataTypes(
+                        data.data_types, 
+                        data.field_mapping || data.fieldMapping || {},
+                        data.time_series_sample || [],
+                        data.unstructured_sample || []
+                    );
                     
                     // 填充IQR分析结果
                     this.iqrAnalysis = data.iqr_and_outliers ? data.iqr_and_outliers.iqr_analysis : [];
@@ -453,76 +448,79 @@
                 window.dispatchEvent(new CustomEvent('notify', { detail: { message: '数据刷新成功', type: 'success' } }));
             },
 
-            processDataTypes(dataTypes, fieldMapping = {}) {
-                if (!dataTypes || !dataTypes.type_stats) {
-                    return [];
-                }
-                
+            processDataTypes(dataTypes, fieldMapping = {}, timeSeriesSample = [], unstructuredSample = []) {
                 const types = [];
-                let typeIndex = 0; // 为每个数据类型分配一个唯一的索引
                 
-                // 获取所有特征的列表
-                const allFeatures = this.dataPreviewColumns || [];
-                
-                // 为每个数据类型生成特征列表
-                for (const [type, stats] of Object.entries(dataTypes.type_stats)) {
-                    // 为数值型添加具体说明
-                    let typeName = this.mapDataTypeToChinese(type);
-                    if (typeName === '数值型') {
-                        if (type === 'float64') {
-                            typeName = '数值型 (浮点型)';
-                        } else if (type === 'int64') {
-                            typeName = '数值型 (整型)';
+                // 1. 添加结构型数据类别 (来自 SBAcase.11.13.17.csv)
+                const structureFeatures = (this.dataPreviewColumns || []).map(featureName => {
+                    let chineseName = fieldMapping[featureName] || featureName;
+                    // 尝试从 dataTypes 中获取类型信息
+                    let typeDesc = '结构型数据字段';
+                    if (dataTypes && dataTypes.type_stats) {
+                        for (const [type, stats] of Object.entries(dataTypes.type_stats)) {
+                            if (stats.features && stats.features.includes(featureName)) {
+                                typeDesc = this.mapDataTypeToChinese(type);
+                                break;
+                            }
                         }
                     }
                     
-                    // 为每个数据类型生成特征列表
-                    const featuresCount = stats.count;
-                    const features = [];
-                    
-                    // 尝试为每个数据类型生成不同的特征列表
-                    // 这里使用一个简单的算法，为每个数据类型分配不同的特征
-                    for (let i = 0; i < featuresCount; i++) {
-                        // 计算特征索引，确保每个数据类型的特征索引不同
-                        // 使用 typeIndex 作为偏移量，确保每个数据类型的特征索引不同
-                        const featureIndex = (i + typeIndex * 10) % allFeatures.length;
-                        const featureName = allFeatures[featureIndex] || `feature_${i}_${type}`;
-                        // 尝试从字段映射中获取中文名称，如果没有则使用英文名称
-                        let chineseName = fieldMapping[featureName] || featureName;
-                        features.push({
-                            en: featureName,
-                            cn: chineseName,
-                            desc: `这是一个${typeName}特征` // 实际项目中应该从后端获取描述
-                        });
-                    }
-                    
-                    // 如果没有特征，添加一些默认特征
-                    if (features.length === 0) {
-                        for (let i = 0; i < Math.min(5, featuresCount); i++) {
-                            const featureName = `feature_${i}_${type}`;
-                            let chineseName = fieldMapping[featureName] || featureName;
-                            features.push({
-                                en: featureName,
-                                cn: chineseName,
-                                desc: `这是一个${typeName}特征` // 实际项目中应该从后端获取描述
-                            });
-                        }
-                    }
+                    return {
+                        en: featureName,
+                        cn: chineseName,
+                        desc: typeDesc
+                    };
+                });
+
+                if (structureFeatures.length > 0) {
+                    types.push({
+                        type: '结构型数据',
+                        originalType: 'structured_data',
+                        count: structureFeatures.length,
+                        percentage: '-', 
+                        expanded: true, // 默认展开
+                        features: structureFeatures,
+                        showAllFeatures: false,
+                        maxVisibleFeatures: 10 // 增加可见数量
+                    });
+                }
+
+                // 2. 添加时序数据类别 (来自 experience_cashflow.xlsx)
+                if (timeSeriesSample && timeSeriesSample.length > 0) {
+                    const columns = Object.keys(timeSeriesSample[0]);
                     
                     types.push({
-                        type: typeName,
-                        originalType: type,
-                        count: stats.count,
-                        percentage: stats.percentage,
-                        expanded: false,
-                        features: features,
-                        showAllFeatures: false,
-                        maxVisibleFeatures: 5
+                        type: '时序数据',
+                        originalType: 'time_series',
+                        count: timeSeriesSample.length, // 这里显示行数
+                        percentage: '-',
+                        expanded: true, // 默认展开
+                        features: [], // 时序数据不使用 features 列表
+                        columns: columns, // 表头
+                        data: timeSeriesSample, // 数据行
+                        showAllFeatures: true, // 总是显示全部（因为是数据行）
+                        maxVisibleFeatures: 100 // 设置一个较大的值
                     });
-                    
-                    // 为每个数据类型增加索引，确保下一个数据类型使用不同的偏移量
-                    typeIndex++;
                 }
+
+                // 3. 添加非结构数据类别 (来自 非结构化数据.xlsx)
+                if (unstructuredSample && unstructuredSample.length > 0) {
+                    const columns = Object.keys(unstructuredSample[0]);
+                    
+                    types.push({
+                        type: '非结构数据',
+                        originalType: 'unstructured_data',
+                        count: unstructuredSample.length, // 这里显示行数
+                        percentage: '-',
+                        expanded: true, // 默认展开
+                        features: [], // 非结构数据不使用 features 列表
+                        columns: columns, // 表头
+                        data: unstructuredSample, // 数据行
+                        showAllFeatures: true, // 总是显示全部（因为是数据行）
+                        maxVisibleFeatures: 100 // 设置一个较大的值
+                    });
+                }
+
                 return types;
             },
 

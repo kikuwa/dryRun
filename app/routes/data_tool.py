@@ -4,6 +4,7 @@ import numpy as np
 import subprocess
 import os
 import sys
+import importlib.util
 
 data_tool_bp = Blueprint('data_tool', __name__)
 
@@ -49,108 +50,55 @@ def upload_file():
 def run_feature_selection():
     try:
         print("Starting run_feature_selection...")
-        
         import time
         start_time = time.time()
-        print(f"Start time: {start_time}")
-        
-        # Import and call run_feature_selection from fast_model.py
-        print("Importing fast_model...")
-        # 使用相对导入
-        import importlib.util
-        spec = importlib.util.spec_from_file_location("fast_model", os.path.join(current_app.config['PROJECT_ROOT'], 'app', 'services', 'data_core', 'fast_model.py'))
+
+        # Dynamically import and run the feature selection script
+        spec = importlib.util.spec_from_file_location(
+            "fast_model",
+            os.path.join(current_app.config['PROJECT_ROOT'], 'app', 'services', 'data_core', 'fast_model.py')
+        )
         fast_model = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(fast_model)
         
-        print("Running fast_model...")
-        feature_importance_df = fast_model.run_feature_selection()
+        results = fast_model.run_feature_selection()
         
         end_time = time.time()
         training_time = round(end_time - start_time, 2)
-        print(f"End time: {end_time}")
-        print(f"Training time: {training_time} seconds")
-        
-        if feature_importance_df is not None:
-            # Process feature importance data
-            feature_importance = []
-            fi_df = feature_importance_df
-                
-            # Load Chinese feature names from Excel file
-            excel_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', '贷款数据集字段翻译文档.xlsx')
-            chinese_names = {}
-            if os.path.exists(excel_path):
-                try:
-                    df_excel = pd.read_excel(excel_path)
-                    # Assuming Excel has columns 'English' and 'Chinese' or similar
-                    # Adjust column names based on actual Excel structure
-                    if 'English' in df_excel.columns and 'Chinese' in df_excel.columns:
-                        for _, row in df_excel.iterrows():
-                            chinese_names[row['English']] = row['Chinese']
-                    elif '字段名' in df_excel.columns and '中文名称' in df_excel.columns:
-                        for _, row in df_excel.iterrows():
-                            chinese_names[row['字段名']] = row['中文名称']
-                    elif 'feature' in df_excel.columns and '中文' in df_excel.columns:
-                        for _, row in df_excel.iterrows():
-                            chinese_names[row['feature']] = row['中文']
-                    elif '英文字段名' in df_excel.columns and '中文字段名' in df_excel.columns:
-                        for _, row in df_excel.iterrows():
-                            chinese_names[row['英文字段名']] = row['中文字段名']
-                except Exception as e:
-                    print(f"Error reading Excel file: {e}")
-                
-            # Add Chinese names to features
-            feature_importance = []
-            for _, row in fi_df.iterrows():
-                feature_dict = row.to_dict()
-                feature_dict['chinese_name'] = chinese_names.get(row['feature'], '')
-                feature_importance.append(feature_dict)
+
+        if results and "feature_importance_df" in results:
+            fi_df = results["feature_importance_df"]
             
-            # Load original dataset to get feature count
-            original_feature_count = 0
-            sample_count = 0
-            positive_ratio = 0
-            train_path = os.path.join(current_app.config['PROJECT_ROOT'], 'data', 'train.csv')
-            if os.path.exists(train_path):
-                df_train = pd.read_csv(train_path, nrows=10000)
-                sample_count = len(df_train)
-                # Get original feature count (excluding target)
-                if 'TARGET' in df_train.columns:
-                    original_feature_count = len(df_train.columns) - 1
-                    positive_count = df_train['TARGET'].sum()
-                    if sample_count > 0:
-                        positive_ratio = round((positive_count / sample_count) * 100, 2)
-                elif 'target' in df_train.columns:
-                    original_feature_count = len(df_train.columns) - 1
-                    positive_count = df_train['target'].sum()
-                    if sample_count > 0:
-                        positive_ratio = round((positive_count / sample_count) * 100, 2)
-                else:
-                    original_feature_count = len(df_train.columns)
-            
+            # Convert DataFrame to list of dicts for JSON response
+            top_features = fi_df.head(30).to_dict(orient='records')
+
             # Calculate feature compression rate
+            original_feature_count = results.get("original_feature_count", 0)
             feature_compression_rate = 0
             if original_feature_count > 0:
-                feature_compression_rate = round((50 / original_feature_count) * 100, 2)
-            
+                feature_compression_rate = round((len(top_features) / original_feature_count) * 100, 2)
+
             return jsonify({
                 'success': True,
-                'log': '',
+                'log': '', 
                 'stderr': '',
                 'original_feature_count': original_feature_count,
-                'sample_count': sample_count,
-                'positive_ratio': positive_ratio,
+                'sample_count': results.get("sample_count", 0),
+                'positive_ratio': results.get("positive_ratio", 0),
                 'feature_compression_rate': feature_compression_rate,
                 'training_time': training_time,
-                'top_features': feature_importance[:50], # Return top 50 features
+                'top_features': top_features,
             })
         else:
             return jsonify({
                 'success': False,
-                'error': '模型运行失败',
+                'error': '模型运行失败或未返回预期的结果',
                 'log': '',
                 'stderr': '模型运行失败'
             })
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return jsonify({
             'success': False,
             'error': str(e)

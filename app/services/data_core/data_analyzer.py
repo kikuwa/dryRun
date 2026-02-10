@@ -42,7 +42,7 @@ class DataAnalyzer:
             Dict: 字段映射，键为英文名称，值为中文名称
         """
         field_mapping = {}
-        excel_file = "data/贷款数据集字段翻译文档.xlsx"
+        excel_file = "data/中英文对照.xlsx"
         
         if os.path.exists(excel_file):
             try:
@@ -58,11 +58,24 @@ class DataAnalyzer:
                 
                 # 尝试使用列名来识别正确的列
                 # 假设英文字段名在"英文字段名"列，中文字段名在"中文字段名"列
-                if '英文字段名' in df.columns and '中文字段名' in df.columns:
-                    print("使用列名'英文字段名'和'中文字段名'来提取字段映射")
+                if ('英文字段名' in df.columns and '中文字段名' in df.columns) or \
+                   ('英文' in df.columns and '中文' in df.columns) or \
+                   ('英文列名' in df.columns and '中文列名' in df.columns):
+                    
+                    if '英文字段名' in df.columns:
+                        english_col = '英文字段名'
+                        chinese_col = '中文字段名'
+                    elif '英文' in df.columns:
+                        english_col = '英文'
+                        chinese_col = '中文'
+                    else:
+                        english_col = '英文列名'
+                        chinese_col = '中文列名'
+
+                    print(f"使用列名'{english_col}'和'{chinese_col}'来提取字段映射")
                     for index, row in df.iterrows():
-                        english_name = row['英文字段名']
-                        chinese_name = row['中文字段名']
+                        english_name = row[english_col]
+                        chinese_name = row[chinese_col]
                         if isinstance(english_name, str) and len(english_name) > 0:
                             if pd.isna(chinese_name):
                                 chinese_name = '--'
@@ -125,13 +138,17 @@ class DataAnalyzer:
         dtype_counts = self.data.dtypes.value_counts()
         dtype_percentages = (dtype_counts / len(self.data.columns)) * 100
         
+        # 获取每个数据类型对应的特征列表
+        feature_by_dtype = self.data.columns.to_series().groupby(self.data.dtypes).apply(list)
+        
         # 转换为字典格式
         dtype_stats = {}
         for dtype, count in dtype_counts.items():
             dtype_str = str(dtype)
             dtype_stats[dtype_str] = {
                 "count": int(count),
-                "percentage": f"{dtype_percentages[dtype]:.2f}%"
+                "percentage": f"{dtype_percentages[dtype]:.2f}%",
+                "features": feature_by_dtype.get(dtype, [])
             }
         
         # 统计总数据类型数
@@ -373,6 +390,101 @@ class DataAnalyzer:
         self.analysis_results["overview"] = overview
         return overview
     
+    def generate_preview(self) -> List[Dict[str, any]]:
+        """
+        生成数据预览
+        
+        Returns:
+            List[Dict]: 数据预览列表
+        """
+        print("\n=== 生成数据预览 ===")
+        
+        # 获取前5行数据
+        preview_df = self.data.head(5)
+        
+        # 处理NaN值，替换为None
+        preview = preview_df.where(pd.notnull(preview_df), None).to_dict('records')
+        
+        self.analysis_results["preview"] = preview
+        return preview
+    
+    def _replace_nan_recursive(self, obj):
+        """
+        递归替换对象中的NaN值为None
+        """
+        if isinstance(obj, float) and (np.isnan(obj) or pd.isna(obj)):
+            return None
+        elif isinstance(obj, dict):
+            return {k: self._replace_nan_recursive(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [self._replace_nan_recursive(item) for item in obj]
+        return obj
+
+    def load_time_series_sample(self) -> List[Dict[str, any]]:
+        """
+        加载时序数据样例
+        
+        Returns:
+            List[Dict]: 时序数据样例列表
+        """
+        print("\n=== 加载时序数据样例 ===")
+        excel_file = "data/experience_cashflow.xlsx"
+        
+        if os.path.exists(excel_file):
+            try:
+                # 指定要读取的列
+                target_columns = ['企业名称', 'Month_1', 'Month_2', 'Month_3', 'Month_4', 'Month_5', 'Month_6']
+                df = pd.read_excel(excel_file)
+                
+                # 检查列是否存在，只保留存在的列
+                existing_columns = [col for col in target_columns if col in df.columns]
+                if len(existing_columns) < len(target_columns):
+                    print(f"警告: 部分目标列未在Excel文件中找到。缺失列: {set(target_columns) - set(existing_columns)}")
+                
+                # 获取前5行数据，仅包含指定列
+                sample_df = df[existing_columns].head(5)
+                
+                # 处理NaN值
+                sample = sample_df.where(pd.notnull(sample_df), None).to_dict('records')
+                
+                self.analysis_results["time_series_sample"] = sample
+                print(f"成功加载时序数据样例，行数: {len(sample)}")
+                return sample
+            except Exception as e:
+                print(f"加载时序数据样例失败: {e}")
+                return []
+        else:
+            print(f"时序数据文件不存在: {excel_file}")
+            return []
+
+    def load_unstructured_sample(self) -> List[Dict[str, any]]:
+        """
+        加载非结构化数据样例
+        
+        Returns:
+            List[Dict]: 非结构化数据样例列表
+        """
+        print("\n=== 加载非结构化数据样例 ===")
+        excel_file = "data/非结构化数据.xlsx"
+        
+        if os.path.exists(excel_file):
+            try:
+                df = pd.read_excel(excel_file)
+                # 获取前5行数据
+                sample_df = df.head(5)
+                # 处理NaN值
+                sample = sample_df.where(pd.notnull(sample_df), None).to_dict('records')
+                
+                self.analysis_results["unstructured_sample"] = sample
+                print(f"成功加载非结构化数据样例，行数: {len(sample)}")
+                return sample
+            except Exception as e:
+                print(f"加载非结构化数据样例失败: {e}")
+                return []
+        else:
+            print(f"非结构化数据文件不存在: {excel_file}")
+            return []
+
     def save_results(self, output_path: str = None):
         """
         保存分析结果
@@ -383,9 +495,12 @@ class DataAnalyzer:
         if output_path is None:
             output_path = os.path.join(os.path.dirname(self.file_path), "analysis_results.json")
         
+        # 处理所有数据中的NaN值
+        clean_results = self._replace_nan_recursive(self.analysis_results)
+        
         try:
             with open(output_path, 'w', encoding='utf-8') as f:
-                json.dump(self.analysis_results, f, ensure_ascii=False, indent=2)
+                json.dump(clean_results, f, ensure_ascii=False, indent=2)
             print(f"\n分析结果已保存至: {output_path}")
         except Exception as e:
             print(f"保存结果失败: {e}")
@@ -403,6 +518,9 @@ class DataAnalyzer:
         self.analyze_iqr_and_outliers()
         self.analyze_basic_stats()
         self.generate_overview()
+        self.generate_preview()
+        self.load_time_series_sample()
+        self.load_unstructured_sample()
         
         # 添加字段映射到分析结果
         self.analysis_results["field_mapping"] = self.field_mapping
@@ -417,7 +535,7 @@ if __name__ == "__main__":
     # 使用相对路径
     import os
     base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-    data_file = os.path.join(base_dir, 'data', 'application_data.csv')
+    data_file = os.path.join(base_dir, 'data', 'SBAcase.11.13.17.csv')
     
     # 创建并运行分析器
     analyzer = DataAnalyzer(data_file)

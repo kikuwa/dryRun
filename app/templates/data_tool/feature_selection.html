@@ -28,13 +28,6 @@
         </div>
 
         <div class="mt-8 flex items-center gap-4">
-            <button @click="runFeatureSelection" 
-                    :disabled="loading"
-                    class="px-8 py-3 bg-primary text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-[0.98]">
-                <span class="material-symbols-outlined text-[20px]" :class="{'animate-spin': loading}" x-text="loading ? 'sync' : 'rocket_launch'"></span>
-                <span x-text="loading ? '正在训练模型...' : '开始训练模型'">开始训练模型</span>
-            </button>
-            
             <div class="relative">
                 <input type="file" x-ref="fileInput" accept=".csv" class="hidden" @change="handleFileSelect($event)">
                 <button @click="$refs.fileInput.click()" 
@@ -44,8 +37,12 @@
                     <span x-text="uploading ? '正在上传...' : '上传训练数据'">上传训练数据</span>
                 </button>
             </div>
-            
-
+            <button @click="runFeatureSelection" 
+                    :disabled="loading"
+                    class="px-8 py-3 bg-primary text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-[0.98]">
+                <span class="material-symbols-outlined text-[20px]" :class="{'animate-spin': loading}" x-text="loading ? 'sync' : 'rocket_launch'"></span>
+                <span x-text="loading ? '正在特征筛选...' : '开始特征筛选'">开始特征筛选</span>
+            </button>
         </div>
     </div>
 
@@ -156,11 +153,11 @@
                         </h3>
                         <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
                             <div class="text-xs text-slate-500 font-medium mb-1">优选特征数量</div>
-                            <div class="text-2xl font-black text-slate-800">50</div>
+                            <div class="text-2xl font-black text-slate-800">30</div>
                             <div class="mt-4 grid grid-cols-2 gap-2">
                                 <div class="text-xs text-slate-500">特征压缩率</div>
                                 <div class="text-xs text-slate-500 text-right" x-text="results.feature_compression_rate + '%'">25%</div>
-                                <div class="text-xs text-slate-500">模型训练时间</div>
+                                <div class="text-xs text-slate-500">特征筛选时间</div>
                                 <div class="text-xs text-slate-500 text-right" x-text="results.training_time + 's'">45s</div>
                             </div>
                         </div>
@@ -172,7 +169,7 @@
                     <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                         <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary text-[18px]">trophy</span>
-                            Top 50 关键特征
+                            Top 30 关键特征
                         </h3>
                         <div class="flex gap-2">
                             <a href="{{ url_for('data_tool.download_feature_importance') }}" class="text-xs font-bold text-primary hover:text-blue-700 hover:underline flex items-center gap-1">
@@ -287,7 +284,7 @@
                 this.loading = true;
                 this.logs = [];
                 this.results = null;
-                this.addLog('正在启动特征筛选模型...', 'info');
+                this.addLog('正在启动特征筛选...', 'info');
 
                 try {
                     const res = await fetch('{{ url_for("data_tool.run_feature_selection") }}', {
@@ -308,11 +305,11 @@
                     }
 
                     if (data.success) {
-                        this.addLog('模型运行成功', 'success');
+                        this.addLog('特征筛选运行成功', 'success');
                         this.results = data;
-                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: '模型运行完成', type: 'success' } }));
+                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: '特征筛选运行完成', type: 'success' } }));
                     } else {
-                        this.addLog('模型运行失败: ' + data.error, 'error');
+                        this.addLog('特征筛选运行失败: ' + data.error, 'error');
                         window.dispatchEvent(new CustomEvent('notify', { detail: { message: '运行失败', type: 'error' } }));
                     }
                 } catch (e) {

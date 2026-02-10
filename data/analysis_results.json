@@ -2,1192 +2,338 @@
   "data_types": {
     "total_types": 3,
     "type_stats": {
-      "float64": {
-        "count": 65,
-        "percentage": "53.28%"
-      },
       "int64": {
-        "count": 41,
-        "percentage": "33.61%"
+        "count": 22,
+        "percentage": "62.86%",
+        "features": [
+          "Selected",
+          "LoanNr_ChkDgt",
+          "Zip",
+          "NAICS",
+          "ApprovalDate",
+          "ApprovalFY",
+          "Term",
+          "NoEmp",
+          "CreateJob",
+          "RetainedJob",
+          "FranchiseCode",
+          "UrbanRural",
+          "DisbursementGross",
+          "BalanceGross",
+          "ChgOffPrinGr",
+          "GrAppv",
+          "SBA_Appv",
+          "New",
+          "RealEstate",
+          "Recession",
+          "daysterm",
+          "Default"
+        ]
       },
-      "str": {
-        "count": 16,
-        "percentage": "13.11%"
+      "object": {
+        "count": 8,
+        "percentage": "22.86%",
+        "features": [
+          "Name",
+          "City",
+          "State",
+          "Bank",
+          "BankState",
+          "RevLineCr",
+          "LowDoc",
+          "MIS_Status"
+        ]
+      },
+      "float64": {
+        "count": 5,
+        "percentage": "14.29%",
+        "features": [
+          "NewExist",
+          "ChgOffDate",
+          "DisbursementDate",
+          "Portion",
+          "xx"
+        ]
       }
     }
   },
   "data_quality": {
-    "completeness": "75.60%",
-    "total_missing": 9152465,
+    "completeness": "98.07%",
+    "total_missing": 1423,
     "missing_stats": [
       {
-        "feature": "COMMONAREA_AVG",
-        "count": 214865,
-        "percentage": "69.87%",
-        "percentage_value": 69.87,
-        "total": 307511
+        "feature": "ChgOffDate",
+        "count": 1405,
+        "percentage": "66.84%",
+        "percentage_value": 66.84,
+        "total": 2102
       },
       {
-        "feature": "COMMONAREA_MODE",
-        "count": 214865,
-        "percentage": "69.87%",
-        "percentage_value": 69.87,
-        "total": 307511
+        "feature": "Bank",
+        "count": 3,
+        "percentage": "0.14%",
+        "percentage_value": 0.14,
+        "total": 2102
       },
       {
-        "feature": "COMMONAREA_MEDI",
-        "count": 214865,
-        "percentage": "69.87%",
-        "percentage_value": 69.87,
-        "total": 307511
+        "feature": "LowDoc",
+        "count": 3,
+        "percentage": "0.14%",
+        "percentage_value": 0.14,
+        "total": 2102
       },
       {
-        "feature": "NONLIVINGAPARTMENTS_MEDI",
-        "count": 213514,
-        "percentage": "69.43%",
-        "percentage_value": 69.43,
-        "total": 307511
+        "feature": "xx",
+        "count": 3,
+        "percentage": "0.14%",
+        "percentage_value": 0.14,
+        "total": 2102
       },
       {
-        "feature": "NONLIVINGAPARTMENTS_MODE",
-        "count": 213514,
-        "percentage": "69.43%",
-        "percentage_value": 69.43,
-        "total": 307511
+        "feature": "DisbursementDate",
+        "count": 3,
+        "percentage": "0.14%",
+        "percentage_value": 0.14,
+        "total": 2102
       },
       {
-        "feature": "NONLIVINGAPARTMENTS_AVG",
-        "count": 213514,
-        "percentage": "69.43%",
-        "percentage_value": 69.43,
-        "total": 307511
+        "feature": "BankState",
+        "count": 3,
+        "percentage": "0.14%",
+        "percentage_value": 0.14,
+        "total": 2102
       },
       {
-        "feature": "FONDKAPREMONT_MODE",
-        "count": 210295,
-        "percentage": "68.39%",
-        "percentage_value": 68.39,
-        "total": 307511
-      },
-      {
-        "feature": "LIVINGAPARTMENTS_AVG",
-        "count": 210199,
-        "percentage": "68.35%",
-        "percentage_value": 68.35,
-        "total": 307511
-      },
-      {
-        "feature": "LIVINGAPARTMENTS_MEDI",
-        "count": 210199,
-        "percentage": "68.35%",
-        "percentage_value": 68.35,
-        "total": 307511
-      },
-      {
-        "feature": "LIVINGAPARTMENTS_MODE",
-        "count": 210199,
-        "percentage": "68.35%",
-        "percentage_value": 68.35,
-        "total": 307511
-      },
-      {
-        "feature": "FLOORSMIN_MODE",
-        "count": 208642,
-        "percentage": "67.85%",
-        "percentage_value": 67.85,
-        "total": 307511
-      },
-      {
-        "feature": "FLOORSMIN_AVG",
-        "count": 208642,
-        "percentage": "67.85%",
-        "percentage_value": 67.85,
-        "total": 307511
-      },
-      {
-        "feature": "FLOORSMIN_MEDI",
-        "count": 208642,
-        "percentage": "67.85%",
-        "percentage_value": 67.85,
-        "total": 307511
-      },
-      {
-        "feature": "YEARS_BUILD_AVG",
-        "count": 204488,
-        "percentage": "66.50%",
-        "percentage_value": 66.5,
-        "total": 307511
-      },
-      {
-        "feature": "YEARS_BUILD_MODE",
-        "count": 204488,
-        "percentage": "66.50%",
-        "percentage_value": 66.5,
-        "total": 307511
-      },
-      {
-        "feature": "YEARS_BUILD_MEDI",
-        "count": 204488,
-        "percentage": "66.50%",
-        "percentage_value": 66.5,
-        "total": 307511
-      },
-      {
-        "feature": "OWN_CAR_AGE",
-        "count": 202929,
-        "percentage": "65.99%",
-        "percentage_value": 65.99,
-        "total": 307511
-      },
-      {
-        "feature": "LANDAREA_MEDI",
-        "count": 182590,
-        "percentage": "59.38%",
-        "percentage_value": 59.38,
-        "total": 307511
-      },
-      {
-        "feature": "LANDAREA_AVG",
-        "count": 182590,
-        "percentage": "59.38%",
-        "percentage_value": 59.38,
-        "total": 307511
-      },
-      {
-        "feature": "LANDAREA_MODE",
-        "count": 182590,
-        "percentage": "59.38%",
-        "percentage_value": 59.38,
-        "total": 307511
-      },
-      {
-        "feature": "BASEMENTAREA_MODE",
-        "count": 179943,
-        "percentage": "58.52%",
-        "percentage_value": 58.52,
-        "total": 307511
-      },
-      {
-        "feature": "BASEMENTAREA_MEDI",
-        "count": 179943,
-        "percentage": "58.52%",
-        "percentage_value": 58.52,
-        "total": 307511
-      },
-      {
-        "feature": "BASEMENTAREA_AVG",
-        "count": 179943,
-        "percentage": "58.52%",
-        "percentage_value": 58.52,
-        "total": 307511
-      },
-      {
-        "feature": "EXT_SOURCE_1",
-        "count": 173378,
-        "percentage": "56.38%",
-        "percentage_value": 56.38,
-        "total": 307511
-      },
-      {
-        "feature": "NONLIVINGAREA_MODE",
-        "count": 169682,
-        "percentage": "55.18%",
-        "percentage_value": 55.18,
-        "total": 307511
-      },
-      {
-        "feature": "NONLIVINGAREA_AVG",
-        "count": 169682,
-        "percentage": "55.18%",
-        "percentage_value": 55.18,
-        "total": 307511
-      },
-      {
-        "feature": "NONLIVINGAREA_MEDI",
-        "count": 169682,
-        "percentage": "55.18%",
-        "percentage_value": 55.18,
-        "total": 307511
-      },
-      {
-        "feature": "ELEVATORS_AVG",
-        "count": 163891,
-        "percentage": "53.30%",
-        "percentage_value": 53.3,
-        "total": 307511
-      },
-      {
-        "feature": "ELEVATORS_MEDI",
-        "count": 163891,
-        "percentage": "53.30%",
-        "percentage_value": 53.3,
-        "total": 307511
-      },
-      {
-        "feature": "ELEVATORS_MODE",
-        "count": 163891,
-        "percentage": "53.30%",
-        "percentage_value": 53.3,
-        "total": 307511
-      },
-      {
-        "feature": "WALLSMATERIAL_MODE",
-        "count": 156341,
-        "percentage": "50.84%",
-        "percentage_value": 50.84,
-        "total": 307511
-      },
-      {
-        "feature": "APARTMENTS_AVG",
-        "count": 156061,
-        "percentage": "50.75%",
-        "percentage_value": 50.75,
-        "total": 307511
-      },
-      {
-        "feature": "APARTMENTS_MEDI",
-        "count": 156061,
-        "percentage": "50.75%",
-        "percentage_value": 50.75,
-        "total": 307511
-      },
-      {
-        "feature": "APARTMENTS_MODE",
-        "count": 156061,
-        "percentage": "50.75%",
-        "percentage_value": 50.75,
-        "total": 307511
-      },
-      {
-        "feature": "ENTRANCES_MODE",
-        "count": 154828,
-        "percentage": "50.35%",
-        "percentage_value": 50.35,
-        "total": 307511
-      },
-      {
-        "feature": "ENTRANCES_MEDI",
-        "count": 154828,
-        "percentage": "50.35%",
-        "percentage_value": 50.35,
-        "total": 307511
-      },
-      {
-        "feature": "ENTRANCES_AVG",
-        "count": 154828,
-        "percentage": "50.35%",
-        "percentage_value": 50.35,
-        "total": 307511
-      },
-      {
-        "feature": "LIVINGAREA_AVG",
-        "count": 154350,
-        "percentage": "50.19%",
-        "percentage_value": 50.19,
-        "total": 307511
-      },
-      {
-        "feature": "LIVINGAREA_MEDI",
-        "count": 154350,
-        "percentage": "50.19%",
-        "percentage_value": 50.19,
-        "total": 307511
-      },
-      {
-        "feature": "LIVINGAREA_MODE",
-        "count": 154350,
-        "percentage": "50.19%",
-        "percentage_value": 50.19,
-        "total": 307511
-      },
-      {
-        "feature": "HOUSETYPE_MODE",
-        "count": 154297,
-        "percentage": "50.18%",
-        "percentage_value": 50.18,
-        "total": 307511
-      },
-      {
-        "feature": "FLOORSMAX_MODE",
-        "count": 153020,
-        "percentage": "49.76%",
-        "percentage_value": 49.76,
-        "total": 307511
-      },
-      {
-        "feature": "FLOORSMAX_AVG",
-        "count": 153020,
-        "percentage": "49.76%",
-        "percentage_value": 49.76,
-        "total": 307511
-      },
-      {
-        "feature": "FLOORSMAX_MEDI",
-        "count": 153020,
-        "percentage": "49.76%",
-        "percentage_value": 49.76,
-        "total": 307511
-      },
-      {
-        "feature": "YEARS_BEGINEXPLUATATION_MODE",
-        "count": 150007,
-        "percentage": "48.78%",
-        "percentage_value": 48.78,
-        "total": 307511
-      },
-      {
-        "feature": "YEARS_BEGINEXPLUATATION_MEDI",
-        "count": 150007,
-        "percentage": "48.78%",
-        "percentage_value": 48.78,
-        "total": 307511
-      },
-      {
-        "feature": "YEARS_BEGINEXPLUATATION_AVG",
-        "count": 150007,
-        "percentage": "48.78%",
-        "percentage_value": 48.78,
-        "total": 307511
-      },
-      {
-        "feature": "TOTALAREA_MODE",
-        "count": 148431,
-        "percentage": "48.27%",
-        "percentage_value": 48.27,
-        "total": 307511
-      },
-      {
-        "feature": "EMERGENCYSTATE_MODE",
-        "count": 145755,
-        "percentage": "47.40%",
-        "percentage_value": 47.4,
-        "total": 307511
-      },
-      {
-        "feature": "OCCUPATION_TYPE",
-        "count": 96391,
-        "percentage": "31.35%",
-        "percentage_value": 31.35,
-        "total": 307511
-      },
-      {
-        "feature": "EXT_SOURCE_3",
-        "count": 60965,
-        "percentage": "19.83%",
-        "percentage_value": 19.83,
-        "total": 307511
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_HOUR",
-        "count": 41519,
-        "percentage": "13.50%",
-        "percentage_value": 13.5,
-        "total": 307511
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_WEEK",
-        "count": 41519,
-        "percentage": "13.50%",
-        "percentage_value": 13.5,
-        "total": 307511
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_MON",
-        "count": 41519,
-        "percentage": "13.50%",
-        "percentage_value": 13.5,
-        "total": 307511
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_YEAR",
-        "count": 41519,
-        "percentage": "13.50%",
-        "percentage_value": 13.5,
-        "total": 307511
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_DAY",
-        "count": 41519,
-        "percentage": "13.50%",
-        "percentage_value": 13.5,
-        "total": 307511
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_QRT",
-        "count": 41519,
-        "percentage": "13.50%",
-        "percentage_value": 13.5,
-        "total": 307511
-      },
-      {
-        "feature": "NAME_TYPE_SUITE",
-        "count": 1292,
-        "percentage": "0.42%",
-        "percentage_value": 0.42,
-        "total": 307511
-      },
-      {
-        "feature": "DEF_60_CNT_SOCIAL_CIRCLE",
-        "count": 1021,
-        "percentage": "0.33%",
-        "percentage_value": 0.33,
-        "total": 307511
-      },
-      {
-        "feature": "OBS_60_CNT_SOCIAL_CIRCLE",
-        "count": 1021,
-        "percentage": "0.33%",
-        "percentage_value": 0.33,
-        "total": 307511
-      },
-      {
-        "feature": "DEF_30_CNT_SOCIAL_CIRCLE",
-        "count": 1021,
-        "percentage": "0.33%",
-        "percentage_value": 0.33,
-        "total": 307511
-      },
-      {
-        "feature": "OBS_30_CNT_SOCIAL_CIRCLE",
-        "count": 1021,
-        "percentage": "0.33%",
-        "percentage_value": 0.33,
-        "total": 307511
-      },
-      {
-        "feature": "EXT_SOURCE_2",
-        "count": 660,
-        "percentage": "0.21%",
-        "percentage_value": 0.21,
-        "total": 307511
-      },
-      {
-        "feature": "AMT_GOODS_PRICE",
-        "count": 278,
-        "percentage": "0.09%",
-        "percentage_value": 0.09,
-        "total": 307511
-      },
-      {
-        "feature": "AMT_ANNUITY",
-        "count": 12,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "CNT_FAM_MEMBERS",
+        "feature": "RevLineCr",
         "count": 2,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
+        "percentage": "0.10%",
+        "percentage_value": 0.1,
+        "total": 2102
       },
       {
-        "feature": "DAYS_LAST_PHONE_CHANGE",
+        "feature": "NewExist",
         "count": 1,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
+        "percentage": "0.05%",
+        "percentage_value": 0.05,
+        "total": 2102
       },
       {
-        "feature": "HOUR_APPR_PROCESS_START",
+        "feature": "Name",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "LIVE_REGION_NOT_WORK_REGION",
+        "feature": "Selected",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "REG_REGION_NOT_LIVE_REGION",
+        "feature": "LoanNr_ChkDgt",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "ORGANIZATION_TYPE",
+        "feature": "ApprovalFY",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "NAME_CONTRACT_TYPE",
+        "feature": "ApprovalDate",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "FLAG_OWN_CAR",
+        "feature": "NoEmp",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "SK_ID_CURR",
+        "feature": "Term",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "AMT_CREDIT",
+        "feature": "Zip",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "AMT_INCOME_TOTAL",
+        "feature": "NAICS",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "CNT_CHILDREN",
+        "feature": "State",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "NAME_INCOME_TYPE",
+        "feature": "City",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "NAME_FAMILY_STATUS",
+        "feature": "UrbanRural",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "NAME_HOUSING_TYPE",
+        "feature": "FranchiseCode",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "REGION_POPULATION_RELATIVE",
+        "feature": "RetainedJob",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "NAME_EDUCATION_TYPE",
+        "feature": "CreateJob",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "DAYS_BIRTH",
+        "feature": "BalanceGross",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "DAYS_EMPLOYED",
+        "feature": "MIS_Status",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "DAYS_REGISTRATION",
+        "feature": "ChgOffPrinGr",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "DAYS_ID_PUBLISH",
+        "feature": "DisbursementGross",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "FLAG_MOBIL",
+        "feature": "GrAppv",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "FLAG_EMP_PHONE",
+        "feature": "SBA_Appv",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "FLAG_WORK_PHONE",
+        "feature": "RealEstate",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "FLAG_CONT_MOBILE",
+        "feature": "New",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "CODE_GENDER",
+        "feature": "Portion",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "TARGET",
+        "feature": "Recession",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "FLAG_OWN_REALTY",
+        "feature": "daysterm",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       },
       {
-        "feature": "FLAG_EMAIL",
+        "feature": "Default",
         "count": 0,
         "percentage": "0.00%",
         "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "REGION_RATING_CLIENT",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "REGION_RATING_CLIENT_W_CITY",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "WEEKDAY_APPR_PROCESS_START",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_PHONE",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "REG_CITY_NOT_LIVE_CITY",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "REG_CITY_NOT_WORK_CITY",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "LIVE_CITY_NOT_WORK_CITY",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "REG_REGION_NOT_WORK_REGION",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_4",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_5",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_2",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_3",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_11",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_10",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_9",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_8",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_7",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_6",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_12",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_13",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_19",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_18",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_17",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_16",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_15",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_14",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_20",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
-      },
-      {
-        "feature": "FLAG_DOCUMENT_21",
-        "count": 0,
-        "percentage": "0.00%",
-        "percentage_value": 0.0,
-        "total": 307511
+        "total": 2102
       }
     ]
   },
   "iqr_and_outliers": {
     "iqr_analysis": [
       {
-        "feature": "SK_ID_CURR",
-        "min": 100002.0,
-        "q1": 189145.5,
-        "median": 278202.0,
-        "mean": 278180.51857657125,
-        "q3": 367142.5,
-        "max": 456255.0,
-        "iqr": 177997.0,
-        "range_percentage": 49.96
-      },
-      {
-        "feature": "TARGET",
+        "feature": "Selected",
         "min": 0.0,
         "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.08072881945686496,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "NAME_CONTRACT_TYPE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "CODE_GENDER",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "FLAG_OWN_CAR",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "FLAG_OWN_REALTY",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "CNT_CHILDREN",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.4170517477423572,
-        "q3": 1.0,
-        "max": 19.0,
-        "iqr": 1.0,
-        "range_percentage": 5.26
-      },
-      {
-        "feature": "AMT_INCOME_TOTAL",
-        "min": 25650.0,
-        "q1": 112500.0,
-        "median": 147150.0,
-        "mean": 168797.9192969845,
-        "q3": 202500.0,
-        "max": 117000000.0,
-        "iqr": 90000.0,
-        "range_percentage": 0.08
-      },
-      {
-        "feature": "AMT_CREDIT",
-        "min": 45000.0,
-        "q1": 270000.0,
-        "median": 513531.0,
-        "mean": 599025.9997057016,
-        "q3": 808650.0,
-        "max": 4050000.0,
-        "iqr": 538650.0,
-        "range_percentage": 13.45
-      },
-      {
-        "feature": "AMT_ANNUITY",
-        "min": 1615.5,
-        "q1": 16524.0,
-        "median": 24903.0,
-        "mean": 27108.573909183444,
-        "q3": 34596.0,
-        "max": 258025.5,
-        "iqr": 18072.0,
-        "range_percentage": 7.05
-      },
-      {
-        "feature": "AMT_GOODS_PRICE",
-        "min": 40500.0,
-        "q1": 238500.0,
-        "median": 450000.0,
-        "mean": 538396.2074288895,
-        "q3": 679500.0,
-        "max": 4050000.0,
-        "iqr": 441000.0,
-        "range_percentage": 11.0
-      },
-      {
-        "feature": "NAME_TYPE_SUITE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "NAME_INCOME_TYPE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "NAME_EDUCATION_TYPE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "NAME_FAMILY_STATUS",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "NAME_HOUSING_TYPE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "REGION_POPULATION_RELATIVE",
-        "min": 0.00029,
-        "q1": 0.010006,
-        "median": 0.01885,
-        "mean": 0.020868112057780035,
-        "q3": 0.028663,
-        "max": 0.072508,
-        "iqr": 0.018657,
-        "range_percentage": 25.83
-      },
-      {
-        "feature": "DAYS_BIRTH",
-        "min": -25229.0,
-        "q1": -19682.0,
-        "median": -15750.0,
-        "mean": -16036.995066843137,
-        "q3": -12413.0,
-        "max": -7489.0,
-        "iqr": 7269.0,
-        "range_percentage": 40.98
-      },
-      {
-        "feature": "DAYS_EMPLOYED",
-        "min": -17912.0,
-        "q1": -2760.0,
-        "median": -1213.0,
-        "mean": 63815.04590404896,
-        "q3": -289.0,
-        "max": 365243.0,
-        "iqr": 2471.0,
-        "range_percentage": 0.64
-      },
-      {
-        "feature": "DAYS_REGISTRATION",
-        "min": -24672.0,
-        "q1": -7479.5,
-        "median": -4504.0,
-        "mean": -4986.120327538418,
-        "q3": -2010.0,
-        "max": 0.0,
-        "iqr": 5469.5,
-        "range_percentage": 22.17
-      },
-      {
-        "feature": "DAYS_ID_PUBLISH",
-        "min": -7197.0,
-        "q1": -4299.0,
-        "median": -3254.0,
-        "mean": -2994.2023732484367,
-        "q3": -1720.0,
-        "max": 0.0,
-        "iqr": 2579.0,
-        "range_percentage": 35.83
-      },
-      {
-        "feature": "OWN_CAR_AGE",
-        "min": 0.0,
-        "q1": 5.0,
-        "median": 9.0,
-        "mean": 12.061090818687727,
-        "q3": 15.0,
-        "max": 91.0,
-        "iqr": 10.0,
-        "range_percentage": 10.99
-      },
-      {
-        "feature": "FLAG_MOBIL",
-        "min": 0.0,
-        "q1": 1.0,
-        "median": 1.0,
-        "mean": 0.9999967480838083,
-        "q3": 1.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_EMP_PHONE",
-        "min": 0.0,
-        "q1": 1.0,
-        "median": 1.0,
-        "mean": 0.8198893698111612,
-        "q3": 1.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_WORK_PHONE",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.1993684778755882,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_CONT_MOBILE",
-        "min": 0.0,
-        "q1": 1.0,
-        "median": 1.0,
-        "mean": 0.9981334001060125,
-        "q3": 1.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_PHONE",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.28106636835755466,
+        "median": 0.5,
+        "mean": 0.5,
         "q3": 1.0,
         "max": 1.0,
         "iqr": 1.0,
         "range_percentage": 100.0
       },
       {
-        "feature": "FLAG_EMAIL",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0567199222141647,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
+        "feature": "LoanNr_ChkDgt",
+        "min": 1004285007.0,
+        "q1": 2392977753.75,
+        "median": 3621729505.5,
+        "mean": 4469172445.071361,
+        "q3": 6551606503.25,
+        "max": 9958873001.0,
+        "iqr": 4158628749.5,
+        "range_percentage": 46.44
       },
       {
-        "feature": "OCCUPATION_TYPE",
+        "feature": "Name",
         "min": null,
         "q1": null,
         "median": null,
@@ -1198,40 +344,7 @@
         "range_percentage": 0
       },
       {
-        "feature": "CNT_FAM_MEMBERS",
-        "min": 1.0,
-        "q1": 2.0,
-        "median": 2.0,
-        "mean": 2.152665450442101,
-        "q3": 3.0,
-        "max": 20.0,
-        "iqr": 1.0,
-        "range_percentage": 5.26
-      },
-      {
-        "feature": "REGION_RATING_CLIENT",
-        "min": 1.0,
-        "q1": 2.0,
-        "median": 2.0,
-        "mean": 2.0524631639193394,
-        "q3": 2.0,
-        "max": 3.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "REGION_RATING_CLIENT_W_CITY",
-        "min": 1.0,
-        "q1": 2.0,
-        "median": 2.0,
-        "mean": 2.031520823645333,
-        "q3": 2.0,
-        "max": 3.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "WEEKDAY_APPR_PROCESS_START",
+        "feature": "City",
         "min": null,
         "q1": null,
         "median": null,
@@ -1242,2701 +355,1012 @@
         "range_percentage": 0
       },
       {
-        "feature": "HOUR_APPR_PROCESS_START",
-        "min": 0.0,
-        "q1": 10.0,
-        "median": 12.0,
-        "mean": 12.063418869568894,
-        "q3": 14.0,
-        "max": 23.0,
+        "feature": "State",
+        "min": null,
+        "q1": null,
+        "median": null,
+        "mean": null,
+        "q3": null,
+        "max": null,
+        "iqr": null,
+        "range_percentage": 0
+      },
+      {
+        "feature": "Zip",
+        "min": 65757.0,
+        "q1": 91402.0,
+        "median": 92559.5,
+        "mean": 92698.61227402474,
+        "q3": 94127.75,
+        "max": 96161.0,
+        "iqr": 2725.75,
+        "range_percentage": 8.97
+      },
+      {
+        "feature": "Bank",
+        "min": null,
+        "q1": null,
+        "median": null,
+        "mean": null,
+        "q3": null,
+        "max": null,
+        "iqr": null,
+        "range_percentage": 0
+      },
+      {
+        "feature": "BankState",
+        "min": null,
+        "q1": null,
+        "median": null,
+        "mean": null,
+        "q3": null,
+        "max": null,
+        "iqr": null,
+        "range_percentage": 0
+      },
+      {
+        "feature": "NAICS",
+        "min": 531110.0,
+        "q1": 531210.0,
+        "median": 531312.0,
+        "mean": 531630.9029495718,
+        "q3": 532230.0,
+        "max": 533110.0,
+        "iqr": 1020.0,
+        "range_percentage": 51.0
+      },
+      {
+        "feature": "ApprovalDate",
+        "min": 10554.0,
+        "q1": 15695.75,
+        "median": 16556.0,
+        "mean": 16179.58705994291,
+        "q3": 17149.75,
+        "max": 18911.0,
+        "iqr": 1454.0,
+        "range_percentage": 17.4
+      },
+      {
+        "feature": "ApprovalFY",
+        "min": 1989.0,
+        "q1": 2003.0,
+        "median": 2005.0,
+        "mean": 2004.035680304472,
+        "q3": 2007.0,
+        "max": 2012.0,
         "iqr": 4.0,
         "range_percentage": 17.39
       },
       {
-        "feature": "REG_REGION_NOT_LIVE_REGION",
+        "feature": "Term",
         "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.015144173704355291,
-        "q3": 0.0,
-        "max": 1.0,
+        "q1": 60.0,
+        "median": 84.0,
+        "mean": 126.98049476688868,
+        "q3": 240.0,
+        "max": 306.0,
+        "iqr": 180.0,
+        "range_percentage": 58.82
+      },
+      {
+        "feature": "NoEmp",
+        "min": 0.0,
+        "q1": 2.0,
+        "median": 3.0,
+        "mean": 10.15080875356803,
+        "q3": 8.0,
+        "max": 650.0,
+        "iqr": 6.0,
+        "range_percentage": 0.92
+      },
+      {
+        "feature": "NewExist",
+        "min": 0.0,
+        "q1": 1.0,
+        "median": 1.0,
+        "mean": 1.153736316039981,
+        "q3": 1.0,
+        "max": 2.0,
         "iqr": 0.0,
         "range_percentage": 0.0
       },
       {
-        "feature": "REG_REGION_NOT_WORK_REGION",
+        "feature": "CreateJob",
         "min": 0.0,
         "q1": 0.0,
         "median": 0.0,
-        "mean": 0.05076891558350758,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "LIVE_REGION_NOT_WORK_REGION",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.04065870814377372,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "REG_CITY_NOT_LIVE_CITY",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.07817281333025486,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "REG_CITY_NOT_WORK_CITY",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.23045354475124466,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "LIVE_CITY_NOT_WORK_CITY",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.17955455252007246,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "ORGANIZATION_TYPE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "EXT_SOURCE_1",
-        "min": 0.0145681324124455,
-        "q1": 0.3340072886740926,
-        "median": 0.5059979305057544,
-        "mean": 0.5021298056566624,
-        "q3": 0.6750525982300696,
-        "max": 0.962692770561306,
-        "iqr": 0.341045309555977,
-        "range_percentage": 35.97
-      },
-      {
-        "feature": "EXT_SOURCE_2",
-        "min": 8.173616518884397e-08,
-        "q1": 0.3924574161782719,
-        "median": 0.5659614260608526,
-        "mean": 0.5143926741308464,
-        "q3": 0.6636170897493769,
-        "max": 0.8549996664047012,
-        "iqr": 0.27115967357110504,
-        "range_percentage": 31.71
-      },
-      {
-        "feature": "EXT_SOURCE_3",
-        "min": 0.0005272652387098,
-        "q1": 0.3706496323299817,
-        "median": 0.5352762504724826,
-        "mean": 0.5108529061799657,
-        "q3": 0.6690566947824041,
-        "max": 0.8960095494948396,
-        "iqr": 0.29840706245242243,
-        "range_percentage": 33.32
-      },
-      {
-        "feature": "APARTMENTS_AVG",
-        "min": 0.0,
-        "q1": 0.0577,
-        "median": 0.0876,
-        "mean": 0.11744049917464508,
-        "q3": 0.1485,
-        "max": 1.0,
-        "iqr": 0.09079999999999999,
-        "range_percentage": 9.08
-      },
-      {
-        "feature": "BASEMENTAREA_AVG",
-        "min": 0.0,
-        "q1": 0.0442,
-        "median": 0.0763,
-        "mean": 0.08844221905179983,
-        "q3": 0.1122,
-        "max": 1.0,
-        "iqr": 0.06799999999999999,
-        "range_percentage": 6.8
-      },
-      {
-        "feature": "YEARS_BEGINEXPLUATATION_AVG",
-        "min": 0.0,
-        "q1": 0.9767,
-        "median": 0.9816,
-        "mean": 0.9777348581623325,
-        "q3": 0.9866,
-        "max": 1.0,
-        "iqr": 0.00990000000000002,
-        "range_percentage": 0.99
-      },
-      {
-        "feature": "YEARS_BUILD_AVG",
-        "min": 0.0,
-        "q1": 0.6872,
-        "median": 0.7552,
-        "mean": 0.7524714325927221,
-        "q3": 0.8232,
-        "max": 1.0,
-        "iqr": 0.136,
-        "range_percentage": 13.6
-      },
-      {
-        "feature": "COMMONAREA_AVG",
-        "min": 0.0,
-        "q1": 0.0078,
-        "median": 0.0211,
-        "mean": 0.044620715411350736,
-        "q3": 0.0515,
-        "max": 1.0,
-        "iqr": 0.043699999999999996,
-        "range_percentage": 4.37
-      },
-      {
-        "feature": "ELEVATORS_AVG",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.07894151232418883,
-        "q3": 0.12,
-        "max": 1.0,
-        "iqr": 0.12,
-        "range_percentage": 12.0
-      },
-      {
-        "feature": "ENTRANCES_AVG",
-        "min": 0.0,
-        "q1": 0.069,
-        "median": 0.1379,
-        "mean": 0.1497246700680495,
-        "q3": 0.2069,
-        "max": 1.0,
-        "iqr": 0.1379,
-        "range_percentage": 13.79
-      },
-      {
-        "feature": "FLOORSMAX_AVG",
-        "min": 0.0,
-        "q1": 0.1667,
-        "median": 0.1667,
-        "mean": 0.22628190703665582,
-        "q3": 0.3333,
-        "max": 1.0,
-        "iqr": 0.1666,
-        "range_percentage": 16.66
-      },
-      {
-        "feature": "FLOORSMIN_AVG",
-        "min": 0.0,
-        "q1": 0.0833,
-        "median": 0.2083,
-        "mean": 0.2318935004905481,
-        "q3": 0.375,
-        "max": 1.0,
-        "iqr": 0.2917,
-        "range_percentage": 29.17
-      },
-      {
-        "feature": "LANDAREA_AVG",
-        "min": 0.0,
-        "q1": 0.0187,
-        "median": 0.0481,
-        "mean": 0.06633318417239695,
-        "q3": 0.0856,
-        "max": 1.0,
-        "iqr": 0.06689999999999999,
-        "range_percentage": 6.69
-      },
-      {
-        "feature": "LIVINGAPARTMENTS_AVG",
-        "min": 0.0,
-        "q1": 0.0504,
-        "median": 0.0756,
-        "mean": 0.10077477495067412,
-        "q3": 0.121,
-        "max": 1.0,
-        "iqr": 0.0706,
-        "range_percentage": 7.06
-      },
-      {
-        "feature": "LIVINGAREA_AVG",
-        "min": 0.0,
-        "q1": 0.0453,
-        "median": 0.0745,
-        "mean": 0.10739901933259771,
-        "q3": 0.1299,
-        "max": 1.0,
-        "iqr": 0.08459999999999998,
-        "range_percentage": 8.46
-      },
-      {
-        "feature": "NONLIVINGAPARTMENTS_AVG",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.008808672617211188,
-        "q3": 0.0039,
-        "max": 1.0,
-        "iqr": 0.0039,
-        "range_percentage": 0.39
-      },
-      {
-        "feature": "NONLIVINGAREA_AVG",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0036,
-        "mean": 0.02835775707579682,
-        "q3": 0.0277,
-        "max": 1.0,
-        "iqr": 0.0277,
-        "range_percentage": 2.77
-      },
-      {
-        "feature": "APARTMENTS_MODE",
-        "min": 0.0,
-        "q1": 0.0525,
-        "median": 0.084,
-        "mean": 0.11423100693298119,
-        "q3": 0.1439,
-        "max": 1.0,
-        "iqr": 0.09140000000000001,
-        "range_percentage": 9.14
-      },
-      {
-        "feature": "BASEMENTAREA_MODE",
-        "min": 0.0,
-        "q1": 0.0407,
-        "median": 0.0746,
-        "mean": 0.08754321224758561,
-        "q3": 0.1124,
-        "max": 1.0,
-        "iqr": 0.0717,
-        "range_percentage": 7.17
-      },
-      {
-        "feature": "YEARS_BEGINEXPLUATATION_MODE",
-        "min": 0.0,
-        "q1": 0.9767,
-        "median": 0.9816,
-        "mean": 0.9770653729429093,
-        "q3": 0.9866,
-        "max": 1.0,
-        "iqr": 0.00990000000000002,
-        "range_percentage": 0.99
-      },
-      {
-        "feature": "YEARS_BUILD_MODE",
-        "min": 0.0,
-        "q1": 0.6994,
-        "median": 0.7648,
-        "mean": 0.7596373227337585,
-        "q3": 0.8236,
-        "max": 1.0,
-        "iqr": 0.12419999999999998,
-        "range_percentage": 12.42
-      },
-      {
-        "feature": "COMMONAREA_MODE",
-        "min": 0.0,
-        "q1": 0.0072,
-        "median": 0.019,
-        "mean": 0.042553137750145714,
-        "q3": 0.049,
-        "max": 1.0,
-        "iqr": 0.041800000000000004,
-        "range_percentage": 4.18
-      },
-      {
-        "feature": "ELEVATORS_MODE",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.07448973610917699,
-        "q3": 0.1208,
-        "max": 1.0,
-        "iqr": 0.1208,
-        "range_percentage": 12.08
-      },
-      {
-        "feature": "ENTRANCES_MODE",
-        "min": 0.0,
-        "q1": 0.069,
-        "median": 0.1379,
-        "mean": 0.14519265864569075,
-        "q3": 0.2069,
-        "max": 1.0,
-        "iqr": 0.1379,
-        "range_percentage": 13.79
-      },
-      {
-        "feature": "FLOORSMAX_MODE",
-        "min": 0.0,
-        "q1": 0.1667,
-        "median": 0.1667,
-        "mean": 0.2223150474784939,
-        "q3": 0.3333,
-        "max": 1.0,
-        "iqr": 0.1666,
-        "range_percentage": 16.66
-      },
-      {
-        "feature": "FLOORSMIN_MODE",
-        "min": 0.0,
-        "q1": 0.0833,
-        "median": 0.2083,
-        "mean": 0.22805849255074895,
-        "q3": 0.375,
-        "max": 1.0,
-        "iqr": 0.2917,
-        "range_percentage": 29.17
-      },
-      {
-        "feature": "LANDAREA_MODE",
-        "min": 0.0,
-        "q1": 0.0166,
-        "median": 0.0458,
-        "mean": 0.06495768445657656,
-        "q3": 0.0841,
-        "max": 1.0,
-        "iqr": 0.06749999999999999,
-        "range_percentage": 6.75
-      },
-      {
-        "feature": "LIVINGAPARTMENTS_MODE",
-        "min": 0.0,
-        "q1": 0.0542,
-        "median": 0.0771,
-        "mean": 0.10564485674942452,
-        "q3": 0.1313,
-        "max": 1.0,
-        "iqr": 0.0771,
-        "range_percentage": 7.71
-      },
-      {
-        "feature": "LIVINGAREA_MODE",
-        "min": 0.0,
-        "q1": 0.0427,
-        "median": 0.0731,
-        "mean": 0.10597505043712172,
-        "q3": 0.1252,
-        "max": 1.0,
-        "iqr": 0.0825,
-        "range_percentage": 8.25
-      },
-      {
-        "feature": "NONLIVINGAPARTMENTS_MODE",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.008076387544283328,
-        "q3": 0.0039,
-        "max": 1.0,
-        "iqr": 0.0039,
-        "range_percentage": 0.39
-      },
-      {
-        "feature": "NONLIVINGAREA_MODE",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0011,
-        "mean": 0.027022319685987714,
-        "q3": 0.0231,
-        "max": 1.0,
-        "iqr": 0.0231,
-        "range_percentage": 2.31
-      },
-      {
-        "feature": "APARTMENTS_MEDI",
-        "min": 0.0,
-        "q1": 0.0583,
-        "median": 0.0864,
-        "mean": 0.11784992076592933,
-        "q3": 0.1489,
-        "max": 1.0,
-        "iqr": 0.09060000000000001,
-        "range_percentage": 9.06
-      },
-      {
-        "feature": "BASEMENTAREA_MEDI",
-        "min": 0.0,
-        "q1": 0.0437,
-        "median": 0.0758,
-        "mean": 0.08795485466574689,
-        "q3": 0.1116,
-        "max": 1.0,
-        "iqr": 0.0679,
-        "range_percentage": 6.79
-      },
-      {
-        "feature": "YEARS_BEGINEXPLUATATION_MEDI",
-        "min": 0.0,
-        "q1": 0.9767,
-        "median": 0.9816,
-        "mean": 0.9777522640694839,
-        "q3": 0.9866,
-        "max": 1.0,
-        "iqr": 0.00990000000000002,
-        "range_percentage": 0.99
-      },
-      {
-        "feature": "YEARS_BUILD_MEDI",
-        "min": 0.0,
-        "q1": 0.6914,
-        "median": 0.7585,
-        "mean": 0.7557462721916466,
-        "q3": 0.8256,
-        "max": 1.0,
-        "iqr": 0.13419999999999999,
-        "range_percentage": 13.42
-      },
-      {
-        "feature": "COMMONAREA_MEDI",
-        "min": 0.0,
-        "q1": 0.0079,
-        "median": 0.0208,
-        "mean": 0.04459510178529024,
-        "q3": 0.0513,
-        "max": 1.0,
-        "iqr": 0.043399999999999994,
-        "range_percentage": 4.34
-      },
-      {
-        "feature": "ELEVATORS_MEDI",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.07807784431137725,
-        "q3": 0.12,
-        "max": 1.0,
-        "iqr": 0.12,
-        "range_percentage": 12.0
-      },
-      {
-        "feature": "ENTRANCES_MEDI",
-        "min": 0.0,
-        "q1": 0.069,
-        "median": 0.1379,
-        "mean": 0.14921278072869934,
-        "q3": 0.2069,
-        "max": 1.0,
-        "iqr": 0.1379,
-        "range_percentage": 13.79
-      },
-      {
-        "feature": "FLOORSMAX_MEDI",
-        "min": 0.0,
-        "q1": 0.1667,
-        "median": 0.1667,
-        "mean": 0.22589659009262678,
-        "q3": 0.3333,
-        "max": 1.0,
-        "iqr": 0.1666,
-        "range_percentage": 16.66
-      },
-      {
-        "feature": "FLOORSMIN_MEDI",
-        "min": 0.0,
-        "q1": 0.0833,
-        "median": 0.2083,
-        "mean": 0.23162493804933804,
-        "q3": 0.375,
-        "max": 1.0,
-        "iqr": 0.2917,
-        "range_percentage": 29.17
-      },
-      {
-        "feature": "LANDAREA_MEDI",
-        "min": 0.0,
-        "q1": 0.0187,
-        "median": 0.0487,
-        "mean": 0.06716874904939922,
-        "q3": 0.0868,
-        "max": 1.0,
-        "iqr": 0.0681,
-        "range_percentage": 6.81
-      },
-      {
-        "feature": "LIVINGAPARTMENTS_MEDI",
-        "min": 0.0,
-        "q1": 0.0513,
-        "median": 0.0761,
-        "mean": 0.1019544732407103,
-        "q3": 0.1231,
-        "max": 1.0,
-        "iqr": 0.0718,
-        "range_percentage": 7.18
-      },
-      {
-        "feature": "LIVINGAREA_MEDI",
-        "min": 0.0,
-        "q1": 0.0457,
-        "median": 0.0749,
-        "mean": 0.10860673604899419,
-        "q3": 0.1303,
-        "max": 1.0,
-        "iqr": 0.08460000000000001,
-        "range_percentage": 8.46
-      },
-      {
-        "feature": "NONLIVINGAPARTMENTS_MEDI",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.008651013330212667,
-        "q3": 0.0039,
-        "max": 1.0,
-        "iqr": 0.0039,
-        "range_percentage": 0.39
-      },
-      {
-        "feature": "NONLIVINGAREA_MEDI",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0031,
-        "mean": 0.02823592059726182,
-        "q3": 0.0266,
-        "max": 1.0,
-        "iqr": 0.0266,
-        "range_percentage": 2.66
-      },
-      {
-        "feature": "FONDKAPREMONT_MODE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "HOUSETYPE_MODE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "TOTALAREA_MODE",
-        "min": 0.0,
-        "q1": 0.0412,
-        "median": 0.0688,
-        "mean": 0.1025466626854413,
-        "q3": 0.1276,
-        "max": 1.0,
-        "iqr": 0.08639999999999999,
-        "range_percentage": 8.64
-      },
-      {
-        "feature": "WALLSMATERIAL_MODE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "EMERGENCYSTATE_MODE",
-        "min": null,
-        "q1": null,
-        "median": null,
-        "mean": null,
-        "q3": null,
-        "max": null,
-        "iqr": null,
-        "range_percentage": 0
-      },
-      {
-        "feature": "OBS_30_CNT_SOCIAL_CIRCLE",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 1.4222454239942575,
+        "mean": 2.5499524262607043,
         "q3": 2.0,
-        "max": 348.0,
+        "max": 130.0,
         "iqr": 2.0,
-        "range_percentage": 0.57
+        "range_percentage": 1.54
       },
       {
-        "feature": "DEF_30_CNT_SOCIAL_CIRCLE",
+        "feature": "RetainedJob",
         "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.1434206662533851,
-        "q3": 0.0,
-        "max": 34.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
+        "q1": 1.0,
+        "median": 2.0,
+        "mean": 5.803996194100856,
+        "q3": 5.0,
+        "max": 535.0,
+        "iqr": 4.0,
+        "range_percentage": 0.75
       },
       {
-        "feature": "OBS_60_CNT_SOCIAL_CIRCLE",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 1.4052921791901856,
-        "q3": 2.0,
-        "max": 344.0,
-        "iqr": 2.0,
-        "range_percentage": 0.58
-      },
-      {
-        "feature": "DEF_60_CNT_SOCIAL_CIRCLE",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.10004894123788705,
-        "q3": 0.0,
-        "max": 24.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "DAYS_LAST_PHONE_CHANGE",
-        "min": -4292.0,
-        "q1": -1570.0,
-        "median": -757.0,
-        "mean": -962.8587883320868,
-        "q3": -274.0,
-        "max": 0.0,
-        "iqr": 1296.0,
-        "range_percentage": 30.2
-      },
-      {
-        "feature": "FLAG_DOCUMENT_2",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 4.2274910491006824e-05,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_3",
+        "feature": "FranchiseCode",
         "min": 0.0,
         "q1": 0.0,
         "median": 1.0,
-        "mean": 0.7100233812774177,
+        "mean": 1961.7583254043768,
+        "q3": 1.0,
+        "max": 89658.0,
+        "iqr": 1.0,
+        "range_percentage": 0.0
+      },
+      {
+        "feature": "UrbanRural",
+        "min": 0.0,
+        "q1": 1.0,
+        "median": 1.0,
+        "mean": 0.9495718363463368,
+        "q3": 1.0,
+        "max": 2.0,
+        "iqr": 0.0,
+        "range_percentage": 0.0
+      },
+      {
+        "feature": "RevLineCr",
+        "min": null,
+        "q1": null,
+        "median": null,
+        "mean": null,
+        "q3": null,
+        "max": null,
+        "iqr": null,
+        "range_percentage": 0
+      },
+      {
+        "feature": "LowDoc",
+        "min": null,
+        "q1": null,
+        "median": null,
+        "mean": null,
+        "q3": null,
+        "max": null,
+        "iqr": null,
+        "range_percentage": 0
+      },
+      {
+        "feature": "ChgOffDate",
+        "min": 13752.0,
+        "q1": 17860.0,
+        "median": 18302.0,
+        "mean": 18224.817790530848,
+        "q3": 18548.0,
+        "max": 19936.0,
+        "iqr": 688.0,
+        "range_percentage": 11.13
+      },
+      {
+        "feature": "DisbursementDate",
+        "min": 10623.0,
+        "q1": 15795.0,
+        "median": 16648.0,
+        "mean": 16264.26631729395,
+        "q3": 17225.0,
+        "max": 18609.0,
+        "iqr": 1430.0,
+        "range_percentage": 17.91
+      },
+      {
+        "feature": "DisbursementGross",
+        "min": 4835.0,
+        "q1": 40000.0,
+        "median": 100000.0,
+        "mean": 242737.21217887726,
+        "q3": 300000.0,
+        "max": 2315000.0,
+        "iqr": 260000.0,
+        "range_percentage": 11.25
+      },
+      {
+        "feature": "BalanceGross",
+        "min": 0.0,
+        "q1": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "q3": 0.0,
+        "max": 0.0,
+        "iqr": 0.0,
+        "range_percentage": 100
+      },
+      {
+        "feature": "MIS_Status",
+        "min": null,
+        "q1": null,
+        "median": null,
+        "mean": null,
+        "q3": null,
+        "max": null,
+        "iqr": null,
+        "range_percentage": 0
+      },
+      {
+        "feature": "ChgOffPrinGr",
+        "min": 0.0,
+        "q1": 0.0,
+        "median": 0.0,
+        "mean": 20029.08182683159,
+        "q3": 15073.5,
+        "max": 1509550.0,
+        "iqr": 15073.5,
+        "range_percentage": 1.0
+      },
+      {
+        "feature": "GrAppv",
+        "min": 4500.0,
+        "q1": 30000.0,
+        "median": 61000.0,
+        "mean": 233064.06232159847,
+        "q3": 300000.0,
+        "max": 2350000.0,
+        "iqr": 270000.0,
+        "range_percentage": 11.51
+      },
+      {
+        "feature": "SBA_Appv",
+        "min": 2250.0,
+        "q1": 15000.0,
+        "median": 41680.0,
+        "mean": 189175.88772597525,
+        "q3": 239756.25,
+        "max": 2115000.0,
+        "iqr": 224756.25,
+        "range_percentage": 10.64
+      },
+      {
+        "feature": "New",
+        "min": 0.0,
+        "q1": 0.0,
+        "median": 0.0,
+        "mean": 0.15413891531874405,
+        "q3": 0.0,
+        "max": 1.0,
+        "iqr": 0.0,
+        "range_percentage": 0.0
+      },
+      {
+        "feature": "RealEstate",
+        "min": 0.0,
+        "q1": 0.0,
+        "median": 0.0,
+        "mean": 0.27450047573739295,
         "q3": 1.0,
         "max": 1.0,
         "iqr": 1.0,
         "range_percentage": 100.0
       },
       {
-        "feature": "FLAG_DOCUMENT_4",
+        "feature": "Portion",
+        "min": 0.29677,
+        "q1": 0.5,
+        "median": 0.5,
+        "mean": 0.6710547475352046,
+        "q3": 0.85,
+        "max": 1.0,
+        "iqr": 0.35,
+        "range_percentage": 49.77
+      },
+      {
+        "feature": "Recession",
         "min": 0.0,
         "q1": 0.0,
         "median": 0.0,
-        "mean": 8.129790479039775e-05,
+        "mean": 0.06850618458610847,
         "q3": 0.0,
         "max": 1.0,
         "iqr": 0.0,
         "range_percentage": 0.0
       },
       {
-        "feature": "FLAG_DOCUMENT_5",
+        "feature": "daysterm",
+        "min": 0.0,
+        "q1": 1800.0,
+        "median": 2520.0,
+        "mean": 3809.4148430066602,
+        "q3": 7200.0,
+        "max": 9180.0,
+        "iqr": 5400.0,
+        "range_percentage": 58.82
+      },
+      {
+        "feature": "xx",
+        "min": 11524.0,
+        "q1": 18316.5,
+        "median": 19270.0,
+        "mean": 20076.896141019533,
+        "q3": 22335.0,
+        "max": 27598.0,
+        "iqr": 4018.5,
+        "range_percentage": 25.0
+      },
+      {
+        "feature": "Default",
         "min": 0.0,
         "q1": 0.0,
         "median": 0.0,
-        "mean": 0.015114906458630749,
-        "q3": 0.0,
+        "mean": 0.3263558515699334,
+        "q3": 1.0,
         "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_6",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0880553866365756,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_7",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.00019186305530533867,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_8",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.08137595077899652,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_9",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.00389579559755586,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_10",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 2.276341334131137e-05,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_11",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.003912055178513939,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_12",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 6.503832383231819e-06,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_13",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.003525077151711646,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_14",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0029364803210291664,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_15",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0012097128232811183,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_16",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.009928100133003373,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_17",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0002666571277125046,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_18",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.008129790479039774,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_19",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0005951006630657115,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_20",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0005072989258920819,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "FLAG_DOCUMENT_21",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0003349473677364387,
-        "q3": 0.0,
-        "max": 1.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_HOUR",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.006402448193930645,
-        "q3": 0.0,
-        "max": 4.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_DAY",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0070002105326475985,
-        "q3": 0.0,
-        "max": 9.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_WEEK",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.0343619356973142,
-        "q3": 0.0,
-        "max": 8.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_MON",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.26739526000781977,
-        "q3": 0.0,
-        "max": 27.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_QRT",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 0.0,
-        "mean": 0.26547414959848414,
-        "q3": 0.0,
-        "max": 261.0,
-        "iqr": 0.0,
-        "range_percentage": 0.0
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_YEAR",
-        "min": 0.0,
-        "q1": 0.0,
-        "median": 1.0,
-        "mean": 1.899974435321363,
-        "q3": 3.0,
-        "max": 25.0,
-        "iqr": 3.0,
-        "range_percentage": 12.0
+        "iqr": 1.0,
+        "range_percentage": 100.0
       }
     ],
     "outlier_detection": [
       {
-        "feature": "REGION_RATING_CLIENT",
-        "outlier_count": 80527,
-        "outlier_percentage": "26.19%"
+        "feature": "UrbanRural",
+        "outlier_count": 360,
+        "outlier_percentage": "17.13%"
       },
       {
-        "feature": "REGION_RATING_CLIENT_W_CITY",
-        "outlier_count": 78027,
-        "outlier_percentage": "25.37%"
+        "feature": "NewExist",
+        "outlier_count": 325,
+        "outlier_percentage": "15.46%"
       },
       {
-        "feature": "DAYS_EMPLOYED",
-        "outlier_count": 72217,
-        "outlier_percentage": "23.48%"
+        "feature": "New",
+        "outlier_count": 324,
+        "outlier_percentage": "15.41%"
       },
       {
-        "feature": "REG_CITY_NOT_WORK_CITY",
-        "outlier_count": 70867,
-        "outlier_percentage": "23.05%"
+        "feature": "ChgOffPrinGr",
+        "outlier_count": 279,
+        "outlier_percentage": "13.27%"
       },
       {
-        "feature": "FLAG_WORK_PHONE",
-        "outlier_count": 61308,
-        "outlier_percentage": "19.94%"
+        "feature": "RetainedJob",
+        "outlier_count": 228,
+        "outlier_percentage": "10.85%"
       },
       {
-        "feature": "FLAG_EMP_PHONE",
-        "outlier_count": 55386,
-        "outlier_percentage": "18.01%"
+        "feature": "DisbursementGross",
+        "outlier_count": 213,
+        "outlier_percentage": "10.13%"
       },
       {
-        "feature": "LIVE_CITY_NOT_WORK_CITY",
-        "outlier_count": 55215,
-        "outlier_percentage": "17.96%"
+        "feature": "CreateJob",
+        "outlier_count": 209,
+        "outlier_percentage": "9.94%"
       },
       {
-        "feature": "AMT_REQ_CREDIT_BUREAU_QRT",
-        "outlier_count": 50575,
-        "outlier_percentage": "16.45%"
+        "feature": "SBA_Appv",
+        "outlier_count": 208,
+        "outlier_percentage": "9.90%"
       },
       {
-        "feature": "AMT_REQ_CREDIT_BUREAU_MON",
-        "outlier_count": 43759,
-        "outlier_percentage": "14.23%"
+        "feature": "GrAppv",
+        "outlier_count": 206,
+        "outlier_percentage": "9.80%"
       },
       {
-        "feature": "DEF_30_CNT_SOCIAL_CIRCLE",
-        "outlier_count": 35166,
-        "outlier_percentage": "11.44%"
+        "feature": "NoEmp",
+        "outlier_count": 204,
+        "outlier_percentage": "9.71%"
       },
       {
-        "feature": "FLAG_DOCUMENT_6",
-        "outlier_count": 27078,
-        "outlier_percentage": "8.81%"
+        "feature": "DisbursementDate",
+        "outlier_count": 145,
+        "outlier_percentage": "6.90%"
       },
       {
-        "feature": "DEF_60_CNT_SOCIAL_CIRCLE",
-        "outlier_count": 25769,
-        "outlier_percentage": "8.38%"
+        "feature": "Recession",
+        "outlier_count": 144,
+        "outlier_percentage": "6.85%"
       },
       {
-        "feature": "FLAG_DOCUMENT_8",
-        "outlier_count": 25024,
-        "outlier_percentage": "8.14%"
+        "feature": "ApprovalDate",
+        "outlier_count": 143,
+        "outlier_percentage": "6.80%"
       },
       {
-        "feature": "TARGET",
-        "outlier_count": 24825,
-        "outlier_percentage": "8.07%"
+        "feature": "ApprovalFY",
+        "outlier_count": 138,
+        "outlier_percentage": "6.57%"
       },
       {
-        "feature": "REG_CITY_NOT_LIVE_CITY",
-        "outlier_count": 24039,
-        "outlier_percentage": "7.82%"
+        "feature": "FranchiseCode",
+        "outlier_count": 79,
+        "outlier_percentage": "3.76%"
       },
       {
-        "feature": "OBS_30_CNT_SOCIAL_CIRCLE",
-        "outlier_count": 19971,
-        "outlier_percentage": "6.49%"
+        "feature": "ChgOffDate",
+        "outlier_count": 46,
+        "outlier_percentage": "2.19%"
       },
       {
-        "feature": "OBS_60_CNT_SOCIAL_CIRCLE",
-        "outlier_count": 19564,
-        "outlier_percentage": "6.36%"
-      },
-      {
-        "feature": "NONLIVINGAREA_MODE",
-        "outlier_count": 18817,
-        "outlier_percentage": "6.12%"
-      },
-      {
-        "feature": "FLAG_EMAIL",
-        "outlier_count": 17442,
-        "outlier_percentage": "5.67%"
-      },
-      {
-        "feature": "NONLIVINGAREA_MEDI",
-        "outlier_count": 17254,
-        "outlier_percentage": "5.61%"
-      },
-      {
-        "feature": "NONLIVINGAREA_AVG",
-        "outlier_count": 16546,
-        "outlier_percentage": "5.38%"
-      },
-      {
-        "feature": "REG_REGION_NOT_WORK_REGION",
-        "outlier_count": 15612,
-        "outlier_percentage": "5.08%"
-      },
-      {
-        "feature": "NONLIVINGAPARTMENTS_AVG",
-        "outlier_count": 15580,
-        "outlier_percentage": "5.07%"
-      },
-      {
-        "feature": "NONLIVINGAPARTMENTS_MEDI",
-        "outlier_count": 15215,
-        "outlier_percentage": "4.95%"
-      },
-      {
-        "feature": "AMT_GOODS_PRICE",
-        "outlier_count": 14728,
-        "outlier_percentage": "4.79%"
-      },
-      {
-        "feature": "NONLIVINGAPARTMENTS_MODE",
-        "outlier_count": 14224,
-        "outlier_percentage": "4.63%"
-      },
-      {
-        "feature": "AMT_INCOME_TOTAL",
-        "outlier_count": 14035,
-        "outlier_percentage": "4.56%"
-      },
-      {
-        "feature": "LIVINGAREA_MODE",
-        "outlier_count": 13105,
-        "outlier_percentage": "4.26%"
-      },
-      {
-        "feature": "LIVINGAREA_MEDI",
-        "outlier_count": 12907,
-        "outlier_percentage": "4.20%"
-      },
-      {
-        "feature": "LIVE_REGION_NOT_WORK_REGION",
-        "outlier_count": 12503,
-        "outlier_percentage": "4.07%"
-      },
-      {
-        "feature": "LIVINGAREA_AVG",
-        "outlier_count": 12517,
-        "outlier_percentage": "4.07%"
-      },
-      {
-        "feature": "TOTALAREA_MODE",
-        "outlier_count": 12091,
-        "outlier_percentage": "3.93%"
-      },
-      {
-        "feature": "APARTMENTS_MEDI",
-        "outlier_count": 10728,
-        "outlier_percentage": "3.49%"
-      },
-      {
-        "feature": "APARTMENTS_AVG",
-        "outlier_count": 10655,
-        "outlier_percentage": "3.46%"
-      },
-      {
-        "feature": "ELEVATORS_AVG",
-        "outlier_count": 10420,
-        "outlier_percentage": "3.39%"
-      },
-      {
-        "feature": "APARTMENTS_MODE",
-        "outlier_count": 10397,
-        "outlier_percentage": "3.38%"
-      },
-      {
-        "feature": "ELEVATORS_MEDI",
-        "outlier_count": 10383,
-        "outlier_percentage": "3.38%"
-      },
-      {
-        "feature": "ELEVATORS_MODE",
-        "outlier_count": 9732,
-        "outlier_percentage": "3.16%"
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_WEEK",
-        "outlier_count": 8536,
-        "outlier_percentage": "2.78%"
-      },
-      {
-        "feature": "REGION_POPULATION_RELATIVE",
-        "outlier_count": 8412,
-        "outlier_percentage": "2.74%"
-      },
-      {
-        "feature": "COMMONAREA_MEDI",
-        "outlier_count": 8004,
-        "outlier_percentage": "2.60%"
-      },
-      {
-        "feature": "COMMONAREA_AVG",
-        "outlier_count": 7942,
-        "outlier_percentage": "2.58%"
-      },
-      {
-        "feature": "COMMONAREA_MODE",
-        "outlier_count": 7938,
-        "outlier_percentage": "2.58%"
-      },
-      {
-        "feature": "LIVINGAPARTMENTS_MEDI",
-        "outlier_count": 7927,
-        "outlier_percentage": "2.58%"
-      },
-      {
-        "feature": "LIVINGAPARTMENTS_AVG",
-        "outlier_count": 7881,
-        "outlier_percentage": "2.56%"
-      },
-      {
-        "feature": "AMT_ANNUITY",
-        "outlier_count": 7504,
-        "outlier_percentage": "2.44%"
-      },
-      {
-        "feature": "LIVINGAPARTMENTS_MODE",
-        "outlier_count": 7469,
-        "outlier_percentage": "2.43%"
-      },
-      {
-        "feature": "BASEMENTAREA_AVG",
-        "outlier_count": 7190,
-        "outlier_percentage": "2.34%"
-      },
-      {
-        "feature": "BASEMENTAREA_MEDI",
-        "outlier_count": 7188,
-        "outlier_percentage": "2.34%"
-      },
-      {
-        "feature": "LANDAREA_MODE",
-        "outlier_count": 7033,
-        "outlier_percentage": "2.29%"
-      },
-      {
-        "feature": "BASEMENTAREA_MODE",
-        "outlier_count": 6910,
-        "outlier_percentage": "2.25%"
-      },
-      {
-        "feature": "LANDAREA_AVG",
-        "outlier_count": 6888,
-        "outlier_percentage": "2.24%"
-      },
-      {
-        "feature": "LANDAREA_MEDI",
-        "outlier_count": 6873,
-        "outlier_percentage": "2.24%"
-      },
-      {
-        "feature": "AMT_CREDIT",
-        "outlier_count": 6562,
-        "outlier_percentage": "2.13%"
-      },
-      {
-        "feature": "FLOORSMAX_MEDI",
-        "outlier_count": 5360,
-        "outlier_percentage": "1.74%"
-      },
-      {
-        "feature": "FLOORSMAX_AVG",
-        "outlier_count": 5215,
-        "outlier_percentage": "1.70%"
-      },
-      {
-        "feature": "FLOORSMAX_MODE",
-        "outlier_count": 5104,
-        "outlier_percentage": "1.66%"
-      },
-      {
-        "feature": "YEARS_BEGINEXPLUATATION_MODE",
-        "outlier_count": 5074,
-        "outlier_percentage": "1.65%"
-      },
-      {
-        "feature": "OWN_CAR_AGE",
-        "outlier_count": 4932,
-        "outlier_percentage": "1.60%"
-      },
-      {
-        "feature": "YEARS_BEGINEXPLUATATION_AVG",
-        "outlier_count": 4784,
-        "outlier_percentage": "1.56%"
-      },
-      {
-        "feature": "YEARS_BEGINEXPLUATATION_MEDI",
-        "outlier_count": 4762,
-        "outlier_percentage": "1.55%"
-      },
-      {
-        "feature": "REG_REGION_NOT_LIVE_REGION",
-        "outlier_count": 4657,
-        "outlier_percentage": "1.51%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_5",
-        "outlier_count": 4648,
-        "outlier_percentage": "1.51%"
-      },
-      {
-        "feature": "CNT_CHILDREN",
-        "outlier_count": 4272,
-        "outlier_percentage": "1.39%"
-      },
-      {
-        "feature": "CNT_FAM_MEMBERS",
-        "outlier_count": 4007,
-        "outlier_percentage": "1.30%"
-      },
-      {
-        "feature": "ENTRANCES_MEDI",
-        "outlier_count": 3893,
-        "outlier_percentage": "1.27%"
-      },
-      {
-        "feature": "ENTRANCES_AVG",
-        "outlier_count": 3882,
-        "outlier_percentage": "1.26%"
-      },
-      {
-        "feature": "ENTRANCES_MODE",
-        "outlier_count": 3840,
-        "outlier_percentage": "1.25%"
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_YEAR",
-        "outlier_count": 3364,
-        "outlier_percentage": "1.09%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_16",
-        "outlier_count": 3053,
-        "outlier_percentage": "0.99%"
-      },
-      {
-        "feature": "YEARS_BUILD_MODE",
-        "outlier_count": 2537,
-        "outlier_percentage": "0.83%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_18",
-        "outlier_count": 2500,
-        "outlier_percentage": "0.81%"
-      },
-      {
-        "feature": "YEARS_BUILD_MEDI",
-        "outlier_count": 2274,
-        "outlier_percentage": "0.74%"
-      },
-      {
-        "feature": "HOUR_APPR_PROCESS_START",
-        "outlier_count": 2257,
-        "outlier_percentage": "0.73%"
-      },
-      {
-        "feature": "YEARS_BUILD_AVG",
-        "outlier_count": 2154,
-        "outlier_percentage": "0.70%"
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_HOUR",
-        "outlier_count": 1626,
-        "outlier_percentage": "0.53%"
-      },
-      {
-        "feature": "AMT_REQ_CREDIT_BUREAU_DAY",
-        "outlier_count": 1489,
-        "outlier_percentage": "0.48%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_9",
-        "outlier_count": 1198,
-        "outlier_percentage": "0.39%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_11",
-        "outlier_count": 1203,
-        "outlier_percentage": "0.39%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_13",
-        "outlier_count": 1084,
-        "outlier_percentage": "0.35%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_14",
-        "outlier_count": 903,
-        "outlier_percentage": "0.29%"
-      },
-      {
-        "feature": "DAYS_REGISTRATION",
-        "outlier_count": 659,
-        "outlier_percentage": "0.21%"
-      },
-      {
-        "feature": "FLAG_CONT_MOBILE",
-        "outlier_count": 574,
+        "feature": "Zip",
+        "outlier_count": 4,
         "outlier_percentage": "0.19%"
       },
       {
-        "feature": "DAYS_LAST_PHONE_CHANGE",
-        "outlier_count": 435,
-        "outlier_percentage": "0.14%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_15",
-        "outlier_count": 372,
-        "outlier_percentage": "0.12%"
-      },
-      {
-        "feature": "FLOORSMIN_AVG",
-        "outlier_count": 343,
-        "outlier_percentage": "0.11%"
-      },
-      {
-        "feature": "FLOORSMIN_MEDI",
-        "outlier_count": 344,
-        "outlier_percentage": "0.11%"
-      },
-      {
-        "feature": "FLOORSMIN_MODE",
-        "outlier_count": 320,
-        "outlier_percentage": "0.10%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_19",
-        "outlier_count": 183,
-        "outlier_percentage": "0.06%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_20",
-        "outlier_count": 156,
-        "outlier_percentage": "0.05%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_17",
-        "outlier_count": 82,
-        "outlier_percentage": "0.03%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_21",
-        "outlier_count": 103,
-        "outlier_percentage": "0.03%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_7",
-        "outlier_count": 59,
-        "outlier_percentage": "0.02%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_4",
-        "outlier_count": 25,
-        "outlier_percentage": "0.01%"
-      },
-      {
-        "feature": "FLAG_MOBIL",
+        "feature": "xx",
         "outlier_count": 1,
-        "outlier_percentage": "0.00%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_2",
-        "outlier_count": 13,
-        "outlier_percentage": "0.00%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_10",
-        "outlier_count": 7,
-        "outlier_percentage": "0.00%"
-      },
-      {
-        "feature": "FLAG_DOCUMENT_12",
-        "outlier_count": 2,
-        "outlier_percentage": "0.00%"
+        "outlier_percentage": "0.05%"
       }
     ]
   },
   "basic_stats": {
-    "numeric_features_count": 106,
+    "numeric_features_count": 27,
     "stats": {
-      "SK_ID_CURR": {
-        "count": 307511.0,
-        "mean": 278180.52,
-        "std": 102790.18,
-        "min": 100002.0,
-        "25%": 189145.5,
-        "50%": 278202.0,
-        "75%": 367142.5,
-        "max": 456255.0
-      },
-      "TARGET": {
-        "count": 307511.0,
-        "mean": 0.08,
-        "std": 0.27,
+      "Selected": {
+        "count": 2102.0,
+        "mean": 0.5,
+        "std": 0.5,
         "min": 0.0,
         "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
+        "50%": 0.5,
+        "75%": 1.0,
         "max": 1.0
       },
-      "CNT_CHILDREN": {
-        "count": 307511.0,
-        "mean": 0.42,
-        "std": 0.72,
+      "LoanNr_ChkDgt": {
+        "count": 2102.0,
+        "mean": 4469172445.07,
+        "std": 2530069251.99,
+        "min": 1004285007.0,
+        "25%": 2392977753.75,
+        "50%": 3621729505.5,
+        "75%": 6551606503.25,
+        "max": 9958873001.0
+      },
+      "Zip": {
+        "count": 2102.0,
+        "mean": 92698.61,
+        "std": 1878.21,
+        "min": 65757.0,
+        "25%": 91402.0,
+        "50%": 92559.5,
+        "75%": 94127.75,
+        "max": 96161.0
+      },
+      "NAICS": {
+        "count": 2102.0,
+        "mean": 531630.9,
+        "std": 521.84,
+        "min": 531110.0,
+        "25%": 531210.0,
+        "50%": 531312.0,
+        "75%": 532230.0,
+        "max": 533110.0
+      },
+      "ApprovalDate": {
+        "count": 2102.0,
+        "mean": 16179.59,
+        "std": 1454.93,
+        "min": 10554.0,
+        "25%": 15695.75,
+        "50%": 16556.0,
+        "75%": 17149.75,
+        "max": 18911.0
+      },
+      "ApprovalFY": {
+        "count": 2102.0,
+        "mean": 2004.04,
+        "std": 4.01,
+        "min": 1989.0,
+        "25%": 2003.0,
+        "50%": 2005.0,
+        "75%": 2007.0,
+        "max": 2012.0
+      },
+      "Term": {
+        "count": 2102.0,
+        "mean": 126.98,
+        "std": 93.8,
+        "min": 0.0,
+        "25%": 60.0,
+        "50%": 84.0,
+        "75%": 240.0,
+        "max": 306.0
+      },
+      "NoEmp": {
+        "count": 2102.0,
+        "mean": 10.15,
+        "std": 34.4,
+        "min": 0.0,
+        "25%": 2.0,
+        "50%": 3.0,
+        "75%": 8.0,
+        "max": 650.0
+      },
+      "NewExist": {
+        "count": 2101.0,
+        "mean": 1.15,
+        "std": 0.36,
+        "min": 0.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 2.0
+      },
+      "CreateJob": {
+        "count": 2102.0,
+        "mean": 2.55,
+        "std": 8.01,
         "min": 0.0,
         "25%": 0.0,
         "50%": 0.0,
+        "75%": 2.0,
+        "max": 130.0
+      },
+      "RetainedJob": {
+        "count": 2102.0,
+        "mean": 5.8,
+        "std": 18.98,
+        "min": 0.0,
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 5.0,
+        "max": 535.0
+      },
+      "FranchiseCode": {
+        "count": 2102.0,
+        "mean": 1961.76,
+        "std": 11239.82,
+        "min": 0.0,
+        "25%": 0.0,
+        "50%": 1.0,
         "75%": 1.0,
-        "max": 19.0
+        "max": 89658.0
       },
-      "AMT_INCOME_TOTAL": {
-        "count": 307511.0,
-        "mean": 168797.92,
-        "std": 237123.15,
-        "min": 25650.0,
-        "25%": 112500.0,
-        "50%": 147150.0,
-        "75%": 202500.0,
-        "max": 117000000.0
-      },
-      "AMT_CREDIT": {
-        "count": 307511.0,
-        "mean": 599026.0,
-        "std": 402490.78,
-        "min": 45000.0,
-        "25%": 270000.0,
-        "50%": 513531.0,
-        "75%": 808650.0,
-        "max": 4050000.0
-      },
-      "AMT_ANNUITY": {
-        "count": 307499.0,
-        "mean": 27108.57,
-        "std": 14493.74,
-        "min": 1615.5,
-        "25%": 16524.0,
-        "50%": 24903.0,
-        "75%": 34596.0,
-        "max": 258025.5
-      },
-      "AMT_GOODS_PRICE": {
-        "count": 307233.0,
-        "mean": 538396.21,
-        "std": 369446.46,
-        "min": 40500.0,
-        "25%": 238500.0,
-        "50%": 450000.0,
-        "75%": 679500.0,
-        "max": 4050000.0
-      },
-      "REGION_POPULATION_RELATIVE": {
-        "count": 307511.0,
-        "mean": 0.02,
-        "std": 0.01,
+      "UrbanRural": {
+        "count": 2102.0,
+        "mean": 0.95,
+        "std": 0.41,
         "min": 0.0,
-        "25%": 0.01,
-        "50%": 0.02,
-        "75%": 0.03,
-        "max": 0.07
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 2.0
       },
-      "DAYS_BIRTH": {
-        "count": 307511.0,
-        "mean": -16037.0,
-        "std": 4363.99,
-        "min": -25229.0,
-        "25%": -19682.0,
-        "50%": -15750.0,
-        "75%": -12413.0,
-        "max": -7489.0
+      "ChgOffDate": {
+        "count": 697.0,
+        "mean": 18224.82,
+        "std": 732.81,
+        "min": 13752.0,
+        "25%": 17860.0,
+        "50%": 18302.0,
+        "75%": 18548.0,
+        "max": 19936.0
       },
-      "DAYS_EMPLOYED": {
-        "count": 307511.0,
-        "mean": 63815.05,
-        "std": 141275.77,
-        "min": -17912.0,
-        "25%": -2760.0,
-        "50%": -1213.0,
-        "75%": -289.0,
-        "max": 365243.0
+      "DisbursementDate": {
+        "count": 2099.0,
+        "mean": 16264.27,
+        "std": 1450.79,
+        "min": 10623.0,
+        "25%": 15795.0,
+        "50%": 16648.0,
+        "75%": 17225.0,
+        "max": 18609.0
       },
-      "DAYS_REGISTRATION": {
-        "count": 307511.0,
-        "mean": -4986.12,
-        "std": 3522.89,
-        "min": -24672.0,
-        "25%": -7479.5,
-        "50%": -4504.0,
-        "75%": -2010.0,
-        "max": 0.0
+      "DisbursementGross": {
+        "count": 2102.0,
+        "mean": 242737.21,
+        "std": 338286.1,
+        "min": 4835.0,
+        "25%": 40000.0,
+        "50%": 100000.0,
+        "75%": 300000.0,
+        "max": 2315000.0
       },
-      "DAYS_ID_PUBLISH": {
-        "count": 307511.0,
-        "mean": -2994.2,
-        "std": 1509.45,
-        "min": -7197.0,
-        "25%": -4299.0,
-        "50%": -3254.0,
-        "75%": -1720.0,
-        "max": 0.0
-      },
-      "OWN_CAR_AGE": {
-        "count": 104582.0,
-        "mean": 12.06,
-        "std": 11.94,
-        "min": 0.0,
-        "25%": 5.0,
-        "50%": 9.0,
-        "75%": 15.0,
-        "max": 91.0
-      },
-      "FLAG_MOBIL": {
-        "count": 307511.0,
-        "mean": 1.0,
+      "BalanceGross": {
+        "count": 2102.0,
+        "mean": 0.0,
         "std": 0.0,
         "min": 0.0,
-        "25%": 1.0,
-        "50%": 1.0,
-        "75%": 1.0,
-        "max": 1.0
-      },
-      "FLAG_EMP_PHONE": {
-        "count": 307511.0,
-        "mean": 0.82,
-        "std": 0.38,
-        "min": 0.0,
-        "25%": 1.0,
-        "50%": 1.0,
-        "75%": 1.0,
-        "max": 1.0
-      },
-      "FLAG_WORK_PHONE": {
-        "count": 307511.0,
-        "mean": 0.2,
-        "std": 0.4,
-        "min": 0.0,
         "25%": 0.0,
         "50%": 0.0,
         "75%": 0.0,
-        "max": 1.0
+        "max": 0.0
       },
-      "FLAG_CONT_MOBILE": {
-        "count": 307511.0,
-        "mean": 1.0,
-        "std": 0.04,
-        "min": 0.0,
-        "25%": 1.0,
-        "50%": 1.0,
-        "75%": 1.0,
-        "max": 1.0
-      },
-      "FLAG_PHONE": {
-        "count": 307511.0,
-        "mean": 0.28,
-        "std": 0.45,
+      "ChgOffPrinGr": {
+        "count": 2102.0,
+        "mean": 20029.08,
+        "std": 75432.29,
         "min": 0.0,
         "25%": 0.0,
         "50%": 0.0,
-        "75%": 1.0,
-        "max": 1.0
+        "75%": 15073.5,
+        "max": 1509550.0
       },
-      "FLAG_EMAIL": {
-        "count": 307511.0,
-        "mean": 0.06,
-        "std": 0.23,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
+      "GrAppv": {
+        "count": 2102.0,
+        "mean": 233064.06,
+        "std": 343631.01,
+        "min": 4500.0,
+        "25%": 30000.0,
+        "50%": 61000.0,
+        "75%": 300000.0,
+        "max": 2350000.0
       },
-      "CNT_FAM_MEMBERS": {
-        "count": 307509.0,
-        "mean": 2.15,
-        "std": 0.91,
-        "min": 1.0,
-        "25%": 2.0,
-        "50%": 2.0,
-        "75%": 3.0,
-        "max": 20.0
+      "SBA_Appv": {
+        "count": 2102.0,
+        "mean": 189175.89,
+        "std": 298926.8,
+        "min": 2250.0,
+        "25%": 15000.0,
+        "50%": 41680.0,
+        "75%": 239756.25,
+        "max": 2115000.0
       },
-      "REGION_RATING_CLIENT": {
-        "count": 307511.0,
-        "mean": 2.05,
-        "std": 0.51,
-        "min": 1.0,
-        "25%": 2.0,
-        "50%": 2.0,
-        "75%": 2.0,
-        "max": 3.0
-      },
-      "REGION_RATING_CLIENT_W_CITY": {
-        "count": 307511.0,
-        "mean": 2.03,
-        "std": 0.5,
-        "min": 1.0,
-        "25%": 2.0,
-        "50%": 2.0,
-        "75%": 2.0,
-        "max": 3.0
-      },
-      "HOUR_APPR_PROCESS_START": {
-        "count": 307511.0,
-        "mean": 12.06,
-        "std": 3.27,
-        "min": 0.0,
-        "25%": 10.0,
-        "50%": 12.0,
-        "75%": 14.0,
-        "max": 23.0
-      },
-      "REG_REGION_NOT_LIVE_REGION": {
-        "count": 307511.0,
-        "mean": 0.02,
-        "std": 0.12,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "REG_REGION_NOT_WORK_REGION": {
-        "count": 307511.0,
-        "mean": 0.05,
-        "std": 0.22,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "LIVE_REGION_NOT_WORK_REGION": {
-        "count": 307511.0,
-        "mean": 0.04,
-        "std": 0.2,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "REG_CITY_NOT_LIVE_CITY": {
-        "count": 307511.0,
-        "mean": 0.08,
-        "std": 0.27,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "REG_CITY_NOT_WORK_CITY": {
-        "count": 307511.0,
-        "mean": 0.23,
-        "std": 0.42,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "LIVE_CITY_NOT_WORK_CITY": {
-        "count": 307511.0,
-        "mean": 0.18,
-        "std": 0.38,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "EXT_SOURCE_1": {
-        "count": 134133.0,
-        "mean": 0.5,
-        "std": 0.21,
-        "min": 0.01,
-        "25%": 0.33,
-        "50%": 0.51,
-        "75%": 0.68,
-        "max": 0.96
-      },
-      "EXT_SOURCE_2": {
-        "count": 306851.0,
-        "mean": 0.51,
-        "std": 0.19,
-        "min": 0.0,
-        "25%": 0.39,
-        "50%": 0.57,
-        "75%": 0.66,
-        "max": 0.85
-      },
-      "EXT_SOURCE_3": {
-        "count": 246546.0,
-        "mean": 0.51,
-        "std": 0.19,
-        "min": 0.0,
-        "25%": 0.37,
-        "50%": 0.54,
-        "75%": 0.67,
-        "max": 0.9
-      },
-      "APARTMENTS_AVG": {
-        "count": 151450.0,
-        "mean": 0.12,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.06,
-        "50%": 0.09,
-        "75%": 0.15,
-        "max": 1.0
-      },
-      "BASEMENTAREA_AVG": {
-        "count": 127568.0,
-        "mean": 0.09,
-        "std": 0.08,
-        "min": 0.0,
-        "25%": 0.04,
-        "50%": 0.08,
-        "75%": 0.11,
-        "max": 1.0
-      },
-      "YEARS_BEGINEXPLUATATION_AVG": {
-        "count": 157504.0,
-        "mean": 0.98,
-        "std": 0.06,
-        "min": 0.0,
-        "25%": 0.98,
-        "50%": 0.98,
-        "75%": 0.99,
-        "max": 1.0
-      },
-      "YEARS_BUILD_AVG": {
-        "count": 103023.0,
-        "mean": 0.75,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.69,
-        "50%": 0.76,
-        "75%": 0.82,
-        "max": 1.0
-      },
-      "COMMONAREA_AVG": {
-        "count": 92646.0,
-        "mean": 0.04,
-        "std": 0.08,
-        "min": 0.0,
-        "25%": 0.01,
-        "50%": 0.02,
-        "75%": 0.05,
-        "max": 1.0
-      },
-      "ELEVATORS_AVG": {
-        "count": 143620.0,
-        "mean": 0.08,
-        "std": 0.13,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.12,
-        "max": 1.0
-      },
-      "ENTRANCES_AVG": {
-        "count": 152683.0,
+      "New": {
+        "count": 2102.0,
         "mean": 0.15,
-        "std": 0.1,
-        "min": 0.0,
-        "25%": 0.07,
-        "50%": 0.14,
-        "75%": 0.21,
-        "max": 1.0
-      },
-      "FLOORSMAX_AVG": {
-        "count": 154491.0,
-        "mean": 0.23,
-        "std": 0.14,
-        "min": 0.0,
-        "25%": 0.17,
-        "50%": 0.17,
-        "75%": 0.33,
-        "max": 1.0
-      },
-      "FLOORSMIN_AVG": {
-        "count": 98869.0,
-        "mean": 0.23,
-        "std": 0.16,
-        "min": 0.0,
-        "25%": 0.08,
-        "50%": 0.21,
-        "75%": 0.38,
-        "max": 1.0
-      },
-      "LANDAREA_AVG": {
-        "count": 124921.0,
-        "mean": 0.07,
-        "std": 0.08,
-        "min": 0.0,
-        "25%": 0.02,
-        "50%": 0.05,
-        "75%": 0.09,
-        "max": 1.0
-      },
-      "LIVINGAPARTMENTS_AVG": {
-        "count": 97312.0,
-        "mean": 0.1,
-        "std": 0.09,
-        "min": 0.0,
-        "25%": 0.05,
-        "50%": 0.08,
-        "75%": 0.12,
-        "max": 1.0
-      },
-      "LIVINGAREA_AVG": {
-        "count": 153161.0,
-        "mean": 0.11,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.05,
-        "50%": 0.07,
-        "75%": 0.13,
-        "max": 1.0
-      },
-      "NONLIVINGAPARTMENTS_AVG": {
-        "count": 93997.0,
-        "mean": 0.01,
-        "std": 0.05,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "NONLIVINGAREA_AVG": {
-        "count": 137829.0,
-        "mean": 0.03,
-        "std": 0.07,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.03,
-        "max": 1.0
-      },
-      "APARTMENTS_MODE": {
-        "count": 151450.0,
-        "mean": 0.11,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.05,
-        "50%": 0.08,
-        "75%": 0.14,
-        "max": 1.0
-      },
-      "BASEMENTAREA_MODE": {
-        "count": 127568.0,
-        "mean": 0.09,
-        "std": 0.08,
-        "min": 0.0,
-        "25%": 0.04,
-        "50%": 0.07,
-        "75%": 0.11,
-        "max": 1.0
-      },
-      "YEARS_BEGINEXPLUATATION_MODE": {
-        "count": 157504.0,
-        "mean": 0.98,
-        "std": 0.06,
-        "min": 0.0,
-        "25%": 0.98,
-        "50%": 0.98,
-        "75%": 0.99,
-        "max": 1.0
-      },
-      "YEARS_BUILD_MODE": {
-        "count": 103023.0,
-        "mean": 0.76,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.7,
-        "50%": 0.76,
-        "75%": 0.82,
-        "max": 1.0
-      },
-      "COMMONAREA_MODE": {
-        "count": 92646.0,
-        "mean": 0.04,
-        "std": 0.07,
-        "min": 0.0,
-        "25%": 0.01,
-        "50%": 0.02,
-        "75%": 0.05,
-        "max": 1.0
-      },
-      "ELEVATORS_MODE": {
-        "count": 143620.0,
-        "mean": 0.07,
-        "std": 0.13,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.12,
-        "max": 1.0
-      },
-      "ENTRANCES_MODE": {
-        "count": 152683.0,
-        "mean": 0.15,
-        "std": 0.1,
-        "min": 0.0,
-        "25%": 0.07,
-        "50%": 0.14,
-        "75%": 0.21,
-        "max": 1.0
-      },
-      "FLOORSMAX_MODE": {
-        "count": 154491.0,
-        "mean": 0.22,
-        "std": 0.14,
-        "min": 0.0,
-        "25%": 0.17,
-        "50%": 0.17,
-        "75%": 0.33,
-        "max": 1.0
-      },
-      "FLOORSMIN_MODE": {
-        "count": 98869.0,
-        "mean": 0.23,
-        "std": 0.16,
-        "min": 0.0,
-        "25%": 0.08,
-        "50%": 0.21,
-        "75%": 0.38,
-        "max": 1.0
-      },
-      "LANDAREA_MODE": {
-        "count": 124921.0,
-        "mean": 0.06,
-        "std": 0.08,
-        "min": 0.0,
-        "25%": 0.02,
-        "50%": 0.05,
-        "75%": 0.08,
-        "max": 1.0
-      },
-      "LIVINGAPARTMENTS_MODE": {
-        "count": 97312.0,
-        "mean": 0.11,
-        "std": 0.1,
-        "min": 0.0,
-        "25%": 0.05,
-        "50%": 0.08,
-        "75%": 0.13,
-        "max": 1.0
-      },
-      "LIVINGAREA_MODE": {
-        "count": 153161.0,
-        "mean": 0.11,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.04,
-        "50%": 0.07,
-        "75%": 0.13,
-        "max": 1.0
-      },
-      "NONLIVINGAPARTMENTS_MODE": {
-        "count": 93997.0,
-        "mean": 0.01,
-        "std": 0.05,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "NONLIVINGAREA_MODE": {
-        "count": 137829.0,
-        "mean": 0.03,
-        "std": 0.07,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.02,
-        "max": 1.0
-      },
-      "APARTMENTS_MEDI": {
-        "count": 151450.0,
-        "mean": 0.12,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.06,
-        "50%": 0.09,
-        "75%": 0.15,
-        "max": 1.0
-      },
-      "BASEMENTAREA_MEDI": {
-        "count": 127568.0,
-        "mean": 0.09,
-        "std": 0.08,
-        "min": 0.0,
-        "25%": 0.04,
-        "50%": 0.08,
-        "75%": 0.11,
-        "max": 1.0
-      },
-      "YEARS_BEGINEXPLUATATION_MEDI": {
-        "count": 157504.0,
-        "mean": 0.98,
-        "std": 0.06,
-        "min": 0.0,
-        "25%": 0.98,
-        "50%": 0.98,
-        "75%": 0.99,
-        "max": 1.0
-      },
-      "YEARS_BUILD_MEDI": {
-        "count": 103023.0,
-        "mean": 0.76,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.69,
-        "50%": 0.76,
-        "75%": 0.83,
-        "max": 1.0
-      },
-      "COMMONAREA_MEDI": {
-        "count": 92646.0,
-        "mean": 0.04,
-        "std": 0.08,
-        "min": 0.0,
-        "25%": 0.01,
-        "50%": 0.02,
-        "75%": 0.05,
-        "max": 1.0
-      },
-      "ELEVATORS_MEDI": {
-        "count": 143620.0,
-        "mean": 0.08,
-        "std": 0.13,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.12,
-        "max": 1.0
-      },
-      "ENTRANCES_MEDI": {
-        "count": 152683.0,
-        "mean": 0.15,
-        "std": 0.1,
-        "min": 0.0,
-        "25%": 0.07,
-        "50%": 0.14,
-        "75%": 0.21,
-        "max": 1.0
-      },
-      "FLOORSMAX_MEDI": {
-        "count": 154491.0,
-        "mean": 0.23,
-        "std": 0.15,
-        "min": 0.0,
-        "25%": 0.17,
-        "50%": 0.17,
-        "75%": 0.33,
-        "max": 1.0
-      },
-      "FLOORSMIN_MEDI": {
-        "count": 98869.0,
-        "mean": 0.23,
-        "std": 0.16,
-        "min": 0.0,
-        "25%": 0.08,
-        "50%": 0.21,
-        "75%": 0.38,
-        "max": 1.0
-      },
-      "LANDAREA_MEDI": {
-        "count": 124921.0,
-        "mean": 0.07,
-        "std": 0.08,
-        "min": 0.0,
-        "25%": 0.02,
-        "50%": 0.05,
-        "75%": 0.09,
-        "max": 1.0
-      },
-      "LIVINGAPARTMENTS_MEDI": {
-        "count": 97312.0,
-        "mean": 0.1,
-        "std": 0.09,
-        "min": 0.0,
-        "25%": 0.05,
-        "50%": 0.08,
-        "75%": 0.12,
-        "max": 1.0
-      },
-      "LIVINGAREA_MEDI": {
-        "count": 153161.0,
-        "mean": 0.11,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.05,
-        "50%": 0.07,
-        "75%": 0.13,
-        "max": 1.0
-      },
-      "NONLIVINGAPARTMENTS_MEDI": {
-        "count": 93997.0,
-        "mean": 0.01,
-        "std": 0.05,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "NONLIVINGAREA_MEDI": {
-        "count": 137829.0,
-        "mean": 0.03,
-        "std": 0.07,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.03,
-        "max": 1.0
-      },
-      "TOTALAREA_MODE": {
-        "count": 159080.0,
-        "mean": 0.1,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.04,
-        "50%": 0.07,
-        "75%": 0.13,
-        "max": 1.0
-      },
-      "OBS_30_CNT_SOCIAL_CIRCLE": {
-        "count": 306490.0,
-        "mean": 1.42,
-        "std": 2.4,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 2.0,
-        "max": 348.0
-      },
-      "DEF_30_CNT_SOCIAL_CIRCLE": {
-        "count": 306490.0,
-        "mean": 0.14,
-        "std": 0.45,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 34.0
-      },
-      "OBS_60_CNT_SOCIAL_CIRCLE": {
-        "count": 306490.0,
-        "mean": 1.41,
-        "std": 2.38,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 2.0,
-        "max": 344.0
-      },
-      "DEF_60_CNT_SOCIAL_CIRCLE": {
-        "count": 306490.0,
-        "mean": 0.1,
         "std": 0.36,
         "min": 0.0,
         "25%": 0.0,
         "50%": 0.0,
         "75%": 0.0,
-        "max": 24.0
-      },
-      "DAYS_LAST_PHONE_CHANGE": {
-        "count": 307510.0,
-        "mean": -962.86,
-        "std": 826.81,
-        "min": -4292.0,
-        "25%": -1570.0,
-        "50%": -757.0,
-        "75%": -274.0,
-        "max": 0.0
-      },
-      "FLAG_DOCUMENT_2": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.01,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
         "max": 1.0
       },
-      "FLAG_DOCUMENT_3": {
-        "count": 307511.0,
-        "mean": 0.71,
+      "RealEstate": {
+        "count": 2102.0,
+        "mean": 0.27,
         "std": 0.45,
         "min": 0.0,
         "25%": 0.0,
-        "50%": 1.0,
+        "50%": 0.0,
         "75%": 1.0,
         "max": 1.0
       },
-      "FLAG_DOCUMENT_4": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.01,
+      "Portion": {
+        "count": 2102.0,
+        "mean": 0.67,
+        "std": 0.19,
+        "min": 0.3,
+        "25%": 0.5,
+        "50%": 0.5,
+        "75%": 0.85,
+        "max": 1.0
+      },
+      "Recession": {
+        "count": 2102.0,
+        "mean": 0.07,
+        "std": 0.25,
         "min": 0.0,
         "25%": 0.0,
         "50%": 0.0,
         "75%": 0.0,
         "max": 1.0
       },
-      "FLAG_DOCUMENT_5": {
-        "count": 307511.0,
-        "mean": 0.02,
-        "std": 0.12,
+      "daysterm": {
+        "count": 2102.0,
+        "mean": 3809.41,
+        "std": 2813.97,
+        "min": 0.0,
+        "25%": 1800.0,
+        "50%": 2520.0,
+        "75%": 7200.0,
+        "max": 9180.0
+      },
+      "xx": {
+        "count": 2099.0,
+        "mean": 20076.9,
+        "std": 2854.51,
+        "min": 11524.0,
+        "25%": 18316.5,
+        "50%": 19270.0,
+        "75%": 22335.0,
+        "max": 27598.0
+      },
+      "Default": {
+        "count": 2102.0,
+        "mean": 0.33,
+        "std": 0.47,
         "min": 0.0,
         "25%": 0.0,
         "50%": 0.0,
-        "75%": 0.0,
+        "75%": 1.0,
         "max": 1.0
-      },
-      "FLAG_DOCUMENT_6": {
-        "count": 307511.0,
-        "mean": 0.09,
-        "std": 0.28,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_7": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.01,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_8": {
-        "count": 307511.0,
-        "mean": 0.08,
-        "std": 0.27,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_9": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.06,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_10": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.0,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_11": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.06,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_12": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.0,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_13": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.06,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_14": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.05,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_15": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.03,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_16": {
-        "count": 307511.0,
-        "mean": 0.01,
-        "std": 0.1,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_17": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.02,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_18": {
-        "count": 307511.0,
-        "mean": 0.01,
-        "std": 0.09,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_19": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.02,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_20": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.02,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "FLAG_DOCUMENT_21": {
-        "count": 307511.0,
-        "mean": 0.0,
-        "std": 0.02,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 1.0
-      },
-      "AMT_REQ_CREDIT_BUREAU_HOUR": {
-        "count": 265992.0,
-        "mean": 0.01,
-        "std": 0.08,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 4.0
-      },
-      "AMT_REQ_CREDIT_BUREAU_DAY": {
-        "count": 265992.0,
-        "mean": 0.01,
-        "std": 0.11,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 9.0
-      },
-      "AMT_REQ_CREDIT_BUREAU_WEEK": {
-        "count": 265992.0,
-        "mean": 0.03,
-        "std": 0.2,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 8.0
-      },
-      "AMT_REQ_CREDIT_BUREAU_MON": {
-        "count": 265992.0,
-        "mean": 0.27,
-        "std": 0.92,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 27.0
-      },
-      "AMT_REQ_CREDIT_BUREAU_QRT": {
-        "count": 265992.0,
-        "mean": 0.27,
-        "std": 0.79,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 0.0,
-        "75%": 0.0,
-        "max": 261.0
-      },
-      "AMT_REQ_CREDIT_BUREAU_YEAR": {
-        "count": 265992.0,
-        "mean": 1.9,
-        "std": 1.87,
-        "min": 0.0,
-        "25%": 0.0,
-        "50%": 1.0,
-        "75%": 3.0,
-        "max": 25.0
       }
     }
   },
   "overview": {
-    "sample_count": 307511,
-    "feature_count": 122,
-    "completeness": "75.60%",
+    "sample_count": 2102,
+    "feature_count": 35,
+    "completeness": "98.07%",
     "data_type_count": 3
   },
+  "preview": [
+    {
+      "Selected": 0,
+      "LoanNr_ChkDgt": 1004285007,
+      "Name": "SIMPLEX OFFICE SOLUTIONS",
+      "City": "ANAHEIM",
+      "State": "CA",
+      "Zip": 92801,
+      "Bank": "CALIFORNIA BANK & TRUST",
+      "BankState": "CA",
+      "NAICS": 532420,
+      "ApprovalDate": 15074,
+      "ApprovalFY": 2001,
+      "Term": 36,
+      "NoEmp": 1,
+      "NewExist": 1.0,
+      "CreateJob": 0,
+      "RetainedJob": 0,
+      "FranchiseCode": 1,
+      "UrbanRural": 0,
+      "RevLineCr": "Y",
+      "LowDoc": "N",
+      "ChgOffDate": null,
+      "DisbursementDate": 15095.0,
+      "DisbursementGross": 32812,
+      "BalanceGross": 0,
+      "MIS_Status": "P I F",
+      "ChgOffPrinGr": 0,
+      "GrAppv": 30000,
+      "SBA_Appv": 15000,
+      "New": 0,
+      "RealEstate": 0,
+      "Portion": 0.5,
+      "Recession": 0,
+      "daysterm": 1080,
+      "xx": 16175.0,
+      "Default": 0
+    },
+    {
+      "Selected": 1,
+      "LoanNr_ChkDgt": 1004535010,
+      "Name": "DREAM HOME REALTY",
+      "City": "TORRANCE",
+      "State": "CA",
+      "Zip": 90505,
+      "Bank": "CALIFORNIA BANK & TRUST",
+      "BankState": "CA",
+      "NAICS": 531210,
+      "ApprovalDate": 15130,
+      "ApprovalFY": 2001,
+      "Term": 56,
+      "NoEmp": 1,
+      "NewExist": 1.0,
+      "CreateJob": 0,
+      "RetainedJob": 0,
+      "FranchiseCode": 1,
+      "UrbanRural": 0,
+      "RevLineCr": "Y",
+      "LowDoc": "N",
+      "ChgOffDate": null,
+      "DisbursementDate": 15978.0,
+      "DisbursementGross": 30000,
+      "BalanceGross": 0,
+      "MIS_Status": "P I F",
+      "ChgOffPrinGr": 0,
+      "GrAppv": 30000,
+      "SBA_Appv": 15000,
+      "New": 0,
+      "RealEstate": 0,
+      "Portion": 0.5,
+      "Recession": 1,
+      "daysterm": 1680,
+      "xx": 17658.0,
+      "Default": 0
+    },
+    {
+      "Selected": 0,
+      "LoanNr_ChkDgt": 1005005006,
+      "Name": "Winset, Inc. dba Bankers Hill",
+      "City": "SAN DIEGO",
+      "State": "CA",
+      "Zip": 92103,
+      "Bank": "CALIFORNIA BANK & TRUST",
+      "BankState": "CA",
+      "NAICS": 531210,
+      "ApprovalDate": 15188,
+      "ApprovalFY": 2001,
+      "Term": 36,
+      "NoEmp": 10,
+      "NewExist": 1.0,
+      "CreateJob": 0,
+      "RetainedJob": 0,
+      "FranchiseCode": 1,
+      "UrbanRural": 0,
+      "RevLineCr": "Y",
+      "LowDoc": "N",
+      "ChgOffDate": null,
+      "DisbursementDate": 15218.0,
+      "DisbursementGross": 30000,
+      "BalanceGross": 0,
+      "MIS_Status": "P I F",
+      "ChgOffPrinGr": 0,
+      "GrAppv": 30000,
+      "SBA_Appv": 15000,
+      "New": 0,
+      "RealEstate": 0,
+      "Portion": 0.5,
+      "Recession": 0,
+      "daysterm": 1080,
+      "xx": 16298.0,
+      "Default": 0
+    },
+    {
+      "Selected": 1,
+      "LoanNr_ChkDgt": 1005535001,
+      "Name": "Shiva Management",
+      "City": "SAN DIEGO",
+      "State": "CA",
+      "Zip": 92108,
+      "Bank": "CALIFORNIA BANK & TRUST",
+      "BankState": "CA",
+      "NAICS": 531312,
+      "ApprovalDate": 15719,
+      "ApprovalFY": 2003,
+      "Term": 36,
+      "NoEmp": 6,
+      "NewExist": 1.0,
+      "CreateJob": 0,
+      "RetainedJob": 0,
+      "FranchiseCode": 1,
+      "UrbanRural": 0,
+      "RevLineCr": "Y",
+      "LowDoc": "N",
+      "ChgOffDate": null,
+      "DisbursementDate": 15736.0,
+      "DisbursementGross": 50000,
+      "BalanceGross": 0,
+      "MIS_Status": "P I F",
+      "ChgOffPrinGr": 0,
+      "GrAppv": 50000,
+      "SBA_Appv": 25000,
+      "New": 0,
+      "RealEstate": 0,
+      "Portion": 0.5,
+      "Recession": 0,
+      "daysterm": 1080,
+      "xx": 16816.0,
+      "Default": 0
+    },
+    {
+      "Selected": 1,
+      "LoanNr_ChkDgt": 1005996006,
+      "Name": "GOLD CROWN HOME LOANS, INC",
+      "City": "LOS ANGELES",
+      "State": "CA",
+      "Zip": 91345,
+      "Bank": "SBA - EDF ENFORCEMENT ACTION",
+      "BankState": "CO",
+      "NAICS": 531390,
+      "ApprovalDate": 16840,
+      "ApprovalFY": 2006,
+      "Term": 240,
+      "NoEmp": 65,
+      "NewExist": 1.0,
+      "CreateJob": 3,
+      "RetainedJob": 65,
+      "FranchiseCode": 1,
+      "UrbanRural": 1,
+      "RevLineCr": "0",
+      "LowDoc": "N",
+      "ChgOffDate": null,
+      "DisbursementDate": 16903.0,
+      "DisbursementGross": 343000,
+      "BalanceGross": 0,
+      "MIS_Status": "P I F",
+      "ChgOffPrinGr": 0,
+      "GrAppv": 343000,
+      "SBA_Appv": 343000,
+      "New": 0,
+      "RealEstate": 1,
+      "Portion": 1.0,
+      "Recession": 0,
+      "daysterm": 7200,
+      "xx": 24103.0,
+      "Default": 0
+    }
+  ],
+  "time_series_sample": [
+    {
+      "企业名称": "SIMPLEX OFFICE SOLUTIONS",
+      "Month_1": 3030.99,
+      "Month_2": 3315.62,
+      "Month_3": 3740.14,
+      "Month_4": 3109.95,
+      "Month_5": 3783.23,
+      "Month_6": 3485.66
+    },
+    {
+      "企业名称": "DREAM HOME REALTY",
+      "Month_1": 2852.85,
+      "Month_2": 2340.43,
+      "Month_3": 2798.38,
+      "Month_4": 2887.78,
+      "Month_5": 3095.39,
+      "Month_6": 2384.87
+    },
+    {
+      "企业名称": "Winset, Inc. dba Bankers Hill",
+      "Month_1": 2773.21,
+      "Month_2": 2734.87,
+      "Month_3": 2836.43,
+      "Month_4": 2675.04,
+      "Month_5": 2790.85,
+      "Month_6": 2737.87
+    },
+    {
+      "企业名称": "Shiva Management",
+      "Month_1": 2628.51,
+      "Month_2": 3290.18,
+      "Month_3": 2810.35,
+      "Month_4": 3347.35,
+      "Month_5": 3165.83,
+      "Month_6": 2939.57
+    },
+    {
+      "企业名称": "GOLD CROWN HOME LOANS, INC",
+      "Month_1": 30365.19,
+      "Month_2": 32202.63,
+      "Month_3": 33132.88,
+      "Month_4": 33260.22,
+      "Month_5": 30748.88,
+      "Month_6": 28984.76
+    }
+  ],
+  "unstructured_sample": [
+    {
+      "企业名称": "SIMPLEX OFFICE SOLUTIONS",
+      "检查报告": "检查对象： SIMPLEX OFFICE SOLUTIONS（办公设备租赁行业） 检查结论： 【风险等级：高 / 需预警】\n\n一、 企业基本运营状况检查\n主体稳定性： 该企业为“新设企业”，缺乏运营历史验证，商业模式尚处于磨合期，固有经营风险较高。\n\n人力资本分析： 全职员工仅1人，且贷款项目并未带动任何岗位的创造或保留。这表明企业运营极度依赖个人，业务规模扩张受限，且贷款用途与促进就业的初衷存在偏差。\n\n流水波动趋势： 虽然1-6个月的现金流数据呈波动上升趋势（期末达到 2,043.74 美元），但绝对值基数极低，抗风险冲击能力微弱。\n\n二、 贷款保障机制评价\n担保效力： 虽有 SBA 提供 50%（1.5万美元）的风险缓释，但银行端仍承担 50% 的风险敞口。\n\n抵押物落实情况： 抵押标识为 0（无不动产抵押）。在企业缺乏历史业绩和经营实体的背景下，第二还款来源严重缺失，债权保障力度薄弱。\n\n三、 行业与环境适配性\n宏观环境： 当前处于非经济衰退期，且企业位于城市中心区域，行业外部环境尚可。\n\n市场逻辑矛盾： 尽管宏观环境有利，但企业在办公设备租赁这一本应具有规模效应的行业中，表现出“零就业增长”和“极低流水”，其业务真实性和成长意愿存疑。\n\n四、 核心风控异常信号（重点关注）\n授信逻辑冲突： 银行对一家员工仅1人、无抵押、无历史业绩的新设企业授予了循环信贷（RevLineCr=Y）。\n\n双向验证结论： 循环信贷的灵活性与企业极低的现金流流水（约2,000美元）存在显著的逻辑悖论。这反映出要么是银行贷前审查过于宽松，要么是企业提供的财务预期具有误导性，存在严重的信息不对称风险。\n\n五、 检查建议\n加强资金用途监控： 鉴于就业指标为0，需核实贷款资金是否真实投入办公租赁业务，严防资金挪用。\n\n重新评估还款能力： 现有流水规模难以支撑循环信贷的长期覆盖，建议压降授信额度或要求追加个人无限连带责任担保。\n\n提高检查频率： 鉴于新设企业的高夭折率及风控矛盾点，应将该户列入重点观察名单，按季进行现场检视。"
+    },
+    {
+      "企业名称": "DREAM HOME REALTY",
+      "检查报告": "检查对象： DREAM HOME REALTY（房地产中介行业）检查结论： 【风险评级：中高 / 实际违约风险：否】一、 客户基本面与经营稳定性分析主体资质： 企业属于“新设主体”（NewExist=1），经营根基较浅。人力规模： 员工人数仅1人，且贷款项目并未达成创造或保留就业的目标。反映出该企业属于典型的“微型个体经营”，业务规模极小且高度依赖个人，抗经营性风险能力处于较低水平。资金面表现： 半年现金流流水表现出较强的平稳性，长期围绕 3,000 美元基准线震荡。虽具备一定的流水规律性，但绝对额基数过低，难以应对突发性的现金流中断。二、 贷款担保及保障机制评价担保结构： 采用 SBA 50% 比例担保。虽有政策性风险缓释，但**抵押物缺失（RealEstate=0）**是核心短板。在缺乏不动产抵押的情况下，银行的债权受偿排位及第二还款来源保障较弱。产品特征： 本笔贷款为 循环信贷（RevLineCr=Y）。在微型企业背景下，循环信贷的灵活性容易导致资金用途难以追踪，增加了信贷管理的复杂性。三、 行业与宏观环境匹配度行业属性： 房地产中介行业（NAICS 531210），对宏观经济波动极为敏感。环境冲突： 企业申请贷款时正值经济衰退期（Recession=1）。行业景气度下滑与新设企业的脆弱性形成了风险叠加，外部环境对企业生存构成了显著挑战。四、 授信流程及合规性核查异常信号： 本笔业务存在显著的流程逻辑瑕疵——审批间隔长达 848 天（远超行业 21-30 天的平均水平）。这种超长间隔暗示企业在放款前可能存在材料补正、经营状况波动或审核僵局，是潜在的负面风险信号。积极因素： 尽管流程漫长，但该项目采用了“非低文档”审批（LowDoc=N），表明银行掌握了相对完整的财务信息，信息不对称程度得到了缓解。五、 风险交叉验证与综合评定风险维度风险表现评价经营风险新设企业、单人经营、无就业贡献高行业风险经济衰退期下的房地产中介极高保障风险无抵押，依赖 SBA 部分担保中高流程风险848 天超长放款间隔预警【风险研判总结】：从常规信贷标准来看，该企业具备多个“高风险”标签：新设微型主体、无抵押、处于衰退周期的敏感行业，且审批流程存在重大疑点。然而，结合实际还款数据，企业流水表现出了超越行业预期的韧性。【检查结论】：尽管过程指标呈现多重负面预警，但该笔贷款最终状态为 P I F（全额偿还），且核销本金为 0。这证明了尽管处于高压环境，该企业仍具备极强的还款意愿与基础还款能力。建议： 针对此类“小而稳”的客户，未来可适当简化审批流程以缩短放款间隔，但仍需严控循环信贷的额度。"
+    },
+    {
+      "企业名称": "Winset, Inc. dba Bankers Hill",
+      "检查报告": "检查对象： Winset, Inc. dba Bankers Hill（房地产中介行业）检查结论： 【风险评级：中等 / 实际违约风险：否】一、 企业基本面与经营稳定性分析主体资质与存续性： 企业为“新设主体”（NewExist=1），由于缺乏历史经营记录，商业模式与信用积累尚处于初期阶段，固有稳定性风险较高。规模与人力资源： 拥有 10 名员工，在初创企业中具备一定规模。虽然贷款项目未直接创造新岗位（CreateJob=0），但 10 人的既有团队为业务开展提供了基础的人力保障。现金流动态： 1-6 个月流水呈现**“V型”走势**（先降后升），在第 4 个月触底后连续两个月反弹。这种波动反映了新设企业初期的市场磨合，目前的上升趋势显示经营已步入正轨。二、 贷款保障及风险缓释评价担保机制： 采用 SBA 50% 比例担保（1.5 万美元）。这一政策性工具为银行提供了核心风险缓释，分担了初期经营不确定性带来的压力。抵押物核查： 无不动产抵押（RealEstate=0）。在实物保障缺失的情况下，第二还款来源主要依赖于 SBA 担保及企业自身的经营性现金流。授信产品特征： 本笔贷款为循环信贷（RevLineCr=Y），期限 36 个月。由于采用了“非低文档”（LowDoc=N）审批，表明银行已完成详尽的尽职调查，信息透明度较高，有效对冲了新设企业的背景风险。三、 行业环境与地域适配性行业属性： 属于房地产中介（NAICS 531210），具有明显的顺周期特征。宏观环境： 申请时处于非经济衰退期（Recession=0），且企业位于市场活跃度较高的圣地亚哥城市圈（UrbanRural=0）。宏观环境对行业的发展提供了有力支撑。地域风控： 授信银行为加州本地银行（BankState=CA），与企业地缘相近，有利于银行利用本地信息优势进行监控，降低了异地管控风险。四、 风险交叉验证与异常信号识别流程合规性： 审批至放款间隔为 30 天，符合行业常规流程，未发现因内控缺失或企业申报材料异常导致的流程拖沓。逻辑验证： 虽然新企业申请“无抵押循环信贷”通常被视为高风险信号，但结合 10 人的员工规模以及 SBA 的介入，该授信逻辑具有合理性。其“流水下降后反弹”的轨迹与房地产中介依赖佣金结算的特性高度吻合。五、 综合评定与风险研判风险维度风险点说明评价结果经营风险新设主体、无历史验证高行业风险房地产周期敏感性中等保障风险无抵押物，但有 SBA 50% 担保中低现金流风险呈现“V型”走势，已出现回升信号中低【检查结论总结】：尽管该企业具备新设、无抵押及行业波动大等特征，但受益于以下三个关键点：SBA 担保 提供了实质性的损失补偿保障；非低文档审批 确保了贷前审查的深度；流水反弹 验证了企业度过了初创最艰难的现金流枯竭期。最终判别： 该贷款最终状态为 P I F（全额偿还），且核销本金为 0。历史数据证明，在宏观环境有利的情况下，该企业的经营弹性足以覆盖还款义务，不存在显著违约风险。"
+    },
+    {
+      "企业名称": "Shiva Management",
+      "检查报告": "检查对象： Shiva Management（非住宅物业管理行业）检查结论： 【风险评级：高 / 违约倾向：是】一、 企业基本面与运营稳定性分析主体资质： 企业标识为“新设主体”（NewExist=1），运营历史空白，缺乏过往信用周期验证，生存风险具有先天不确定性。人力与增长动力： 员工规模仅 6 人，且贷款项目在“创造就业”与“保留就业”指标上均为 0。这表明贷款资金并未转化为企业的内生增长动力，业务扩张意愿极低。现金流波动特征： 1-6 个月流水在 3,100 至 4,000 美元区间内频繁震荡。关键异常点在于第 4 个月出现显著波峰后迅速回落，收入结构表现出极强的不稳定性。二、 贷款保障机制评价担保与抵押： 虽有 SBA 50% 比例担保（2.5 万美元）作为风险缓释，但无不动产抵押（RealEstate=0）。在企业缺乏资本积累的背景下，一旦经营失败，银行将面临第二还款来源覆盖不足的困境。信贷产品配置： 本笔 5 万美元贷款被配置为 循环信贷（RevLineCr=Y）。对于现金流尚未稳固的新设企业，循环信贷极易诱发过度借贷或资金挪用。三、 行业环境与逻辑适配性行业特征冲突： 企业所属的非住宅物业管理行业（NAICS 531312）通常具有租金收益稳定、现金流可预测的特点。逻辑悖论： 尽管处于非衰退期（Recession=0）且位于活跃的圣地亚哥城市圈，该企业的流水却表现出显著的无序波动。这与行业属性严重背离，暗示企业可能存在客户基础单一或经营模式不成熟的风险。四、 风控地域性与流程核查流程效率： 审批至放款周期为 17 天，流程高效，且采用了“非低文档”模式（LowDoc=N），显示银行在贷前进行了标准化的案头审核。风控死角： 虽然银行与企业同处加州（CA），具备地域监管便利，但显然未能通过本地化调查识别出企业“高波动现金流”与“循环信贷产品”之间的配置冲突。五、 交叉验证与风险信号总结风险维度核心矛盾点风险影响运营与产品新设企业 + 波动流水 + 循环信贷极易导致还款链条断裂行业与表现稳定的物业管理背景 vs. 不稳定的实际流水暗示经营真实性或管理能力存疑保障与敞口无实物抵押，仅依赖政策性部分担保最终坏账损失风险较高【风险研判结论】：该企业存在显著的“风险共振”现象：极弱的运营基础（新设、小规模、零就业增长）与极高的信贷灵活性（无抵押循环信贷）相叠加。交叉验证表明，企业当前的现金流表现不足以支持其长期稳定的还款义务，且行业属性与实际经营数据的背离加剧了信息不对称风险。结论： 综合判断，该企业违约风险极高。"
+    },
+    {
+      "企业名称": "GOLD CROWN HOME LOANS, INC",
+      "检查报告": "检查对象： GOLD CROWN HOME LOANS, INC（NAICS 531390：房地产信贷中介）检查结论： 【风险评级：极高 / 违约倾向：是】一、 企业基本面与运营稳定性分析存续状态与规模： 企业注册为“新设主体”（NewExist=1），却拥有 65 名初始员工。这一特征极不符合典型初创企业的成长曲线，暗示其可能为业务重组或极其激进的扩张模型，经营稳定性缺乏历史数据支撑。就业承诺： 贷款计划保留全部 65 个岗位并新增 3 个。在缺乏成熟营收模式的前提下，高额的人力固定成本将对初始现金流产生巨大压力。二、 贷款保障机制评价担保强度： 贷款额度为 34.3 万美元，由 SBA 提供 100% 全额担保（Portion=1.0）且附带不动产抵押。保障悖论： 尽管银行风险在制度层面被完全转嫁给国家信用，但对于一个缺乏历史业绩的新主体，获得** 240 个月（20年）**的超长期全额担保贷款，显现出授信条件的过度宽松，可能掩盖了企业主体还款能力的不足。三、 行业环境与周期错配分析行业属性： 房地产信贷中介行业，对利率和周期极度敏感。宏观风险叠加： 贷款批准于 2006 财年（美国房地产泡沫末期）。在行业周期顶点向新设中介发放超长期贷款，存在严重的周期错配风险。一旦行业下行，企业营收将迅速崩塌，抵押物价值亦会随之缩水。四、 银行风控及合规性核查（重大预警）跨州管理风险： 贷款行位于科罗拉多州，而借款人位于洛杉矶。跨州业务加剧了信息不对称，银行对当地市场的渗透与贷后监控能力存疑。放贷机构主体风险： 银行名称涉及“EDF ENFORCEMENT ACTION（监管执法行动）”。这一极强负面信号表明放贷机构本身的风控合规体系已亮红灯，其信贷审批的审慎性已不可信。五、 交叉验证与潜在风险点识别风险维度核心矛盾与风险点风险等级主体与产品新设主体 + 65名员工 + 20年长贷高行业周期房地产信贷中介 + 2006年周期顶点极高机构风险银行面临执法行动 + 跨州授信极高【风险研判总结】：该笔贷款在发放前呈现出显著的“系统性失控”特征。虽然从最终结果看（P I F 已全额偿还），全额担保和抵押物保护了银行资产安全，但在信贷决策的时点上，该企业具备极高的违约风险：运营基础： 激进的人力配置与新设身份极度不匹配。外部环境： 行业即将迎来次贷危机冲击，超长期限贷款无异于“跨周期赌博”。风控失效： 监管执法行动背书了银行风控流程的潜在失效，其审批决策缺乏专业审慎性。结论： 综合考量企业主体的经营风险、行业周期位置及金融机构的风控瑕疵，判定该企业在授信时存在明确的违约风险。"
+    }
+  ],
   "field_mapping": {
-    "SK_ID_CURR": "样本贷款ID",
-    "TARGET": "目标变量",
-    "NAME_CONTRACT_TYPE": "合同类型名称",
-    "CODE_GENDER": "性别编码",
-    "FLAG_OWN_CAR": "自有车辆标识",
-    "FLAG_OWN_REALTY": "自有房产标识",
-    "CNT_CHILDREN": "子女数量",
-    "AMT_INCOME_TOTAL": "总收入金额",
-    "AMT_CREDIT": "信贷金额",
-    "AMT_ANNUITY": "年金金额",
-    "AMT_GOODS_PRICE": "商品价格金额",
-    "NAME_TYPE_SUITE": "随行人员类型名称",
-    "NAME_INCOME_TYPE": "收入类型名称",
-    "NAME_EDUCATION_TYPE": "教育程度类型名称",
-    "NAME_FAMILY_STATUS": "家庭状况类型名称",
-    "NAME_HOUSING_TYPE": "住房类型名称",
-    "REGION_POPULATION_RELATIVE": "地区人口相对值",
-    "DAYS_BIRTH": "出生天数",
-    "DAYS_EMPLOYED": "就业天数",
-    "DAYS_REGISTRATION": "注册天数",
-    "DAYS_ID_PUBLISH": "身份证件签发天数",
-    "OWN_CAR_AGE": "自有车辆使用年限",
-    "FLAG_MOBIL": "手机标识",
-    "FLAG_EMP_PHONE": "工作电话标识",
-    "FLAG_WORK_PHONE": "办公电话标识",
-    "FLAG_CONT_MOBILE": "移动联系方式标识",
-    "FLAG_PHONE": "电话标识",
-    "FLAG_EMAIL": "邮箱标识",
-    "OCCUPATION_TYPE": "职业类型",
-    "CNT_FAM_MEMBERS": "家庭成员数量",
-    "REGION_RATING_CLIENT": "地区客户评级",
-    "REGION_RATING_CLIENT_W_CITY": "地区客户评级（含城市）",
-    "WEEKDAY_APPR_PROCESS_START": "申请处理开始星期",
-    "HOUR_APPR_PROCESS_START": "申请处理开始小时",
-    "REG_REGION_NOT_LIVE_REGION": "注册地区与居住地区不一致标识",
-    "REG_REGION_NOT_WORK_REGION": "注册地区与工作地区不一致标识",
-    "LIVE_REGION_NOT_WORK_REGION": "居住地区与工作地区不一致标识",
-    "REG_CITY_NOT_LIVE_CITY": "注册城市与居住城市不一致标识",
-    "REG_CITY_NOT_WORK_CITY": "注册城市与工作城市不一致标识",
-    "LIVE_CITY_NOT_WORK_CITY": "居住城市与工作城市不一致标识",
-    "ORGANIZATION_TYPE": "机构类型",
-    "EXT_SOURCE_1": "外部来源1（信用评分相关）",
-    "EXT_SOURCE_2": "外部来源2（信用评分相关）",
-    "EXT_SOURCE_3": "外部来源3（信用评分相关）",
-    "APARTMENTS_AVG": "平均公寓数量",
-    "BASEMENTAREA_AVG": "平均地下室面积",
-    "YEARS_BEGINEXPLUATATION_AVG": "开始使用年限平均值",
-    "YEARS_BUILD_AVG": "建筑年限平均值",
-    "COMMONAREA_AVG": "平均公共区域面积",
-    "ELEVATORS_AVG": "平均电梯数量",
-    "ENTRANCES_AVG": "平均入口数量",
-    "FLOORSMAX_AVG": "平均最大楼层数",
-    "FLOORSMIN_AVG": "平均最小楼层数",
-    "LANDAREA_AVG": "平均土地面积",
-    "LIVINGAPARTMENTS_AVG": "平均居住公寓数量",
-    "LIVINGAREA_AVG": "平均居住面积",
-    "NONLIVINGAPARTMENTS_AVG": "平均非居住公寓数量",
-    "NONLIVINGAREA_AVG": "平均非居住面积",
-    "APARTMENTS_MODE": "公寓数量（众数）",
-    "BASEMENTAREA_MODE": "地下室面积（众数）",
-    "YEARS_BEGINEXPLUATATION_MODE": "开始使用年限（众数）",
-    "YEARS_BUILD_MODE": "建筑年限（众数）",
-    "COMMONAREA_MODE": "公共区域面积（众数）",
-    "ELEVATORS_MODE": "电梯数量（众数）",
-    "ENTRANCES_MODE": "入口数量（众数）",
-    "FLOORSMAX_MODE": "最大楼层数（众数）",
-    "FLOORSMIN_MODE": "最小楼层数（众数）",
-    "LANDAREA_MODE": "土地面积（众数）",
-    "LIVINGAPARTMENTS_MODE": "居住公寓数量（众数）",
-    "LIVINGAREA_MODE": "居住面积（众数）",
-    "NONLIVINGAPARTMENTS_MODE": "非居住公寓数量（众数）",
-    "NONLIVINGAREA_MODE": "非居住面积（众数）",
-    "APARTMENTS_MEDI": "公寓数量（中位数）",
-    "BASEMENTAREA_MEDI": "地下室面积（中位数）",
-    "YEARS_BEGINEXPLUATATION_MEDI": "开始使用年限（中位数）",
-    "YEARS_BUILD_MEDI": "建筑年限（中位数）",
-    "COMMONAREA_MEDI": "公共区域面积（中位数）",
-    "ELEVATORS_MEDI": "电梯数量（中位数）",
-    "ENTRANCES_MEDI": "入口数量（中位数）",
-    "FLOORSMAX_MEDI": "最大楼层数（中位数）",
-    "FLOORSMIN_MEDI": "最小楼层数（中位数）",
-    "LANDAREA_MEDI": "土地面积（中位数）",
-    "LIVINGAPARTMENTS_MEDI": "居住公寓数量（中位数）",
-    "LIVINGAREA_MEDI": "居住面积（中位数）",
-    "NONLIVINGAPARTMENTS_MEDI": "非居住公寓数量（中位数）",
-    "NONLIVINGAREA_MEDI": "非居住面积（中位数）",
-    "FONDKAPREMONT_MODE": "基金预付款模式",
-    "HOUSETYPE_MODE": "房屋类型模式",
-    "TOTALAREA_MODE": "总面积模式",
-    "WALLSMATERIAL_MODE": "墙体材料模式",
-    "EMERGENCYSTATE_MODE": "紧急状态模式",
-    "OBS_30_CNT_SOCIAL_CIRCLE": "社交圈30天观察数量",
-    "DEF_30_CNT_SOCIAL_CIRCLE": "社交圈30天违约数量",
-    "OBS_60_CNT_SOCIAL_CIRCLE": "社交圈60天观察数量",
-    "DEF_60_CNT_SOCIAL_CIRCLE": "社交圈60天违约数量",
-    "DAYS_LAST_PHONE_CHANGE": "上次更换电话天数",
-    "FLAG_DOCUMENT_2": "文件2标识",
-    "FLAG_DOCUMENT_3": "文件3标识",
-    "FLAG_DOCUMENT_4": "文件4标识",
-    "FLAG_DOCUMENT_5": "文件5标识",
-    "FLAG_DOCUMENT_6": "文件6标识",
-    "FLAG_DOCUMENT_7": "文件7标识",
-    "FLAG_DOCUMENT_8": "文件8标识",
-    "FLAG_DOCUMENT_9": "文件9标识",
-    "FLAG_DOCUMENT_10": "文件10标识",
-    "FLAG_DOCUMENT_11": "文件11标识",
-    "FLAG_DOCUMENT_12": "文件12标识",
-    "FLAG_DOCUMENT_13": "文件13标识",
-    "FLAG_DOCUMENT_14": "文件14标识",
-    "FLAG_DOCUMENT_15": "文件15标识",
-    "FLAG_DOCUMENT_16": "文件16标识",
-    "FLAG_DOCUMENT_17": "文件17标识",
-    "FLAG_DOCUMENT_18": "文件18标识",
-    "FLAG_DOCUMENT_19": "文件19标识",
-    "FLAG_DOCUMENT_20": "文件20标识",
-    "FLAG_DOCUMENT_21": "文件21标识",
-    "AMT_REQ_CREDIT_BUREAU_HOUR": "征信机构查询金额（小时）",
-    "AMT_REQ_CREDIT_BUREAU_DAY": "征信机构查询金额（天）",
-    "AMT_REQ_CREDIT_BUREAU_WEEK": "征信机构查询金额（周）",
-    "AMT_REQ_CREDIT_BUREAU_MON": "征信机构查询金额（月）",
-    "AMT_REQ_CREDIT_BUREAU_QRT": "征信机构查询金额（季度）",
-    "AMT_REQ_CREDIT_BUREAU_YEAR": "征信机构查询金额（年度）",
-    "SK_ID_PREV ": "SK_ID_PREV ",
-    "AMT_APPLICATION": "AMT_APPLICATION",
-    "AMT_DOWN_PAYMENT": "AMT_DOWN_PAYMENT",
-    "FLAG_LAST_APPL_PER_CONTRACT": "FLAG_LAST_APPL_PER_CONTRACT",
-    "NFLAG_LAST_APPL_IN_DAY": "NFLAG_LAST_APPL_IN_DAY",
-    "NFLAG_MICRO_CASH": "NFLAG_MICRO_CASH",
-    "RATE_DOWN_PAYMENT": "RATE_DOWN_PAYMENT",
-    "RATE_INTEREST_PRIMARY": "RATE_INTEREST_PRIMARY",
-    "RATE_INTEREST_PRIVILEGED": "RATE_INTEREST_PRIVILEGED",
-    "NAME_CASH_LOAN_PURPOSE": "NAME_CASH_LOAN_PURPOSE",
-    "NAME_CONTRACT_STATUS": "NAME_CONTRACT_STATUS",
-    "DAYS_DECISION": "DAYS_DECISION",
-    "NAME_PAYMENT_TYPE": "NAME_PAYMENT_TYPE",
-    "CODE_REJECT_REASON": "CODE_REJECT_REASON",
-    "NAME_CLIENT_TYPE": "NAME_CLIENT_TYPE",
-    "NAME_GOODS_CATEGORY": "NAME_GOODS_CATEGORY",
-    "NAME_PORTFOLIO": "NAME_PORTFOLIO",
-    "NAME_PRODUCT_TYPE": "NAME_PRODUCT_TYPE",
-    "CHANNEL_TYPE": "CHANNEL_TYPE",
-    "SELLERPLACE_AREA": "SELLERPLACE_AREA",
-    "NAME_SELLER_INDUSTRY": "NAME_SELLER_INDUSTRY",
-    "CNT_PAYMENT": "CNT_PAYMENT",
-    "NAME_YIELD_GROUP": "NAME_YIELD_GROUP",
-    "PRODUCT_COMBINATION": "PRODUCT_COMBINATION",
-    "DAYS_FIRST_DRAWING": "DAYS_FIRST_DRAWING",
-    "DAYS_FIRST_DUE": "DAYS_FIRST_DUE",
-    "DAYS_LAST_DUE_1ST_VERSION": "DAYS_LAST_DUE_1ST_VERSION",
-    "DAYS_LAST_DUE": "DAYS_LAST_DUE",
-    "DAYS_TERMINATION": "DAYS_TERMINATION",
-    "NFLAG_INSURED_ON_APPROVAL": "NFLAG_INSURED_ON_APPROVAL"
+    "Selected": "是否选中",
+    "LoanNr_ChkDgt": "企业编号",
+    "Name": "公司名称",
+    "City": "区域",
+    "State": "州",
+    "Zip": "邮编",
+    "Bank": "银行名称",
+    "BankState": "银行所在州",
+    "NAICS": "北美行业分类系统代码",
+    "ApprovalDate": "批准日期",
+    "ApprovalFY": "批准财年",
+    "Term": "贷款期限（月）",
+    "NoEmp": "员工数量",
+    "NewExist": "是否为新企业",
+    "CreateJob": "创造岗位数",
+    "RetainedJob": "保留岗位数",
+    "FranchiseCode": "特许经营代码",
+    "UrbanRural": "城乡分类",
+    "RevLineCr": "是否有循环信贷",
+    "LowDoc": "是否为低文档贷款",
+    "ChgOffDate": "核销日期",
+    "DisbursementDate": "发放日期",
+    "DisbursementGross": "发放总额",
+    "BalanceGross": "余额总额",
+    "MIS_Status": "MIS状态",
+    "ChgOffPrinGr": "核销本金总额",
+    "GrAppv": "批准总额",
+    "SBA_Appv": "SBA批准金额",
+    "New": "是否为新建企业",
+    "RealEstate": "是否与房地产相关",
+    "Portion": "SBA担保比例",
+    "Recession": "是否处于经济衰退期",
+    "daysterm": "贷款天数期限",
+    "xx": "未知变量（保留）",
+    "Default": "是否违约"
   }
 }

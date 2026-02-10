@@ -42,7 +42,7 @@ def get_analysis_results():
     if not os.path.exists(analysis_file):
         # 如果分析结果文件不存在，运行分析脚本
         from app.services.data_core.data_analyzer import DataAnalyzer
-        data_file = os.path.join(base_dir, 'data', 'application_data.csv')
+        data_file = os.path.join(base_dir, 'data', 'SBAcase.11.13.17.csv')
         analyzer = DataAnalyzer(data_file)
         analyzer.run_analysis()
     
@@ -50,28 +50,6 @@ def get_analysis_results():
     try:
         with open(analysis_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
-        
-        # 添加数据预览
-        import pandas as pd
-        data_file = os.path.join(base_dir, 'data', 'application_data.csv')
-        df = pd.read_csv(data_file)
-        preview = df.head(5).to_dict('records')
-        
-        # 处理NaN值，替换为null
-        def replace_nan(obj):
-            if isinstance(obj, float) and pd.isna(obj):
-                return None
-            elif isinstance(obj, dict):
-                return {k: replace_nan(v) for k, v in obj.items()}
-            elif isinstance(obj, list):
-                return [replace_nan(item) for item in obj]
-            else:
-                return obj
-        
-        # 处理所有数据中的NaN值
-        data = replace_nan(data)
-        preview = replace_nan(preview)
-        data['preview'] = preview
         
         return jsonify(data)
     except Exception as e:
