@@ -16,7 +16,7 @@ class CotSynthesisService:
         self.prompt_ori_file = os.path.join(self.base_dir, 'data', 'prompt_ori.txt')
         self.prompt_better_file = os.path.join(self.base_dir, 'data', 'prompt_better.txt')
         self.prompt_opt_file = os.path.join(self.base_dir, 'data', 'prompt_opt.txt')
-        self.api_key = "sk-17a9107a0ec5407e80a376cd6542e40d"
+        self.api_key = "sk-***********9"
         self.api_url = "https://api.deepseek.com/chat/completions"
         self.model = "deepseek-reasoner"
         self.feature_translation_file = os.path.join(self.base_dir, 'data', '贷款数据集字段翻译文档.xlsx')
