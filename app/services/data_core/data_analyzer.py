@@ -465,7 +465,7 @@ class DataAnalyzer:
             List[Dict]: 非结构化数据样例列表
         """
         print("\n=== 加载非结构化数据样例 ===")
-        excel_file = "data/非结构化数据.xlsx"
+        excel_file = os.path.join(self.project_root, "data", "非结构化数据.xlsx")
         
         if os.path.exists(excel_file):
             try:
