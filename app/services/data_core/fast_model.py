@@ -216,6 +216,9 @@ class EnsembleFeatureSelector:
 
 def preprocess_dataframe(df):
     """简化的数据预处理函数"""
+    print(f"预处理前数据形状: {df.shape}")
+    print(f"预处理前缺失值总数: {df.isnull().sum().sum()}")
+    
     df_processed = df.copy()
     
     # 处理分类变量
@@ -239,6 +242,16 @@ def preprocess_dataframe(df):
         
     # 处理无穷大值
     df_processed = df_processed.replace([np.inf, -np.inf], 0)
+    
+    # 再次检查是否有NaN
+    nan_count = df_processed.isnull().sum().sum()
+    print(f"预处理后缺失值总数: {nan_count}")
+    if nan_count > 0:
+        print("警告: 预处理后仍存在缺失值!")
+        print(df_processed.isnull().sum()[df_processed.isnull().sum() > 0])
+        # 强制填充剩余NaN
+        df_processed = df_processed.fillna(0)
+        print("已强制填充剩余NaN为0")
     
     return df_processed
 
@@ -275,7 +288,13 @@ def run_feature_selection():
         # 1. 加载数据
         print("加载数据...")
         # 使用相对路径，确保在任何环境中都能正确找到文件
-        train_path = os.path.join(base_dir, '..', '..', '..', 'data', 'SBAcase.11.13.17.csv')
+        # 优先使用上传的 train.csv，如果不存在则回退到 SBAcase.11.13.17.csv
+        train_path = os.path.join(base_dir, '..', '..', '..', 'data', 'train.csv')
+        if not os.path.exists(train_path):
+            print(f"train.csv 不存在，尝试加载 SBAcase.11.13.17.csv")
+            train_path = os.path.join(base_dir, '..', '..', '..', 'data', 'SBAcase.11.13.17.csv')
+        
+        print(f"正在加载数据文件: {train_path}")
         
         # 加载完整数据集
         df_train = pd.read_csv(train_path)
