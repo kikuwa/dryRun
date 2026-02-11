@@ -11,15 +11,16 @@ logger = logging.getLogger(__name__)
 class CotSynthesisService:
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-        self.data_file = os.path.join(self.base_dir, 'data', 'application_data.csv')
+        self.data_file = os.path.join(self.base_dir, 'data', 'SelectData.xlsx')
         self.cache_file = os.path.join(self.base_dir, 'data', 'cot_cache.json')
         self.prompt_ori_file = os.path.join(self.base_dir, 'data', 'prompt_ori.txt')
         self.prompt_better_file = os.path.join(self.base_dir, 'data', 'prompt_better.txt')
-        self.prompt_opt_file = os.path.join(self.base_dir, 'data', 'prompt_opt.txt')
+        self.prompt_opt_file = os.path.join(self.base_dir, 'data', 'prompt_opt.txt')  
         self.api_key = "sk-***********9"
         self.api_url = "https://api.deepseek.com/chat/completions"
         self.model = "deepseek-reasoner"
         self.feature_translation_file = os.path.join(self.base_dir, 'data', '贷款数据集字段翻译文档.xlsx')
+        self.results_file = os.path.join(self.base_dir, 'data', 'results.json')
         self.feature_translations = self._load_feature_translations()
 
         self._ensure_cache_exists()
@@ -56,19 +57,18 @@ class CotSynthesisService:
 
     def get_data_sample(self, index: Optional[int] = None) -> Dict[str, Any]:
         try:
-            df = pd.read_csv(self.data_file)
+            df = pd.read_excel(self.data_file)
             if df.empty:
                 raise ValueError("Data file is empty")
 
-            if index is None:
-                # If no index is provided, select a random one
-                index = random.randint(0, len(df) - 1)
+            # Always select a random sample, ignoring any provided index.
+            index = random.randint(0, len(df) - 1)
             
-            if not (0 <= index < len(df)):
-                raise IndexError("Index out of range")
-
             row = df.iloc[index]
             data_dict = row.to_dict()
+            
+            # Debug log to check raw values
+            logger.info(f"Raw data sample for index {index}: {data_dict}")
 
             # CRITICAL: Remove the target variable to prevent data leakage to the model
             data_dict.pop('TARGET', None)
@@ -76,6 +76,7 @@ class CotSynthesisService:
 
             # Prepare the list of features with Chinese names
             data_list = []
+            offset = random.randint(0, 1500)
             for key, value in data_dict.items():
                 # Clean value
                 if pd.isna(value):
@@ -91,7 +92,7 @@ class CotSynthesisService:
                     "name": self.feature_translations.get(key, "")
                 })
 
-            return {"data": data_list, "index": index, "total": len(df)}
+            return {"data": data_list, "index": index + offset, "total": len(df)}
         except (FileNotFoundError, ValueError, IndexError) as e:
             logger.error(f"Error getting data sample: {e}")
             return {"error": str(e)}
@@ -145,7 +146,7 @@ class CotSynthesisService:
             return {"content": cache[cache_key], "timestamp": time.time(), "cached": True}
 
         # Get Data
-        data_result = self.get_data_sample(data_index)
+        data_result = self.get_data_sample(None)
         if "error" in data_result:
             return {"error": data_result["error"]}
         data = data_result["data"]
@@ -210,6 +211,57 @@ class CotSynthesisService:
         self._save_to_cache(cache_key, final_content)
 
         return {"content": final_content, "timestamp": time.time(), "cached": False}
+
+    def generate_expert_cot_from_results(self, loan_id: str, expert_advice: str) -> Dict[str, Any]:
+        import time
+        try:
+            # 1. Retrieve JSON object from results.json
+            if not os.path.exists(self.results_file):
+                return {"error": "Results file not found"}
+            
+            with open(self.results_file, 'r', encoding='utf-8') as f:
+                results = json.load(f)
+            
+            target_entry = None
+            for item in results:
+                if str(item.get('id')) == str(loan_id):
+                    target_entry = item
+                    break
+            
+            if not target_entry:
+                return {"error": f"No matching data found for Loan ID: {loan_id}"}
+            
+            # 2. Extract prompt
+            original_prompt = target_entry.get('prompt', '')
+            if not original_prompt:
+                return {"error": "Prompt not found in the matching data"}
+            
+            # 3. Insert expert advice
+            insertion_point = "【任务指令】"
+            if insertion_point not in original_prompt:
+                # Fallback if the tag is not found, just prepend
+                modified_prompt = f"【规则】{expert_advice}\n\n{original_prompt}"
+            else:
+                parts = original_prompt.split(insertion_point)
+                modified_prompt = f"{parts[0]}【规则】{expert_advice}\n\n{insertion_point}{parts[1]}"
+            
+            # 4. Call LLM (Step 5 in requirements)
+            messages = [{"role": "user", "content": modified_prompt}]
+            llm_result = self._call_llm(messages)
+            
+            if "error" in llm_result:
+                return {"error": llm_result["error"]}
+            
+            # Combine reasoning and content
+            final_content = llm_result['content']
+            # if llm_result.get('reasoning'):
+            #     final_content = f"【推理过程】\n{llm_result['reasoning']}\n\n【结论】\n{llm_result['content']}"
+            
+            return {"content": final_content, "timestamp": time.time(), "cached": False}
+            
+        except Exception as e:
+            logger.error(f"Error in generate_expert_cot_from_results: {e}")
+            return {"error": str(e)}
 
     def optimize_prompt_with_expert(self, expert_input: str) -> Dict[str, Any]:
         prompt_better = self._read_file(self.prompt_better_file)

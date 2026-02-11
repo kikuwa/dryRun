@@ -86,6 +86,21 @@ def generate_cot():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@views_bp.route('/api/cot/generate_expert_from_results', methods=['POST'])
+def generate_expert_from_results():
+    data = request.json
+    loan_id = data.get('loan_id')
+    expert_advice = data.get('expert_advice')
+    
+    if not loan_id or not expert_advice:
+        return jsonify({'error': 'Missing loan_id or expert_advice'}), 400
+        
+    try:
+        result = cot_service.generate_expert_cot_from_results(loan_id, expert_advice)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @views_bp.route('/api/cot/optimize_prompt', methods=['POST'])
 def optimize_prompt():
     data = request.json
@@ -97,6 +112,88 @@ def optimize_prompt():
     try:
         result = cot_service.optimize_prompt_with_expert(expert_advice)
         return jsonify(result)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@views_bp.route('/api/cot/fetch_expert_response', methods=['POST'])
+def fetch_expert_response():
+    import time
+    data = request.json
+    loan_id = data.get('loan_id')
+    
+    if not loan_id:
+        return jsonify({'error': 'Missing loan_id'}), 400
+        
+    # 使用相对路径读取 results.json
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    results_file = os.path.join(base_dir, 'data', 'results.json')
+    
+    if not os.path.exists(results_file):
+        return jsonify({'error': 'Results file not found'}), 404
+        
+    try:
+        with open(results_file, 'r', encoding='utf-8') as f:
+            results = json.load(f)
+            
+        # 查找匹配的 id
+        target_response = None
+        for item in results:
+            if str(item.get('id')) == str(loan_id):
+                target_response = item.get('response')
+                break
+        
+        if target_response:
+            # 延迟 30 秒
+            time.sleep(30)
+            return jsonify({
+                'content': target_response,
+                'timestamp': time.time(),
+                'cached': False
+            })
+        else:
+            return jsonify({'error': 'Loan ID not found'}), 404
+            
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@views_bp.route('/api/cot/fetch_original_response', methods=['POST'])
+def fetch_original_response():
+    import time
+    data = request.json
+    loan_id = data.get('loan_id')
+    
+    if not loan_id:
+        return jsonify({'error': 'Missing loan_id'}), 400
+        
+    # 使用相对路径读取 results_ori.json
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    results_file = os.path.join(base_dir, 'data', 'results_ori.json')
+    
+    if not os.path.exists(results_file):
+        return jsonify({'error': 'Results file not found'}), 404
+        
+    try:
+        with open(results_file, 'r', encoding='utf-8') as f:
+            results = json.load(f)
+            
+        # 查找匹配的 id
+        target_response = None
+        for item in results:
+            if str(item.get('id')) == str(loan_id):
+                target_response = item.get('response')
+                break
+        
+        if target_response:
+            # 延迟 15 秒
+            time.sleep(15)
+            return jsonify({
+                'content': target_response,
+                'timestamp': time.time(),
+                'cached': False
+            })
+        else:
+            return jsonify({'error': 'Loan ID not found'}), 404
+            
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

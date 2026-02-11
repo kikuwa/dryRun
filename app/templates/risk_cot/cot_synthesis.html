@@ -49,11 +49,6 @@
                         <input type="number" x-model.number="manualIndex" placeholder="输入行号..." min="0"
                                class="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none text-sm text-slate-700 transition-all"
                                @keydown.enter="selectManualSample">
-                        <button @click="selectManualSample" :disabled="manualIndex === '' || loadingSample"
-                                class="w-full bg-white hover:bg-slate-50 text-slate-700 font-bold rounded-xl border border-slate-200 shadow-sm transition-all flex items-center justify-center gap-2 text-xs disabled:opacity-50">
-                            <span class="material-symbols-outlined text-[18px]">pin</span>
-                            <span>指定样本</span>
-                        </button>
                     </div>
                     <button @click="selectRandomSample" :disabled="loadingSample"
                             class="w-full bg-white hover:bg-slate-50 text-slate-700 font-bold py-3 rounded-xl border border-slate-200 shadow-sm transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50">
@@ -145,14 +140,8 @@
                               placeholder="请输入专家经验或优化建议... 例如：重点关注客户的历史违约记录和收入稳定性分析" 
                               class="w-full h-24 p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none text-xs text-slate-700 resize-none transition-all custom-scrollbar"></textarea>
                     <div class="grid grid-cols-2 gap-4">
-                        <button @click="optimizePrompt" 
-                                :disabled="!expertAdvice || loadingStates.prompt"
-                                class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 transform active:scale-[0.98]">
-                            <span class="material-symbols-outlined text-[20px]" :class="{'animate-spin': loadingStates.prompt}" x-text="loadingStates.prompt ? 'sync' : 'auto_fix'"></span>
-                            <span>优化提示词</span>
-                        </button>
                         <button @click="generateCot('expert')" 
-                                :disabled="!currentSample || !promptOptimized || loadingStates.expert"
+                                :disabled="!currentSample || !expertAdvice || loadingStates.expert"
                                 class="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 transform active:scale-[0.98]">
                             <span class="material-symbols-outlined text-[20px]" :class="{'animate-spin': loadingStates.expert}" x-text="loadingStates.expert ? 'sync' : 'psychology_alt'"></span>
                             <span>生成专家优化思维链</span>
@@ -215,6 +204,9 @@
             },
 
             init() {
+                // Clear old cache to ensure fresh data
+                localStorage.removeItem('cot_currentSample');
+                
                 this.loadFromCache();
                 if (!this.currentSample) {
                     this.selectRandomSample();
@@ -261,6 +253,8 @@
                 this.loadingSample = false;
             },
 
+
+
             async fetchSample(index = null) {
                 try {
                     const url = index !== null ? `/risk_cot/api/cot/get_sample?index=${index}` : '/risk_cot/api/cot/get_sample';
@@ -284,6 +278,130 @@
                 if (!this.currentSample || this.loadingStates[type]) return;
                 
                 this.loadingStates[type] = true;
+
+                // 新增逻辑：点击“生成原始思维链”按钮时，获取原始数据
+                if (type === 'original') {
+                    try {
+                        // 1. 获取 LoanNr_ChkDgt
+                        const loanIdItem = this.currentSample.data.find(item => item.key === 'LoanNr_ChkDgt');
+                        if (!loanIdItem) {
+                            throw new Error('无法在当前样本中找到 LoanNr_ChkDgt');
+                        }
+                        const loanId = loanIdItem.value;
+
+                        // 2. 调用新接口
+                        const res = await fetch('/risk_cot/api/cot/fetch_original_response', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ loan_id: loanId })
+                        });
+                        
+                        if (!res.ok) {
+                            const errorData = await res.json();
+                            throw new Error(errorData.error || `Server error: ${res.status}`);
+                        }
+                        
+                        const data = await res.json();
+                        
+                        // 3. 填充到“原始”显示 (original)
+                        this.cotResults['original'] = data;
+                        this.activeTab = 'original'; 
+                        this.saveToCache();
+                        this.notify('原始思维链生成成功');
+                        
+                    } catch (e) {
+                        this.notify(e.message, 'error');
+                    } finally {
+                        this.loadingStates[type] = false;
+                    }
+                    return; 
+                }
+
+                // 新增逻辑：点击“生成优化思维链”按钮时，获取专家数据
+                if (type === 'optimized') {
+                    try {
+                        // 1. 获取 LoanNr_ChkDgt
+                        const loanIdItem = this.currentSample.data.find(item => item.key === 'LoanNr_ChkDgt');
+                        if (!loanIdItem) {
+                            throw new Error('无法在当前样本中找到 LoanNr_ChkDgt');
+                        }
+                        const loanId = loanIdItem.value;
+
+                        // 2. 调用新接口
+                        const res = await fetch('/risk_cot/api/cot/fetch_expert_response', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ loan_id: loanId })
+                        });
+                        
+                        if (!res.ok) {
+                            const errorData = await res.json();
+                            throw new Error(errorData.error || `Server error: ${res.status}`);
+                        }
+                        
+                        const data = await res.json();
+                        
+                        // 3. 填充到“优化”显示 (optimized)
+                        this.cotResults['optimized'] = data;
+                        this.activeTab = 'optimized'; 
+                        this.saveToCache();
+                        this.notify('优化思维链生成成功');
+                        
+                    } catch (e) {
+                        this.notify(e.message, 'error');
+                    } finally {
+                        this.loadingStates[type] = false;
+                    }
+                    return; 
+                }
+
+                // 新增逻辑：点击“生成专家优化思维链”按钮时
+                if (type === 'expert') {
+                    try {
+                        if (!this.expertAdvice) {
+                            this.notify('请输入专家经验或优化建议', 'warning');
+                            this.loadingStates[type] = false;
+                            return;
+                        }
+
+                        // 1. 获取 LoanNr_ChkDgt
+                        const loanIdItem = this.currentSample.data.find(item => item.key === 'LoanNr_ChkDgt');
+                        if (!loanIdItem) {
+                            throw new Error('无法在当前样本中找到 LoanNr_ChkDgt');
+                        }
+                        const loanId = loanIdItem.value;
+
+                        // 2. 调用新接口
+                        const res = await fetch('/risk_cot/api/cot/generate_expert_from_results', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                loan_id: loanId,
+                                expert_advice: this.expertAdvice
+                            })
+                        });
+                        
+                        if (!res.ok) {
+                            const errorData = await res.json();
+                            throw new Error(errorData.error || `Server error: ${res.status}`);
+                        }
+                        
+                        const data = await res.json();
+                        
+                        // 3. 填充到“专家”显示 (expert)
+                        this.cotResults['expert'] = data;
+                        this.activeTab = 'expert'; 
+                        this.saveToCache();
+                        this.notify('专家优化思维链生成成功');
+                        
+                    } catch (e) {
+                        this.notify(e.message, 'error');
+                    } finally {
+                        this.loadingStates[type] = false;
+                    }
+                    return;
+                }
+
                 try {
                     const payload = {
                         index: this.currentSample.index,
