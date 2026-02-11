@@ -221,6 +221,8 @@ def preprocess_dataframe(df):
     # 处理分类变量
     for col in df_processed.columns:
         if df_processed[col].dtype == 'object':
+            # 填充缺失值，避免 factorize 产生 -1
+            df_processed[col] = df_processed[col].fillna('Missing')
             # 因子化编码
             codes, uniques = pd.factorize(df_processed[col])
             df_processed[f"{col}_encoded"] = codes
@@ -228,7 +230,15 @@ def preprocess_dataframe(df):
     
     # 填充缺失值
     numeric_cols = df_processed.select_dtypes(include=['number']).columns
-    df_processed[numeric_cols] = df_processed[numeric_cols].fillna(df_processed[numeric_cols].median())
+    # 使用中位数填充，如果全为NaN则填充0
+    for col in numeric_cols:
+        median_val = df_processed[col].median()
+        if pd.isna(median_val):
+            median_val = 0
+        df_processed[col] = df_processed[col].fillna(median_val)
+        
+    # 处理无穷大值
+    df_processed = df_processed.replace([np.inf, -np.inf], 0)
     
     return df_processed
 
