@@ -2,6 +2,10 @@ from flask import Blueprint, render_template, redirect, url_for, jsonify, reques
 from app.services.risk_cot.cot_synthesis_service import CotSynthesisService
 import json
 import os
+import logging
+
+# 配置日志记录器
+logger = logging.getLogger(__name__)
 
 views_bp = Blueprint('risk_cot_views', __name__)
 cot_service = CotSynthesisService()
@@ -35,25 +39,43 @@ def get_analysis_results():
     """
     获取数据分析结果
     """
-    # 使用相对路径
+    logger.info("收到获取数据分析结果的请求")
+    
+    # 使用相对路径计算基础目录
     base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
     analysis_file = os.path.join(base_dir, 'data', 'analysis_results.json')
+    logger.info(f"分析结果文件路径: {analysis_file}")
     
     if not os.path.exists(analysis_file):
+        logger.info("分析结果文件不存在，准备运行分析脚本")
         # 如果分析结果文件不存在，运行分析脚本
-        from app.services.data_core.data_analyzer import DataAnalyzer
-        data_file = os.path.join(base_dir, 'data', 'SBAcase.11.13.17.csv')
-        analyzer = DataAnalyzer(data_file)
-        analyzer.run_analysis()
+        try:
+            from app.services.data_core.data_analyzer import DataAnalyzer
+            data_file = os.path.join(base_dir, 'data', 'SBAcase.11.13.17.csv')
+            logger.info(f"数据源文件路径: {data_file}")
+            
+            if not os.path.exists(data_file):
+                logger.error(f"数据源文件未找到: {data_file}")
+                return jsonify({'error': 'Data file not found'}), 404
+                
+            # 初始化分析器并运行
+            analyzer = DataAnalyzer(data_file)
+            analyzer.run_analysis()
+            logger.info("数据分析完成")
+        except Exception as e:
+            logger.error(f"运行分析脚本时出错: {e}", exc_info=True)
+            return jsonify({'error': f'Error running analysis: {str(e)}'}), 500
     
     # 读取分析结果
     try:
+        logger.info(f"正在读取分析结果: {analysis_file}")
         with open(analysis_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
         
+        logger.info("成功读取分析结果")
         return jsonify(data)
     except Exception as e:
-        print(f"Error reading analysis results: {e}")
+        logger.error(f"读取分析结果文件时出错: {e}", exc_info=True)
         return jsonify({}), 500
 
 @views_bp.route('/cot_synthesis')

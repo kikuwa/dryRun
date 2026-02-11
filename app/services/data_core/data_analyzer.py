@@ -373,7 +373,7 @@ class DataAnalyzer:
         Returns:
             Dict: 数据概览结果
         """
-        print("\n=== 数据概览 ===")
+        logger.info("=== 数据概览 ===")
         
         overview = {
             "sample_count": len(self.data),
@@ -382,10 +382,10 @@ class DataAnalyzer:
             "data_type_count": self.analysis_results.get("data_types", {}).get("total_types", 0)
         }
         
-        print(f"样本量: {overview['sample_count']}")
-        print(f"特征数: {overview['feature_count']}")
-        print(f"数据完整性: {overview['completeness']}")
-        print(f"数据类型数: {overview['data_type_count']}")
+        logger.info(f"样本量: {overview['sample_count']}")
+        logger.info(f"特征数: {overview['feature_count']}")
+        logger.info(f"数据完整性: {overview['completeness']}")
+        logger.info(f"数据类型数: {overview['data_type_count']}")
         
         self.analysis_results["overview"] = overview
         return overview
@@ -427,8 +427,8 @@ class DataAnalyzer:
         Returns:
             List[Dict]: 时序数据样例列表
         """
-        print("\n=== 加载时序数据样例 ===")
-        excel_file = "data/experience_cashflow.xlsx"
+        logger.info("=== 加载时序数据样例 ===")
+        excel_file = os.path.join(self.project_root, "data", "experience_cashflow.xlsx")
         
         if os.path.exists(excel_file):
             try:
@@ -439,7 +439,7 @@ class DataAnalyzer:
                 # 检查列是否存在，只保留存在的列
                 existing_columns = [col for col in target_columns if col in df.columns]
                 if len(existing_columns) < len(target_columns):
-                    print(f"警告: 部分目标列未在Excel文件中找到。缺失列: {set(target_columns) - set(existing_columns)}")
+                    logger.warning(f"警告: 部分目标列未在Excel文件中找到。缺失列: {set(target_columns) - set(existing_columns)}")
                 
                 # 获取前5行数据，仅包含指定列
                 sample_df = df[existing_columns].head(5)
@@ -448,13 +448,13 @@ class DataAnalyzer:
                 sample = sample_df.where(pd.notnull(sample_df), None).to_dict('records')
                 
                 self.analysis_results["time_series_sample"] = sample
-                print(f"成功加载时序数据样例，行数: {len(sample)}")
+                logger.info(f"成功加载时序数据样例，行数: {len(sample)}")
                 return sample
             except Exception as e:
-                print(f"加载时序数据样例失败: {e}")
+                logger.error(f"加载时序数据样例失败: {e}", exc_info=True)
                 return []
         else:
-            print(f"时序数据文件不存在: {excel_file}")
+            logger.warning(f"时序数据文件不存在: {excel_file}")
             return []
 
     def load_unstructured_sample(self) -> List[Dict[str, any]]:
@@ -464,7 +464,7 @@ class DataAnalyzer:
         Returns:
             List[Dict]: 非结构化数据样例列表
         """
-        print("\n=== 加载非结构化数据样例 ===")
+        logger.info("=== 加载非结构化数据样例 ===")
         excel_file = os.path.join(self.project_root, "data", "非结构化数据.xlsx")
         
         if os.path.exists(excel_file):
@@ -476,13 +476,13 @@ class DataAnalyzer:
                 sample = sample_df.where(pd.notnull(sample_df), None).to_dict('records')
                 
                 self.analysis_results["unstructured_sample"] = sample
-                print(f"成功加载非结构化数据样例，行数: {len(sample)}")
+                logger.info(f"成功加载非结构化数据样例，行数: {len(sample)}")
                 return sample
             except Exception as e:
-                print(f"加载非结构化数据样例失败: {e}")
+                logger.error(f"加载非结构化数据样例失败: {e}")
                 return []
         else:
-            print(f"非结构化数据文件不存在: {excel_file}")
+            logger.warning(f"非结构化数据文件不存在: {excel_file}")
             return []
 
     def save_results(self, output_path: str = None):
@@ -501,9 +501,9 @@ class DataAnalyzer:
         try:
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(clean_results, f, ensure_ascii=False, indent=2)
-            print(f"\n分析结果已保存至: {output_path}")
+            logger.info(f"分析结果已保存至: {output_path}")
         except Exception as e:
-            print(f"保存结果失败: {e}")
+            logger.error(f"保存结果失败: {e}", exc_info=True)
     
     def run_analysis(self):
         """
@@ -528,7 +528,7 @@ class DataAnalyzer:
         # 保存结果
         self.save_results()
         
-        print("\n=== 分析完成 ===")
+        logger.info("=== 分析完成 ===")
         return True
 
 if __name__ == "__main__":
