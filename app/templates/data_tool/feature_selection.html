@@ -287,6 +287,78 @@
                 this.addLog('正在启动特征筛选...', 'info');
 
                 try {
+                    // 检查是否已有结果文件
+                    const checkRes = await fetch('{{ url_for("data_tool.download_feature_importance") }}', { method: 'HEAD' });
+                    if (checkRes.ok) {
+                        this.addLog('检测到已有特征筛选结果，正在加载...', 'info');
+                        // 等待5秒
+                        await new Promise(resolve => setTimeout(resolve, 5000));
+                        
+                        // 模拟从后端获取完整结果的逻辑
+                        // 这里我们重新调用 run_feature_selection，但在后端它会重新计算
+                        // 为了实现"直接加载结果"，我们需要后端提供一个只获取结果的API
+                        // 或者我们假装运行成功，并尝试解析CSV（但这比较复杂因为前端需要解析CSV）
+                        
+                        // 既然用户要求"等待5s加载这里面的结果做展示"，最简单的方法是
+                        // 仍然调用 run_feature_selection，但后端应该优化为如果存在则直接返回
+                        // 或者我们在前端模拟这个过程。
+                        
+                        // 由于后端目前没有"只获取结果"的API，我们还是调用 run_feature_selection
+                        // 但为了满足用户的"等待5s"需求，我们在前端做延迟。
+                        // 注意：如果后端重新计算会覆盖旧结果。
+                        // 如果用户的意图是"跳过计算直接展示"，那么后端需要修改。
+                        // 如果用户的意图仅仅是"展示效果"，我们可以尝试请求一个新接口。
+                        
+                        // 修正策略：
+                        // 1. 既然用户明确说"如果文件存在，则等待5s加载结果"，说明他想跳过计算。
+                        // 2. 但目前没有直接获取结果JSON的接口（download_feature_importance返回的是CSV文件）。
+                        // 3. 我们需要修改后端 data_tool.py 增加一个 get_feature_selection_results 接口，
+                        //    或者修改 run_feature_selection 接口支持 check_cache 参数。
+                        
+                        // 鉴于我只能修改前端文件（根据当前任务描述），我将尝试请求 run_feature_selection
+                        // 但这实际上会重新运行。
+                        // 为了严格遵守"如果文件存在...加载结果"，我应该先请求CSV，解析它，然后展示。
+                        
+                        // 让我们尝试解析CSV来构建 results 对象
+                        const csvRes = await fetch('{{ url_for("data_tool.download_feature_importance") }}');
+                        const csvText = await csvRes.text();
+                        
+                        // 解析CSV
+                        const lines = csvText.trim().split('\n');
+                        const headers = lines[0].split(',');
+                        const features = [];
+                        
+                        for (let i = 1; i < lines.length && i <= 30; i++) {
+                            const values = lines[i].split(',');
+                            // 假设CSV格式: feature,importance,chinese_name
+                            // 注意处理可能包含逗号的字段（虽然这里不太可能有）
+                            features.push({
+                                feature: values[0],
+                                importance: parseFloat(values[1]),
+                                chinese_name: values[2] || '无'
+                            });
+                        }
+                        
+                        this.results = {
+                            original_feature_count: '-', // CSV中没有这些统计信息
+                            sample_count: '-',
+                            positive_ratio: '-',
+                            feature_compression_rate: '-',
+                            training_time: '0 (Cached)',
+                            top_features: features
+                        };
+                        
+                        this.addLog('成功加载已有特征筛选结果', 'success');
+                        window.dispatchEvent(new CustomEvent('notify', { detail: { message: '已加载历史结果', type: 'success' } }));
+                        this.loading = false;
+                        return;
+                    }
+                } catch (e) {
+                    // 忽略检查错误，继续正常运行
+                    console.log('No existing results found or error checking:', e);
+                }
+
+                try {
                     const res = await fetch('{{ url_for("data_tool.run_feature_selection") }}', {
                         method: 'POST'
                     });
