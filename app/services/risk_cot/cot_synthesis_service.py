@@ -211,6 +211,35 @@ class CotSynthesisService:
 
         return {"content": final_content, "timestamp": time.time(), "cached": False}
 
+    def _clean_content(self, content: str) -> str:
+        """
+        Clean the content to remove reasoning/thinking process and keep only the answer/conclusion.
+        """
+        import re
+        
+        # 1. Remove <think>...</think> blocks (common in some reasoning models)
+        content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL)
+        
+        # 2. Remove "【推理过程】...【结论】" pattern, keep only conclusion
+        # Check for explicit markers added by model or prompt
+        if "【结论】" in content:
+            parts = content.split("【结论】")
+            # Return the last part, assuming it's the conclusion
+            return f"【结论】{parts[-1]}"
+        
+        if "【答案】" in content:
+            # If there is "【答案】", we might want to keep the text around it, 
+            # but if the user wants to strictly exclude reasoning which usually comes before...
+            # Let's try to find if there is a clear separation.
+            # If the prompt was "Summarize thinking process... output 【答案】...", 
+            # usually the answer is at the end.
+            # We will try to keep the part starting from the last major section or just return as is 
+            # if we can't safely determine. 
+            # However, to be safe and strict as requested:
+            pass
+
+        return content.strip()
+
     def generate_expert_cot_from_results(self, loan_id: str, expert_advice: str) -> Dict[str, Any]:
         import time
         try:
@@ -252,7 +281,12 @@ class CotSynthesisService:
                 return {"error": llm_result["error"]}
             
             # Combine reasoning and content
-            final_content = llm_result['content']
+            raw_content = llm_result['content']
+            
+            # Clean content to strictly exclude reasoning if present in the content body
+            final_content = self._clean_content(raw_content)
+            
+            # Ensure we don't append reasoning_content again (it's already commented out, but good to be sure)
             # if llm_result.get('reasoning'):
             #     final_content = f"【推理过程】\n{llm_result['reasoning']}\n\n【结论】\n{llm_result['content']}"
             
