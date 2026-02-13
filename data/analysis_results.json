@@ -65,245 +65,245 @@
         "feature": "ChgOffDate",
         "count": 1405,
         "percentage": "66.84%",
-        "percentage_value": 66.84,
+        "percentageValue": 66.84,
         "total": 2102
       },
       {
         "feature": "Bank",
         "count": 3,
         "percentage": "0.14%",
-        "percentage_value": 0.14,
+        "percentageValue": 1,
         "total": 2102
       },
       {
         "feature": "LowDoc",
         "count": 3,
         "percentage": "0.14%",
-        "percentage_value": 0.14,
+        "percentageValue": 1,
         "total": 2102
       },
       {
         "feature": "xx",
         "count": 3,
         "percentage": "0.14%",
-        "percentage_value": 0.14,
+        "percentageValue": 1,
         "total": 2102
       },
       {
         "feature": "DisbursementDate",
         "count": 3,
         "percentage": "0.14%",
-        "percentage_value": 0.14,
+        "percentageValue": 1,
         "total": 2102
       },
       {
         "feature": "BankState",
         "count": 3,
         "percentage": "0.14%",
-        "percentage_value": 0.14,
+        "percentageValue": 1,
         "total": 2102
       },
       {
         "feature": "RevLineCr",
         "count": 2,
         "percentage": "0.10%",
-        "percentage_value": 0.1,
+        "percentageValue": 1,
         "total": 2102
       },
       {
         "feature": "NewExist",
         "count": 1,
         "percentage": "0.05%",
-        "percentage_value": 0.05,
+        "percentageValue": 1,
         "total": 2102
       },
       {
         "feature": "Name",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "Selected",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "LoanNr_ChkDgt",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "ApprovalFY",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "ApprovalDate",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "NoEmp",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "Term",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "Zip",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "NAICS",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "State",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "City",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "UrbanRural",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "FranchiseCode",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "RetainedJob",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "CreateJob",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "BalanceGross",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "MIS_Status",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "ChgOffPrinGr",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "DisbursementGross",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "GrAppv",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "SBA_Appv",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "RealEstate",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "New",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "Portion",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "Recession",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "daysterm",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       },
       {
         "feature": "Default",
         "count": 0,
         "percentage": "0.00%",
-        "percentage_value": 0.0,
+        "percentageValue": 0.0,
         "total": 2102
       }
     ]
@@ -1257,110 +1257,5 @@
       "Default": 0
     }
   ],
-  "time_series_sample": [
-    {
-      "企业名称": "SIMPLEX OFFICE SOLUTIONS",
-      "Month_1": 3030.99,
-      "Month_2": 3315.62,
-      "Month_3": 3740.14,
-      "Month_4": 3109.95,
-      "Month_5": 3783.23,
-      "Month_6": 3485.66
-    },
-    {
-      "企业名称": "DREAM HOME REALTY",
-      "Month_1": 2852.85,
-      "Month_2": 2340.43,
-      "Month_3": 2798.38,
-      "Month_4": 2887.78,
-      "Month_5": 3095.39,
-      "Month_6": 2384.87
-    },
-    {
-      "企业名称": "Winset, Inc. dba Bankers Hill",
-      "Month_1": 2773.21,
-      "Month_2": 2734.87,
-      "Month_3": 2836.43,
-      "Month_4": 2675.04,
-      "Month_5": 2790.85,
-      "Month_6": 2737.87
-    },
-    {
-      "企业名称": "Shiva Management",
-      "Month_1": 2628.51,
-      "Month_2": 3290.18,
-      "Month_3": 2810.35,
-      "Month_4": 3347.35,
-      "Month_5": 3165.83,
-      "Month_6": 2939.57
-    },
-    {
-      "企业名称": "GOLD CROWN HOME LOANS, INC",
-      "Month_1": 30365.19,
-      "Month_2": 32202.63,
-      "Month_3": 33132.88,
-      "Month_4": 33260.22,
-      "Month_5": 30748.88,
-      "Month_6": 28984.76
-    }
-  ],
-  "unstructured_sample": [
-    {
-      "企业名称": "SIMPLEX OFFICE SOLUTIONS",
-      "检查报告": "检查对象： SIMPLEX OFFICE SOLUTIONS（办公设备租赁行业） 检查结论： 【风险等级：高 / 需预警】\n\n一、 企业基本运营状况检查\n主体稳定性： 该企业为“新设企业”，缺乏运营历史验证，商业模式尚处于磨合期，固有经营风险较高。\n\n人力资本分析： 全职员工仅1人，且贷款项目并未带动任何岗位的创造或保留。这表明企业运营极度依赖个人，业务规模扩张受限，且贷款用途与促进就业的初衷存在偏差。\n\n流水波动趋势： 虽然1-6个月的现金流数据呈波动上升趋势（期末达到 2,043.74 美元），但绝对值基数极低，抗风险冲击能力微弱。\n\n二、 贷款保障机制评价\n担保效力： 虽有 SBA 提供 50%（1.5万美元）的风险缓释，但银行端仍承担 50% 的风险敞口。\n\n抵押物落实情况： 抵押标识为 0（无不动产抵押）。在企业缺乏历史业绩和经营实体的背景下，第二还款来源严重缺失，债权保障力度薄弱。\n\n三、 行业与环境适配性\n宏观环境： 当前处于非经济衰退期，且企业位于城市中心区域，行业外部环境尚可。\n\n市场逻辑矛盾： 尽管宏观环境有利，但企业在办公设备租赁这一本应具有规模效应的行业中，表现出“零就业增长”和“极低流水”，其业务真实性和成长意愿存疑。\n\n四、 核心风控异常信号（重点关注）\n授信逻辑冲突： 银行对一家员工仅1人、无抵押、无历史业绩的新设企业授予了循环信贷（RevLineCr=Y）。\n\n双向验证结论： 循环信贷的灵活性与企业极低的现金流流水（约2,000美元）存在显著的逻辑悖论。这反映出要么是银行贷前审查过于宽松，要么是企业提供的财务预期具有误导性，存在严重的信息不对称风险。\n\n五、 检查建议\n加强资金用途监控： 鉴于就业指标为0，需核实贷款资金是否真实投入办公租赁业务，严防资金挪用。\n\n重新评估还款能力： 现有流水规模难以支撑循环信贷的长期覆盖，建议压降授信额度或要求追加个人无限连带责任担保。\n\n提高检查频率： 鉴于新设企业的高夭折率及风控矛盾点，应将该户列入重点观察名单，按季进行现场检视。"
-    },
-    {
-      "企业名称": "DREAM HOME REALTY",
-      "检查报告": "检查对象： DREAM HOME REALTY（房地产中介行业）检查结论： 【风险评级：中高 / 实际违约风险：否】一、 客户基本面与经营稳定性分析主体资质： 企业属于“新设主体”（NewExist=1），经营根基较浅。人力规模： 员工人数仅1人，且贷款项目并未达成创造或保留就业的目标。反映出该企业属于典型的“微型个体经营”，业务规模极小且高度依赖个人，抗经营性风险能力处于较低水平。资金面表现： 半年现金流流水表现出较强的平稳性，长期围绕 3,000 美元基准线震荡。虽具备一定的流水规律性，但绝对额基数过低，难以应对突发性的现金流中断。二、 贷款担保及保障机制评价担保结构： 采用 SBA 50% 比例担保。虽有政策性风险缓释，但**抵押物缺失（RealEstate=0）**是核心短板。在缺乏不动产抵押的情况下，银行的债权受偿排位及第二还款来源保障较弱。产品特征： 本笔贷款为 循环信贷（RevLineCr=Y）。在微型企业背景下，循环信贷的灵活性容易导致资金用途难以追踪，增加了信贷管理的复杂性。三、 行业与宏观环境匹配度行业属性： 房地产中介行业（NAICS 531210），对宏观经济波动极为敏感。环境冲突： 企业申请贷款时正值经济衰退期（Recession=1）。行业景气度下滑与新设企业的脆弱性形成了风险叠加，外部环境对企业生存构成了显著挑战。四、 授信流程及合规性核查异常信号： 本笔业务存在显著的流程逻辑瑕疵——审批间隔长达 848 天（远超行业 21-30 天的平均水平）。这种超长间隔暗示企业在放款前可能存在材料补正、经营状况波动或审核僵局，是潜在的负面风险信号。积极因素： 尽管流程漫长，但该项目采用了“非低文档”审批（LowDoc=N），表明银行掌握了相对完整的财务信息，信息不对称程度得到了缓解。五、 风险交叉验证与综合评定风险维度风险表现评价经营风险新设企业、单人经营、无就业贡献高行业风险经济衰退期下的房地产中介极高保障风险无抵押，依赖 SBA 部分担保中高流程风险848 天超长放款间隔预警【风险研判总结】：从常规信贷标准来看，该企业具备多个“高风险”标签：新设微型主体、无抵押、处于衰退周期的敏感行业，且审批流程存在重大疑点。然而，结合实际还款数据，企业流水表现出了超越行业预期的韧性。【检查结论】：尽管过程指标呈现多重负面预警，但该笔贷款最终状态为 P I F（全额偿还），且核销本金为 0。这证明了尽管处于高压环境，该企业仍具备极强的还款意愿与基础还款能力。建议： 针对此类“小而稳”的客户，未来可适当简化审批流程以缩短放款间隔，但仍需严控循环信贷的额度。"
-    },
-    {
-      "企业名称": "Winset, Inc. dba Bankers Hill",
-      "检查报告": "检查对象： Winset, Inc. dba Bankers Hill（房地产中介行业）检查结论： 【风险评级：中等 / 实际违约风险：否】一、 企业基本面与经营稳定性分析主体资质与存续性： 企业为“新设主体”（NewExist=1），由于缺乏历史经营记录，商业模式与信用积累尚处于初期阶段，固有稳定性风险较高。规模与人力资源： 拥有 10 名员工，在初创企业中具备一定规模。虽然贷款项目未直接创造新岗位（CreateJob=0），但 10 人的既有团队为业务开展提供了基础的人力保障。现金流动态： 1-6 个月流水呈现**“V型”走势**（先降后升），在第 4 个月触底后连续两个月反弹。这种波动反映了新设企业初期的市场磨合，目前的上升趋势显示经营已步入正轨。二、 贷款保障及风险缓释评价担保机制： 采用 SBA 50% 比例担保（1.5 万美元）。这一政策性工具为银行提供了核心风险缓释，分担了初期经营不确定性带来的压力。抵押物核查： 无不动产抵押（RealEstate=0）。在实物保障缺失的情况下，第二还款来源主要依赖于 SBA 担保及企业自身的经营性现金流。授信产品特征： 本笔贷款为循环信贷（RevLineCr=Y），期限 36 个月。由于采用了“非低文档”（LowDoc=N）审批，表明银行已完成详尽的尽职调查，信息透明度较高，有效对冲了新设企业的背景风险。三、 行业环境与地域适配性行业属性： 属于房地产中介（NAICS 531210），具有明显的顺周期特征。宏观环境： 申请时处于非经济衰退期（Recession=0），且企业位于市场活跃度较高的圣地亚哥城市圈（UrbanRural=0）。宏观环境对行业的发展提供了有力支撑。地域风控： 授信银行为加州本地银行（BankState=CA），与企业地缘相近，有利于银行利用本地信息优势进行监控，降低了异地管控风险。四、 风险交叉验证与异常信号识别流程合规性： 审批至放款间隔为 30 天，符合行业常规流程，未发现因内控缺失或企业申报材料异常导致的流程拖沓。逻辑验证： 虽然新企业申请“无抵押循环信贷”通常被视为高风险信号，但结合 10 人的员工规模以及 SBA 的介入，该授信逻辑具有合理性。其“流水下降后反弹”的轨迹与房地产中介依赖佣金结算的特性高度吻合。五、 综合评定与风险研判风险维度风险点说明评价结果经营风险新设主体、无历史验证高行业风险房地产周期敏感性中等保障风险无抵押物，但有 SBA 50% 担保中低现金流风险呈现“V型”走势，已出现回升信号中低【检查结论总结】：尽管该企业具备新设、无抵押及行业波动大等特征，但受益于以下三个关键点：SBA 担保 提供了实质性的损失补偿保障；非低文档审批 确保了贷前审查的深度；流水反弹 验证了企业度过了初创最艰难的现金流枯竭期。最终判别： 该贷款最终状态为 P I F（全额偿还），且核销本金为 0。历史数据证明，在宏观环境有利的情况下，该企业的经营弹性足以覆盖还款义务，不存在显著违约风险。"
-    },
-    {
-      "企业名称": "Shiva Management",
-      "检查报告": "检查对象： Shiva Management（非住宅物业管理行业）检查结论： 【风险评级：高 / 违约倾向：是】一、 企业基本面与运营稳定性分析主体资质： 企业标识为“新设主体”（NewExist=1），运营历史空白，缺乏过往信用周期验证，生存风险具有先天不确定性。人力与增长动力： 员工规模仅 6 人，且贷款项目在“创造就业”与“保留就业”指标上均为 0。这表明贷款资金并未转化为企业的内生增长动力，业务扩张意愿极低。现金流波动特征： 1-6 个月流水在 3,100 至 4,000 美元区间内频繁震荡。关键异常点在于第 4 个月出现显著波峰后迅速回落，收入结构表现出极强的不稳定性。二、 贷款保障机制评价担保与抵押： 虽有 SBA 50% 比例担保（2.5 万美元）作为风险缓释，但无不动产抵押（RealEstate=0）。在企业缺乏资本积累的背景下，一旦经营失败，银行将面临第二还款来源覆盖不足的困境。信贷产品配置： 本笔 5 万美元贷款被配置为 循环信贷（RevLineCr=Y）。对于现金流尚未稳固的新设企业，循环信贷极易诱发过度借贷或资金挪用。三、 行业环境与逻辑适配性行业特征冲突： 企业所属的非住宅物业管理行业（NAICS 531312）通常具有租金收益稳定、现金流可预测的特点。逻辑悖论： 尽管处于非衰退期（Recession=0）且位于活跃的圣地亚哥城市圈，该企业的流水却表现出显著的无序波动。这与行业属性严重背离，暗示企业可能存在客户基础单一或经营模式不成熟的风险。四、 风控地域性与流程核查流程效率： 审批至放款周期为 17 天，流程高效，且采用了“非低文档”模式（LowDoc=N），显示银行在贷前进行了标准化的案头审核。风控死角： 虽然银行与企业同处加州（CA），具备地域监管便利，但显然未能通过本地化调查识别出企业“高波动现金流”与“循环信贷产品”之间的配置冲突。五、 交叉验证与风险信号总结风险维度核心矛盾点风险影响运营与产品新设企业 + 波动流水 + 循环信贷极易导致还款链条断裂行业与表现稳定的物业管理背景 vs. 不稳定的实际流水暗示经营真实性或管理能力存疑保障与敞口无实物抵押，仅依赖政策性部分担保最终坏账损失风险较高【风险研判结论】：该企业存在显著的“风险共振”现象：极弱的运营基础（新设、小规模、零就业增长）与极高的信贷灵活性（无抵押循环信贷）相叠加。交叉验证表明，企业当前的现金流表现不足以支持其长期稳定的还款义务，且行业属性与实际经营数据的背离加剧了信息不对称风险。结论： 综合判断，该企业违约风险极高。"
-    },
-    {
-      "企业名称": "GOLD CROWN HOME LOANS, INC",
-      "检查报告": "检查对象： GOLD CROWN HOME LOANS, INC（NAICS 531390：房地产信贷中介）检查结论： 【风险评级：极高 / 违约倾向：是】一、 企业基本面与运营稳定性分析存续状态与规模： 企业注册为“新设主体”（NewExist=1），却拥有 65 名初始员工。这一特征极不符合典型初创企业的成长曲线，暗示其可能为业务重组或极其激进的扩张模型，经营稳定性缺乏历史数据支撑。就业承诺： 贷款计划保留全部 65 个岗位并新增 3 个。在缺乏成熟营收模式的前提下，高额的人力固定成本将对初始现金流产生巨大压力。二、 贷款保障机制评价担保强度： 贷款额度为 34.3 万美元，由 SBA 提供 100% 全额担保（Portion=1.0）且附带不动产抵押。保障悖论： 尽管银行风险在制度层面被完全转嫁给国家信用，但对于一个缺乏历史业绩的新主体，获得** 240 个月（20年）**的超长期全额担保贷款，显现出授信条件的过度宽松，可能掩盖了企业主体还款能力的不足。三、 行业环境与周期错配分析行业属性： 房地产信贷中介行业，对利率和周期极度敏感。宏观风险叠加： 贷款批准于 2006 财年（美国房地产泡沫末期）。在行业周期顶点向新设中介发放超长期贷款，存在严重的周期错配风险。一旦行业下行，企业营收将迅速崩塌，抵押物价值亦会随之缩水。四、 银行风控及合规性核查（重大预警）跨州管理风险： 贷款行位于科罗拉多州，而借款人位于洛杉矶。跨州业务加剧了信息不对称，银行对当地市场的渗透与贷后监控能力存疑。放贷机构主体风险： 银行名称涉及“EDF ENFORCEMENT ACTION（监管执法行动）”。这一极强负面信号表明放贷机构本身的风控合规体系已亮红灯，其信贷审批的审慎性已不可信。五、 交叉验证与潜在风险点识别风险维度核心矛盾与风险点风险等级主体与产品新设主体 + 65名员工 + 20年长贷高行业周期房地产信贷中介 + 2006年周期顶点极高机构风险银行面临执法行动 + 跨州授信极高【风险研判总结】：该笔贷款在发放前呈现出显著的“系统性失控”特征。虽然从最终结果看（P I F 已全额偿还），全额担保和抵押物保护了银行资产安全，但在信贷决策的时点上，该企业具备极高的违约风险：运营基础： 激进的人力配置与新设身份极度不匹配。外部环境： 行业即将迎来次贷危机冲击，超长期限贷款无异于“跨周期赌博”。风控失效： 监管执法行动背书了银行风控流程的潜在失效，其审批决策缺乏专业审慎性。结论： 综合考量企业主体的经营风险、行业周期位置及金融机构的风控瑕疵，判定该企业在授信时存在明确的违约风险。"
-    }
-  ],
-  "field_mapping": {
-    "Selected": "是否选中",
-    "LoanNr_ChkDgt": "企业编号",
-    "Name": "公司名称",
-    "City": "区域",
-    "State": "州",
-    "Zip": "邮编",
-    "Bank": "银行名称",
-    "BankState": "银行所在州",
-    "NAICS": "北美行业分类系统代码",
-    "ApprovalDate": "批准日期",
-    "ApprovalFY": "批准财年",
-    "Term": "贷款期限（月）",
-    "NoEmp": "员工数量",
-    "NewExist": "是否为新企业",
-    "CreateJob": "创造岗位数",
-    "RetainedJob": "保留岗位数",
-    "FranchiseCode": "特许经营代码",
-    "UrbanRural": "城乡分类",
-    "RevLineCr": "是否有循环信贷",
-    "LowDoc": "是否为低文档贷款",
-    "ChgOffDate": "核销日期",
-    "DisbursementDate": "发放日期",
-    "DisbursementGross": "发放总额",
-    "BalanceGross": "余额总额",
-    "MIS_Status": "MIS状态",
-    "ChgOffPrinGr": "核销本金总额",
-    "GrAppv": "批准总额",
-    "SBA_Appv": "SBA批准金额",
-    "New": "是否为新建企业",
-    "RealEstate": "是否与房地产相关",
-    "Portion": "SBA担保比例",
-    "Recession": "是否处于经济衰退期",
-    "daysterm": "贷款天数期限",
-    "xx": "未知变量（保留）",
-    "Default": "是否违约"
-  }
+  "field_mapping": {}
 }

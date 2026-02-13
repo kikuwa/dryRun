@@ -203,6 +203,8 @@ class CotSynthesisService:
 
         # Combine reasoning and content for the final result
         final_content = llm_result['content']
+        # if llm_result.get('reasoning'):
+        #     final_content = f"【推理过程】\n{llm_result['reasoning']}\n\n【结论】\n{llm_result['content']}"
 
         # Cache result
         self._save_to_cache(cache_key, final_content)

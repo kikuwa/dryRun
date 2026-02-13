@@ -54,26 +54,46 @@
                     </div>
                     <span class="px-2.5 py-1 bg-slate-100 text-slate-500 text-[10px] font-mono font-bold rounded border border-slate-200">BASELINE</span>
                 </div>
-                <div class="grid grid-cols-2 gap-8 lg:gap-12">
+                <div class="grid grid-cols-2 gap-8 lg:gap-12 mb-6">
                     <div class="space-y-3">
                         <div class="flex justify-between items-baseline">
                             <span class="text-sm font-medium text-slate-500">Precision (查准率)</span>
-                            <span class="text-3xl font-bold text-slate-800 tracking-tight">68.4%</span>
+                            <span class="text-3xl font-bold text-slate-800 tracking-tight">35.5%</span>
                         </div>
                         <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-slate-400 h-full rounded-full" style="width: 68.4%"></div>
+                            <div class="bg-slate-400 h-full rounded-full" style="width: 35.5%"></div>
                         </div>
                         <div class="pt-1 text-xs text-slate-400 font-mono">P = TP/(TP+FP)</div>
                     </div>
                     <div class="space-y-3">
                         <div class="flex justify-between items-baseline">
                             <span class="text-sm font-medium text-slate-500">Recall (查全率)</span>
-                            <span class="text-3xl font-bold text-slate-800 tracking-tight">72.1%</span>
+                            <span class="text-3xl font-bold text-slate-800 tracking-tight">54.5%</span>
                         </div>
                         <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-slate-400 h-full rounded-full" style="width: 72.1%"></div>
+                            <div class="bg-slate-400 h-full rounded-full" style="width: 54.5%"></div>
                         </div>
                         <div class="pt-1 text-xs text-slate-400 font-mono">R = TP/(TP+FN)</div>
+                    </div>
+                </div>
+                <div class="border-t border-slate-200 pt-4 mt-4">
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                        <div class="text-center bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <div class="text-xs text-slate-500 font-medium">TP (真正例)</div>
+                            <div class="text-xl font-bold text-slate-800">23</div>
+                        </div>
+                        <div class="text-center bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <div class="text-xs text-slate-500 font-medium">FP (假正例)</div>
+                            <div class="text-xl font-bold text-slate-800">42</div>
+                        </div>
+                        <div class="text-center bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <div class="text-xs text-slate-500 font-medium">TN (真负例)</div>
+                            <div class="text-xl font-bold text-slate-800">333</div>
+                        </div>
+                        <div class="text-center bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <div class="text-xs text-slate-500 font-medium">FN (假负例)</div>
+                            <div class="text-xl font-bold text-slate-800">19</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,31 +113,51 @@
                     </div>
                     <span class="px-2.5 py-1 bg-blue-50 text-blue-600 text-[10px] font-mono font-bold rounded border border-blue-100">OPTIMIZED</span>
                 </div>
-                <div class="grid grid-cols-2 gap-8 lg:gap-12">
+                <div class="grid grid-cols-2 gap-8 lg:gap-12 mb-6">
                     <div class="space-y-3">
                         <div class="flex justify-between items-baseline">
                             <span class="text-sm font-medium text-slate-500">Precision (查准率)</span>
-                            <span class="text-3xl font-bold text-primary tracking-tight">94.2%</span>
+                            <span class="text-3xl font-bold text-primary tracking-tight">58.9%</span>
                         </div>
                         <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-primary h-full rounded-full shadow-[0_0_10px_rgba(59,130,246,0.4)]" style="width: 94.2%"></div>
+                            <div class="bg-primary h-full rounded-full shadow-[0_0_10px_rgba(59,130,246,0.4)]" style="width: 58.9%"></div>
                         </div>
                         <div class="pt-1 flex items-center justify-between">
                             <span class="text-xs text-slate-400 font-mono">P = TP/(TP+FP)</span>
-                            <span class="text-xs text-green-600 font-bold flex items-center bg-green-50 px-1.5 py-0.5 rounded border border-green-100">+25.8%</span>
+                            <span class="text-xs text-green-600 font-bold flex items-center bg-green-50 px-1.5 py-0.5 rounded border border-green-100">+23.4%</span>
                         </div>
                     </div>
                     <div class="space-y-3">
                         <div class="flex justify-between items-baseline">
                             <span class="text-sm font-medium text-slate-500">Recall (查全率)</span>
-                            <span class="text-3xl font-bold text-primary tracking-tight">89.5%</span>
+                            <span class="text-3xl font-bold text-primary tracking-tight">58.6%</span>
                         </div>
                         <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                            <div class="bg-primary h-full rounded-full shadow-[0_0_10px_rgba(59,130,246,0.4)]" style="width: 89.5%"></div>
+                            <div class="bg-primary h-full rounded-full shadow-[0_0_10px_rgba(59,130,246,0.4)]" style="width: 58.6%"></div>
                         </div>
                         <div class="pt-1 flex items-center justify-between">
                             <span class="text-xs text-slate-400 font-mono">R = TP/(TP+FN)</span>
-                            <span class="text-xs text-green-600 font-bold flex items-center bg-green-50 px-1.5 py-0.5 rounded border border-green-100">+17.4%</span>
+                            <span class="text-xs text-green-600 font-bold flex items-center bg-green-50 px-1.5 py-0.5 rounded border border-green-100">+4.1%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-slate-200 pt-4 mt-4">
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                        <div class="text-center bg-blue-50/80 p-3 rounded-lg border border-blue-100">
+                            <div class="text-xs text-blue-600 font-medium">TP (真正例)</div>
+                            <div class="text-xl font-bold text-primary">25</div>
+                        </div>
+                        <div class="text-center bg-blue-50/80 p-3 rounded-lg border border-blue-100">
+                            <div class="text-xs text-blue-600 font-medium">FP (假正例)</div>
+                            <div class="text-xl font-bold text-primary">17</div>
+                        </div>
+                        <div class="text-center bg-blue-50/80 p-3 rounded-lg border border-blue-100">
+                            <div class="text-xs text-blue-600 font-medium">TN (真负例)</div>
+                            <div class="text-xl font-bold text-primary">358</div>
+                        </div>
+                        <div class="text-center bg-blue-50/80 p-3 rounded-lg border border-blue-100">
+                            <div class="text-xs text-blue-600 font-medium">FN (假负例)</div>
+                            <div class="text-xl font-bold text-primary">17</div>
                         </div>
                     </div>
                 </div>
@@ -145,14 +185,7 @@
                 </div>
                 <div class="p-6 bg-slate-50/30 flex-1">
                     <p class="font-mono text-sm leading-8 text-slate-600">
-                        <strong>【评估结论】：否（未来 3 个月内无违约风险）</strong><br>
-                        1. 企业背景与经营规模评估<br>
-                        中科智泰是一家成立超过 8 年的民营半导体贸易企业，主要服务于华东地区的电子加工厂。根据最新的财务汇总显示，该企业在过去 24 个月内累计实现了 12.8 亿元的营业收入，而同期的总支出约为 11.2 亿元。从数据上看，企业的流水非常庞大，说明其在产业链中占据了稳定的市场份额。 虽然近 12 个月的经营净收益只有 1,800 万元，比前两年的平均水平有所回落，但考虑到去年半导体行业整体处于去库存周期，这种收益缩减属于全行业的普遍现象。企业目前的纳税等级为 B 级，保持了良好的纳税记录，证明其经营活动是真实且合规的。<br>
-                        2. 融资现状与资金周转分析<br>
-                        在债务方面，中科智泰目前在 4 家银行拥有融资关系，融资余额总计 2.45 亿元。企业的总授信额度为 2.6 亿元，目前已使用了 2.58 亿元。虽然额度使用率较高，但这恰恰反映了银行对该企业的认可，愿意为其提供持续的资金支持。 流动性方面，企业目前账面金融资产余额为 420 万元。尽管余额比去年同期下降了 4,500 万元，但这通常是因为贸易型企业需要预付货款以锁定上游资源。考虑到企业拥有过亿元的营收能力，这种资产端的季节性波动不应被视为财务危机。<br>
-                        3. 风险预警信号评估<br>
-                        贷后检查结果显示为正常，客户经理在最近一次回访中未发现库房或办公场所异常。关于信用表现，近 3 个月出现过一次 2.6 万元的逾期记录，经企业解释是由于财务人员休假导致的资金划拨延迟，属于偶然性的操作失误。模型评估分数处于中值区间，外部规则虽有小额负债命中，但由于企业资产负债率仍处于 70% 的行业平均水平，整体信用风险可控。<br>
-                        <strong>【综合结论】： 企业历史悠久，营收规模庞大，短期财务波动和操作性逾期不影响整体偿债能力。建议维持授信，无需特殊预警。</strong>
+                        根据提供的企业数据报告，从多个维度进行违约风险分析：<br><br>1. **企业基本状况**：该企业为员工仅1人的新企业（成立时间短），通常意味着抗风险能力较弱且经营稳定性不足。但作为特许经营企业（特许经营代码为1），可能获得品牌支持和成熟商业模式，一定程度上降低了经营风险。<br><br>2. **贷款与还款情况**：贷款已全额偿还，MIS状态为“P I F”（Paid in Full），余额总额为0，核销本金总额为0，且无核销记录。这表明该笔贷款实际未发生违约，历史表现良好。<br><br>3. **现金流趋势**：半年流水呈波动上升趋势，从1,605.68增长至2,043.74，显示企业经营活动现金流逐步改善，具备还款能力。<br><br>4. **贷款条件与担保**：非低文档贷款（文档齐全），且有循环信贷额度，增加了资金灵活性。SBA担保比例为50%，虽然不直接影响企业违约概率，但表明贷款经过政府机构审核，风险相对可控。<br><br>5. **外部环境**：贷款发放时未处于经济衰退期（经济衰退期标志为0），宏观经济环境有利于企业经营。<br><br>综合分析，尽管企业规模小且为新企业，但现金流增长、贷款条件良好、且有特许经营背景，尤其是贷款已成功全额偿还，无违约记录。因此，判断该企业不存在违约风险。<br><br><strong>【答案】否</strong>
                     </p>
                 </div>
             </div>
@@ -175,21 +208,7 @@
                 </div>
                 <div class="p-6 bg-white flex-1">
                     <p class="font-mono text-sm leading-8 text-slate-800">
-                        <strong>【评估结论】：是（未来 3 个月内存实质性违约风险）</strong><br>
-                        1. <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">经营稳定性深度穿透：盈利能力面临系统性枯竭</span><br>
-                        本报告通过对利润趋势与收入质量的交叉比对，发现该企业经营逻辑已发生本质恶化：<br>
-                        <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">盈利崩塌： 该企业近 12 个月的经营净收益仅为 1,800 万元，较之前 24 个月的平均年收益（约 8,000 万元）暴跌了 77.5%。这意味着企业目前的盈利已经无法覆盖其年度利息支出，企业已失去通过自身经营产生盈余的能力。</span><br>
-                        <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">成本端异常： 在营收基本持平的情况下，营业支出增长了 14%。这表明该企业在半导体贸易链条中已失去议价权，极有可能通过高价垫资的方式获取低毛利订单，试图维持现金流假象。</span><br>
-                        2. <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">流动性与债务链分析：现金流已达临界点</span><br>
-                        本报告启动双向验证机制，对资产变动与真实还款能力进行穿透：<br>
-                        <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">金融资产剧烈失血： 企业金融资产余额在一年内缩减了 4,500 万元，降幅高达 91.5%。目前仅存的 420 万元资金不足以覆盖其下个月到期的任何一笔银行利息，更无法应对日常经营的现金流缺口。</span><br>
-                        <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">隐性负债极度高企： 关键预警指标显示，该企业的个人信用卡预支使用率已飙升至 98%，且近半年平均信用卡额度持续在高位运行。逻辑判定： 该企业目前已无法通过正规银行渠道获取增量授信，正被迫利用高利率的个人信用卡透现来"借钱发工资"或支付房租。这是流动性彻底枯竭的终极信号。</span><br>
-                        3. <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">多维度风险信号的逻辑闭环</span><br>
-                        <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">逾期性质再定义： 尽管 2.6 万元的逾期金额看似不大，但在金融资产骤降 90% 及信用卡全额刷爆的背景下，此信号不再是"操作失误"，而是"技术性违约"的真实开端。这标志着企业管理层对资金的调度已进入失控状态。</span><br>
-                        <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">抵质押物与外部代偿压力： 外部规则 PH_AMT2 命中，显示该企业存在多头借贷且抵押品价值正在贬值（跌幅已达 30% 以上）。同时，重要股东的股权已被法院冻结，这意味着当企业违约时，既无法通过股东注资自救，本行也难以通过处置押品收回全额债权。</span><br>
-                        4. <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">压力测试与最终判研</span><br>
-                        <span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">基于未来 90 天的现金流测算，中科智泰面临至少 4,000 万元的资金缺口，且无任何可用授信额度（已用额度 2.58 亿 / 总额度 2.6 亿）。在缺乏外部融资注入的情况下，该企业在未来一个季度内发生本息违约是必然结果。</span><br>
-                        <strong>【综合结论】： 企业经营性现金流已经断裂，正处于依赖信用卡套现和资产变现维持的"僵尸状态"。建议立即停止续贷，并启动资产保全程序。</strong>
+                        <strong>思考过程：</strong><br><br>遵循【风险分析框架】与【强制约束】，对该企业进行多维度交叉分析：<br><br>1.  <strong>企业运营动态稳定性（高风险）</strong>：<br>    *   <strong>存续状态</strong>：<span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">为“新设企业”(NewExist=1)，缺乏可验证的运营历史，其商业模式、管理能力和现金流稳定性均未经考验，是固有高风险点。</span><br>    *   <strong>员工规模与就业变动</strong>：<span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">员工仅1人，且贷款项目“创造岗位数”和“保留岗位数”均为0。这表明贷款并未用于扩张或稳定团队，与企业增长动态脱节，可能意味着贷款用途不明或业务规模极小，运营极为脆弱。</span><br><br>2.  <strong>贷款保障机制协同性（中高风险）</strong>：<br>    *   <strong>担保与抵押</strong>：SBA担保比例为50%，提供了部分风险缓释。但<span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">关键风险在于“抵押标识”为0（无不动产抵押），使得银行在第二还款来源上依赖不足</span>，与“新设、微小企业”的高风险特征叠加时，保障协同性不足。<br>    *   <strong>贷款额度与期限</strong>：贷款额度（3万美元）与SBA担保额（1.5万美元）对于微小企业而言属合理范围，36个月期限也属常规。但结合其运营稳定性差的特征，还款能力存疑。<br><br>3.  <strong>行业-经济环境匹配度（中低风险）</strong>：<br>    *   <strong>行业与周期</strong>：行业为“办公设备租赁”(NAICS 532420)，属于服务于企业端的行业，受经济周期影响较明显。所幸申请时“不处于经济衰退期”(Recession=0)，宏观环境有利。企业位于城市(UrbanRural=0)，市场机会多但竞争也激烈。<br>    *   <strong>交叉验证矛盾点</strong>：在有利的行业环境下，一家新设企业却未计划创造任何就业，其发展意愿和贷款真实用途需要打问号。<br><br>4.  <strong>银行风控地域适配性（需关注）</strong>：<br>    *   <strong>流程与类型</strong>：从批准到放款间隔21天，流程正常。“低文档贷款”标识为N，表明银行要求了相对完整的财务文档，这是严谨的表现。但存在“循环信贷”(RevLineCr=Y)。<br>    *   <strong>【双向验证启动】</strong>：关键矛盾出现——银行对一家<strong>员工仅1人、无历史业绩的新设企业</strong>授予了“循环信贷”额度。这通常意味着银行基于某种评估认为企业有持续、稳定的现金流需求与偿还能力。然而，该企业的“半年流水”虽然呈上升趋势，但期末绝对额仅为2，043.74美元，基数极低。<span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200"><strong>“循环信贷”的授予与“极低的流水基数”及“新设零雇员增长”的现实严重矛盾</strong></span>。这要么意味着银行风控过于宽松，要么企业提供了与基础运营数据不匹配的现金流预期，存在信息不对称或误判风险。<br><br><strong>综合分析：</strong><br>尽管存在SBA部分担保、非低文档贷款、非经济衰退期等有利因素，但<span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">企业的核心风险在于：<strong>“新设企业”与“零雇员增长”所表征的极弱运营基础</strong>，与<strong>“无抵押”的保障缺口</strong>形成共振。</span><span class="bg-yellow-100 text-yellow-800 px-1 py-0.5 rounded border border-yellow-200">尤为关键的是，<strong>银行授予“循环信贷”的决定与企业微不足道的流水和员工规模存在逻辑冲突</strong>，这暴露了风险审查可能存在的重大瑕疵或企业信息可信度问题。</span><br>在多重负面因素交织，且核心风控逻辑出现矛盾的情况下，企业未来现金流不足以覆盖还款义务的可能性很高。<br><br><strong>【答案】是</strong>
                     </p>
                 </div>
             </div>

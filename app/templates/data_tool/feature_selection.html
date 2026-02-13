@@ -30,12 +30,12 @@
         <div class="mt-8 flex items-center gap-4">
             <div class="relative">
                 <input type="file" x-ref="fileInput" accept=".csv" class="hidden" @change="handleFileSelect($event)">
-                <button @click="$refs.fileInput.click()" 
+                <!-- <button @click="$refs.fileInput.click()" 
                         :disabled="uploading"
                         class="px-6 py-3 bg-white border border-slate-200 text-slate-600 text-sm font-bold rounded-xl hover:bg-slate-50 transition-all flex items-center gap-2 disabled:opacity-70">
                     <span class="material-symbols-outlined text-[20px]" :class="{'animate-bounce': uploading}">upload_file</span>
                     <span x-text="uploading ? '正在上传...' : '上传训练数据'">上传训练数据</span>
-                </button>
+                </button> -->
             </div>
             <button @click="runFeatureSelection" 
                     :disabled="loading"

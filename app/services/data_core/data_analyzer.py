@@ -17,7 +17,10 @@ import pandas as pd
 import numpy as np
 import os
 import json
+import logging
 from typing import Dict, List, Tuple
+
+logger = logging.getLogger(__name__)
 
 class DataAnalyzer:
     """数据分析师类"""
@@ -29,6 +32,7 @@ class DataAnalyzer:
         Args:
             file_path: CSV文件路径
         """
+        self.project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         self.file_path = file_path
         self.data = None
         self.analysis_results = {}
@@ -42,19 +46,19 @@ class DataAnalyzer:
             Dict: 字段映射，键为英文名称，值为中文名称
         """
         field_mapping = {}
-        excel_file = "data/中英文对照.xlsx"
+        excel_file = os.path.join(self.project_root, "data", "中英文对照.xlsx")
         
         if os.path.exists(excel_file):
             try:
-                print(f"正在加载字段映射文件: {excel_file}")
+                logger.info(f"正在加载字段映射文件: {excel_file}")
                 df = pd.read_excel(excel_file)
-                print(f"字段映射文件加载成功，行数: {len(df)}")
-                print(f"Excel文件列数: {len(df.columns)}")
-                print(f"Excel文件列名: {list(df.columns)}")
+                logger.info(f"字段映射文件加载成功，行数: {len(df)}")
+                logger.info(f"Excel文件列数: {len(df.columns)}")
+                logger.info(f"Excel文件列名: {list(df.columns)}")
                 
                 # 打印前5行数据，了解Excel文件的格式
-                print("Excel文件前5行数据:")
-                print(df.head())
+                logger.info("Excel文件前5行数据:")
+                logger.info(df.head())
                 
                 # 尝试使用列名来识别正确的列
                 # 假设英文字段名在"英文字段名"列，中文字段名在"中文字段名"列
@@ -72,7 +76,7 @@ class DataAnalyzer:
                         english_col = '英文列名'
                         chinese_col = '中文列名'
 
-                    print(f"使用列名'{english_col}'和'{chinese_col}'来提取字段映射")
+                    logger.info(f"使用列名'{english_col}'和'{chinese_col}'来提取字段映射")
                     for index, row in df.iterrows():
                         english_name = row[english_col]
                         chinese_name = row[chinese_col]
@@ -84,7 +88,7 @@ class DataAnalyzer:
                             field_mapping[english_name] = chinese_name
                 # 尝试使用列索引来识别正确的列
                 elif len(df.columns) >= 4:
-                    print("使用列索引来提取字段映射，假设第3列是英文字段名，第4列是中文字段名")
+                    logger.info("使用列索引来提取字段映射，假设第3列是英文字段名，第4列是中文字段名")
                     for index, row in df.iterrows():
                         english_name = row.iloc[2]  # 第3列（索引2）是英文字段名
                         chinese_name = row.iloc[3]  # 第4列（索引3）是中文字段名
@@ -95,17 +99,17 @@ class DataAnalyzer:
                                 chinese_name = str(chinese_name)
                             field_mapping[english_name] = chinese_name
                 else:
-                    print("无法识别Excel文件的格式，无法提取字段映射")
+                    logger.warning("无法识别Excel文件的格式，无法提取字段映射")
                 
-                print(f"字段映射加载完成，映射数量: {len(field_mapping)}")
+                logger.info(f"字段映射加载完成，映射数量: {len(field_mapping)}")
                 # 打印前5个字段映射，了解映射的质量
-                print("前5个字段映射:")
+                logger.info("前5个字段映射:")
                 for i, (k, v) in enumerate(list(field_mapping.items())[:5]):
-                    print(f"{k}: {v}")
+                    logger.info(f"{k}: {v}")
             except Exception as e:
-                print(f"字段映射加载失败: {e}")
+                logger.error(f"字段映射加载失败: {e}")
         else:
-            print(f"字段映射文件不存在: {excel_file}")
+            logger.warning(f"字段映射文件不存在: {excel_file}")
         
         return field_mapping
     
@@ -117,12 +121,12 @@ class DataAnalyzer:
             bool: 加载是否成功
         """
         try:
-            print(f"正在加载数据文件: {self.file_path}")
+            logger.info(f"正在加载数据文件: {self.file_path}")
             self.data = pd.read_csv(self.file_path)
-            print(f"数据加载成功，形状: {self.data.shape}")
+            logger.info(f"数据加载成功，形状: {self.data.shape}")
             return True
         except Exception as e:
-            print(f"数据加载失败: {e}")
+            logger.error(f"数据加载失败: {e}")
             return False
     
     def analyze_data_types(self) -> Dict[str, any]:
@@ -132,7 +136,7 @@ class DataAnalyzer:
         Returns:
             Dict: 数据类型统计结果
         """
-        print("\n=== 数据类型统计分析 ===")
+        logger.info("=== 数据类型统计分析 ===")
         
         # 获取数据类型统计
         dtype_counts = self.data.dtypes.value_counts()
@@ -159,9 +163,9 @@ class DataAnalyzer:
             "type_stats": dtype_stats
         }
         
-        print(f"总数据类型数: {total_types}")
+        logger.info(f"总数据类型数: {total_types}")
         for dtype, stats in dtype_stats.items():
-            print(f"{dtype}: {stats['count']}个特征, 占比{stats['percentage']}")
+            logger.info(f"{dtype}: {stats['count']}个特征, 占比{stats['percentage']}")
         
         self.analysis_results["data_types"] = result
         return result
@@ -173,7 +177,7 @@ class DataAnalyzer:
         Returns:
             Dict: 数据质量分析结果
         """
-        print("\n=== 数据质量评估 ===")
+        logger.info("=== 数据质量评估 ===")
         
         # 计算缺失值统计
         missing_values = self.data.isnull().sum()
@@ -194,13 +198,20 @@ class DataAnalyzer:
         # 转换为字典格式
         missing_stats = []
         for feature, row in missing_df.iterrows():
-            missing_stats.append({
-                "feature": feature,
-                "count": int(row["count"]),
-                "percentage": f"{row['percentage']:.2f}%",
-                "percentage_value": round(row["percentage"], 2),
-                "total": len(self.data)
-            })
+                # 如果缺失率大于0但小于1%，则将其设置为一个较小的值（例如1%），以确保在UI上可见
+                percentage_val = row["percentage"]
+                if 0 < percentage_val < 1:
+                    percentage_val = 1
+                else:
+                    percentage_val = round(percentage_val, 2)
+
+                missing_stats.append({
+                    "feature": feature,
+                    "count": int(row["count"]),
+                    "percentage": f"{row['percentage']:.2f}%",
+                    "percentageValue": percentage_val,  # 使用调整后的百分比值
+                    "total": len(self.data)
+                })
         
         result = {
             "completeness": f"{completeness:.2f}%",
@@ -208,14 +219,14 @@ class DataAnalyzer:
             "missing_stats": missing_stats
         }
         
-        print(f"数据完整性: {result['completeness']}")
-        print(f"总缺失值数量: {result['total_missing']}")
-        print(f"有缺失值的特征数: {len(missing_stats)}")
+        logger.info(f"数据完整性: {result['completeness']}")
+        logger.info(f"总缺失值数量: {result['total_missing']}")
+        logger.info(f"有缺失值的特征数: {len(missing_stats)}")
         
         if len(missing_stats) > 0:
-            print("\n缺失率最高的10个特征:")
+            logger.info("缺失率最高的10个特征:")
             for i, item in enumerate(missing_stats[:10]):
-                print(f"{i+1}. {item['feature']}: {item['count']}个缺失值, 占比{item['percentage']}")
+                logger.info(f"{i+1}. {item['feature']}: {item['count']}个缺失值, 占比{item['percentage']}")
         
         self.analysis_results["data_quality"] = result
         return result
@@ -227,7 +238,7 @@ class DataAnalyzer:
         Returns:
             Dict: IQR分析和异常值检测结果
         """
-        print("\n=== IQR数据分布分析和异常值检测 ===")
+        logger.info("=== IQR数据分布分析和异常值检测 ===")
         
         # 分析所有特征
         all_features = self.data.columns
@@ -299,7 +310,7 @@ class DataAnalyzer:
                     })
             except Exception as e:
                 # 如果分析失败，添加基本信息
-                print(f"分析特征 {feature} 时出错: {e}")
+                logger.error(f"分析特征 {feature} 时出错: {e}")
                 iqr_results.append({
                     "feature": feature,
                     "min": None,
@@ -320,13 +331,13 @@ class DataAnalyzer:
             "outlier_detection": outlier_results
         }
         
-        print(f"分析的特征数: {len(all_features)}")
-        print(f"检测到异常值的特征数: {len(outlier_results)}")
+        logger.info(f"分析的特征数: {len(all_features)}")
+        logger.info(f"检测到异常值的特征数: {len(outlier_results)}")
         
         if len(outlier_results) > 0:
-            print("\n异常值比例最高的5个特征:")
+            logger.info("异常值比例最高的5个特征:")
             for i, item in enumerate(outlier_results[:5]):
-                print(f"{i+1}. {item['feature']}: {item['outlier_count']}个异常值, 占比{item['outlier_percentage']}")
+                logger.info(f"{i+1}. {item['feature']}: {item['outlier_count']}个异常值, 占比{item['outlier_percentage']}")
         
         self.analysis_results["iqr_and_outliers"] = result
         return result
@@ -338,7 +349,7 @@ class DataAnalyzer:
         Returns:
             Dict: 基本统计描述结果
         """
-        print("\n=== 基本统计描述 ===")
+        logger.info("=== 基本统计描述 ===")
         
         # 只分析数值型特征
         numeric_features = self.data.select_dtypes(include=[np.number]).columns
@@ -360,8 +371,8 @@ class DataAnalyzer:
             "stats": stats_dict
         }
         
-        print(f"数值型特征数: {len(numeric_features)}")
-        print("基本统计描述已计算完成")
+        logger.info(f"数值型特征数: {len(numeric_features)}")
+        logger.info("基本统计描述已计算完成")
         
         self.analysis_results["basic_stats"] = result
         return result
@@ -397,7 +408,7 @@ class DataAnalyzer:
         Returns:
             List[Dict]: 数据预览列表
         """
-        print("\n=== 生成数据预览 ===")
+        logger.info("=== 生成数据预览 ===")
         
         # 获取前5行数据
         preview_df = self.data.head(5)
