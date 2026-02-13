@@ -218,7 +218,7 @@ class CotSynthesisService:
         import re
         
         # 1. Remove <think>...</think> blocks (common in some reasoning models)
-        content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL)
+        content = re.sub(r'<think>.*?</think>|[unused16].*?[unused17]','',content,flags=re.DOTALL)
         
         # 2. Remove "【推理过程】...【结论】" pattern, keep only conclusion
         # Check for explicit markers added by model or prompt
