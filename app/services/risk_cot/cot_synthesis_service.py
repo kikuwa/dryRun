@@ -16,9 +16,9 @@ class CotSynthesisService:
         self.prompt_ori_file = os.path.join(self.base_dir, 'data', 'prompt_ori.txt')
         self.prompt_better_file = os.path.join(self.base_dir, 'data', 'prompt_better.txt')
         self.prompt_opt_file = os.path.join(self.base_dir, 'data', 'prompt_opt.txt')  
-        self.api_key = "sk-***********9"
-        self.api_url = "https://api.deepseek.com/chat/completions"
-        self.model = "deepseek-reasoner"
+        self.api_key = ""
+        self.api_url = "http://100.100.135.172:8081/v1/chat/completions"
+        self.model = "qwen"
         self.feature_translation_file = os.path.join(self.base_dir, 'data', '贷款数据集字段翻译文档.xlsx')
         self.results_file = os.path.join(self.base_dir, 'data', 'results.json')
         self.feature_translations = self._load_feature_translations()
@@ -110,7 +110,6 @@ class CotSynthesisService:
 
     def _call_llm(self, messages: list) -> Dict[str, str]:
         headers = {
-            "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json"
         }
         payload = {
@@ -119,7 +118,7 @@ class CotSynthesisService:
             "stream": False
         }
         try:
-            response = requests.post(self.api_url, headers=headers, json=payload, timeout=60)
+            response = requests.post(self.api_url, headers=headers, json=payload, verify=False)
             if response.status_code == 200:
                 result = response.json()
                 choice = result['choices'][0]['message']
@@ -204,8 +203,6 @@ class CotSynthesisService:
 
         # Combine reasoning and content for the final result
         final_content = llm_result['content']
-        if llm_result.get('reasoning'):
-            final_content = f"【推理过程】\n{llm_result['reasoning']}\n\n【结论】\n{llm_result['content']}"
 
         # Cache result
         self._save_to_cache(cache_key, final_content)
