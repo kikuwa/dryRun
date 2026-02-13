@@ -14,21 +14,11 @@ cot_service = CotSynthesisService()
 def index():
     return redirect(url_for('risk_cot_views.inference'))
 
-@views_bp.route('/prompt_design')
-def prompt_design():
-    return render_template('risk_cot/prompt_design.html', active_page='prompt_design')
 
 @views_bp.route('/model_diff')
 def model_diff():
     return render_template('risk_cot/modelDiff.html', active_page='model_diff')
 
-@views_bp.route('/inference')
-def inference():
-    return render_template('risk_cot/inference.html', active_page='cot_synthesis')
-
-@views_bp.route('/distillation')
-def distillation():
-    return render_template('risk_cot/distillation.html', active_page='model_distillation')
 
 @views_bp.route('/multi_source_data')
 def multi_source_data():
