@@ -410,13 +410,14 @@ class DataAnalyzer:
         """
         logger.info("=== 生成数据预览 ===")
         
-        # 获取前5行数据
-        preview_df = self.data.head(5)
+        # 获取全部数据
+        preview_df = self.data
         
         # 处理NaN值，替换为None
         preview = preview_df.where(pd.notnull(preview_df), None).to_dict('records')
         
         self.analysis_results["preview"] = preview
+        logger.info(f"成功生成数据预览，共 {len(preview)} 行")
         return preview
     
     def _replace_nan_recursive(self, obj):
@@ -452,8 +453,8 @@ class DataAnalyzer:
                 if len(existing_columns) < len(target_columns):
                     logger.warning(f"警告: 部分目标列未在Excel文件中找到。缺失列: {set(target_columns) - set(existing_columns)}")
                 
-                # 获取前5行数据，仅包含指定列
-                sample_df = df[existing_columns].head(5)
+                # 获取全部数据，仅包含指定列
+                sample_df = df[existing_columns]
                 
                 # 处理NaN值
                 sample = sample_df.where(pd.notnull(sample_df), None).to_dict('records')
@@ -481,8 +482,8 @@ class DataAnalyzer:
         if os.path.exists(excel_file):
             try:
                 df = pd.read_excel(excel_file)
-                # 获取前5行数据
-                sample_df = df.head(5)
+                # 获取全部数据
+                sample_df = df
                 # 处理NaN值
                 sample = sample_df.where(pd.notnull(sample_df), None).to_dict('records')
                 

@@ -14,21 +14,6 @@
 
 {% block content %}
 <div class="max-w-[1400px] mx-auto w-full space-y-8" x-data="multiSourceDataApp()">
-    <div class="flex items-center justify-between">
-        <div>
-            <h1 class="text-2xl font-bold text-slate-900 tracking-tight">多源数据管理</h1>
-            <p class="text-slate-500 text-sm mt-1">集成多源数据，提供数据类型统计与分析结果展示</p>
-        </div>
-        <!-- <div class="flex items-center gap-3">
-            <button @click="refreshData" 
-                    :disabled="loading"
-                    class="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-sm font-medium rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                <span class="material-symbols-outlined text-[18px]" :class="{'animate-spin': loading}">refresh</span>
-                刷新数据
-            </button>
-
-        </div> -->
-    </div>
 
     <!-- Data Overview Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -71,29 +56,49 @@
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
             <h3 class="font-bold text-slate-800 text-sm">数据预览</h3>
-            <span class="text-xs text-slate-400">仅展示前 10 行</span>
+            <span class="text-xs text-slate-400" x-text="'共 ' + dataPreview.length + ' 条记录'"></span>
         </div>
         <div class="p-6">
             <div x-show="!loading && dataPreview.length > 0">
-                <div class="overflow-x-auto">
+                <!-- Virtual Scroll Container -->
+                <div class="overflow-y-auto overflow-x-auto relative border border-slate-100 rounded-lg" 
+                     :style="`height: ${containerHeight}px`"
+                     @scroll.passive="handleScroll">
+                    
+                    <!-- Scroll Spacer -->
+                    <div :style="`height: ${totalHeight}px; position: absolute; width: 1px; top: 0; left: 0; z-index: -1;`"></div>
+                    
+                    <!-- Table -->
                     <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-100 text-slate-600 font-bold">
+                        <thead class="bg-slate-100 text-slate-600 font-bold sticky top-0 z-10 shadow-sm">
                             <tr>
-                                <th class="px-4 py-2">序号</th>
+                                <th class="px-4 py-3 bg-slate-100 whitespace-nowrap w-[80px]">序号</th>
                                 <template x-for="(column, index) in dataPreviewColumns" :key="index">
-                                    <th class="px-4 py-2" x-text="column"></th>
+                                    <th class="px-4 py-3 bg-slate-100 whitespace-nowrap" x-text="column"></th>
                                 </template>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-200">
-                            <template x-for="(row, index) in dataPreview" :key="index">
-                                <tr class="hover:bg-slate-100/50 transition-colors">
-                                    <td class="px-4 py-2 text-slate-500" x-text="index + 1"></td>
-                                    <template x-for="(value, column) in row" :key="column">
-                                        <td class="px-4 py-2 text-slate-700" x-text="value"></td>
+                        <tbody class="divide-y divide-slate-200 bg-white">
+                            <!-- Top Spacer Row -->
+                            <tr :style="`height: ${offsetY}px`" x-show="offsetY > 0">
+                                <td :colspan="dataPreviewColumns.length + 1"></td>
+                            </tr>
+                            
+                            <!-- Visible Rows -->
+                            <template x-for="(row, index) in visibleDataPreview" :key="row._virtualIndex">
+                                <tr class="hover:bg-slate-50 transition-colors" :style="`height: ${rowHeight}px`">
+                                    <td class="px-4 py-2 text-slate-500 whitespace-nowrap" x-text="row._virtualIndex + 1"></td>
+                                    <template x-for="(column, colIndex) in dataPreviewColumns" :key="colIndex">
+                                        <td class="px-4 py-2 text-slate-700 whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px]" 
+                                            x-text="row[column]" :title="row[column]"></td>
                                     </template>
                                 </tr>
                             </template>
+                            
+                            <!-- Bottom Spacer Row -->
+                            <tr :style="`height: ${Math.max(0, totalHeight - offsetY - (visibleDataPreview.length * rowHeight))}px`">
+                                <td :colspan="dataPreviewColumns.length + 1"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -111,7 +116,7 @@
     
     <!-- Data Type Statistics Module -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-8 py-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="px-6 py-4 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h3 class="text-lg font-bold text-slate-900">数据类型统计</h3>
                     <p class="text-slate-500 text-xs mt-1">展示数据集内数据类型的分布统计</p>
@@ -187,7 +192,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="divide-y divide-slate-200">
-                                                    <template x-for="(row, idx) in type.data" :key="idx">
+                                                    <template x-for="(row, idx) in type.features" :key="idx">
                                                         <tr class="hover:bg-slate-100/50 transition-colors">
                                                             <td class="px-4 py-2 text-slate-500" x-text="idx + 1"></td>
                                                             <template x-for="(col, colIdx) in type.columns" :key="colIdx">
@@ -384,9 +389,44 @@
             dataSummary: null,
             dataPreview: [],
             dataPreviewColumns: [],
+            
+            // Virtual Scroll State
+            rowHeight: 48, // Estimated row height in pixels
+            containerHeight: 600, // Container height in pixels
+            scrollTop: 0,
 
             init() {
                 this.loadData();
+            },
+
+            get totalHeight() {
+                return this.dataPreview.length * this.rowHeight;
+            },
+            
+            get visibleDataPreview() {
+                if (this.dataPreview.length === 0) return [];
+                
+                const startNode = Math.floor(this.scrollTop / this.rowHeight);
+                const visibleNodeCount = Math.ceil(this.containerHeight / this.rowHeight);
+                
+                // Add buffer
+                const start = Math.max(0, startNode - 5);
+                const end = Math.min(this.dataPreview.length, startNode + visibleNodeCount + 5);
+                
+                return this.dataPreview.slice(start, end).map((row, index) => ({
+                    ...row,
+                    _virtualIndex: start + index // Keep track of original index
+                }));
+            },
+            
+            get offsetY() {
+                const startNode = Math.floor(this.scrollTop / this.rowHeight);
+                const start = Math.max(0, startNode - 5);
+                return start * this.rowHeight;
+            },
+            
+            handleScroll(e) {
+                this.scrollTop = e.target.scrollTop;
             },
 
             async loadData() {
@@ -484,7 +524,7 @@
                 }
 
                 // 2. 添加时序数据类别 (来自 experience_cashflow.xlsx)
-                if (timeSeriesSample && timeSeriesSample.length > 0) {
+                if (Array.isArray(timeSeriesSample) && timeSeriesSample.length > 0) {
                     const columns = Object.keys(timeSeriesSample[0]);
                     
                     types.push({
@@ -493,7 +533,7 @@
                         count: timeSeriesSample.length, // 这里显示行数
                         percentage: '-',
                         expanded: true, // 默认展开
-                        features: [], // 时序数据不使用 features 列表
+                        features: timeSeriesSample, // 时序数据使用 features 列表
                         columns: columns, // 表头
                         data: timeSeriesSample, // 数据行
                         showAllFeatures: true, // 总是显示全部（因为是数据行）
@@ -502,7 +542,7 @@
                 }
 
                 // 3. 添加非结构数据类别 (来自 非结构化数据.xlsx)
-                if (unstructuredSample && unstructuredSample.length > 0) {
+                if (Array.isArray(unstructuredSample) && unstructuredSample.length > 0) {
                     const columns = Object.keys(unstructuredSample[0]);
                     
                     types.push({
@@ -511,7 +551,7 @@
                         count: unstructuredSample.length, // 这里显示行数
                         percentage: '-',
                         expanded: true, // 默认展开
-                        features: [], // 非结构数据不使用 features 列表
+                        features: unstructuredSample, // 非结构数据使用 features 列表
                         columns: columns, // 表头
                         data: unstructuredSample, // 数据行
                         showAllFeatures: true, // 总是显示全部（因为是数据行）
@@ -574,5 +614,26 @@
             }
         };
     }
+</script>
+
+<!-- Performance Monitoring -->
+<script>
+    window.addEventListener('load', () => {
+        // Simple Performance Logger
+        setTimeout(() => {
+            if (window.performance) {
+                const timing = window.performance.timing;
+                const loadTime = timing.loadEventEnd - timing.navigationStart;
+                console.log(`Page Load Time: ${loadTime}ms`);
+                
+                // FCP
+                const paint = window.performance.getEntriesByType('paint');
+                const fcp = paint.find(p => p.name === 'first-contentful-paint');
+                if (fcp) {
+                    console.log(`FCP: ${fcp.startTime.toFixed(2)}ms`);
+                }
+            }
+        }, 1000);
+    });
 </script>
 {% endblock %}
