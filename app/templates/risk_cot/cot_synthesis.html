@@ -141,8 +141,14 @@
                     </h3>
                 </div>
                 <div class="p-5 space-y-4">
+                    <div class="text-[11px] text-slate-600">
+                        <p class="font-bold mb-1">请输入专家经验或优化建议，例如：</p>
+                        <ul class="list-decimal list-inside space-y-1 text-slate-500">
+                            <li class="hover:text-slate-800 cursor-text">参考企业主他行的负债情况，补充信息：企业主在他行资不抵债，已有多笔违约</li>
+                            <li class="hover:text-slate-800 cursor-text">参考企业主他行的存储情况，补充信息：企业主在他行有1000w存款，且与本笔债务有担保关系。</li>
+                        </ul>
+                    </div>
                     <textarea x-model="expertAdvice" 
-                              placeholder="请输入专家经验或优化建议... 例如：重点关注客户的历史违约记录和收入稳定性分析" 
                               class="w-full h-24 p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none text-xs text-slate-700 resize-none transition-all custom-scrollbar"></textarea>
                     <div class="grid grid-cols-2 gap-4">
                         <button @click="generateCot('expert')" 
