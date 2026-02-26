@@ -47,8 +47,8 @@ def create_prompt_json(prompt_file, csv_file, excel_file, output_file, num_recor
             reader = csv.reader(f_csv)
             headers = next(reader)
             for i, row in enumerate(reader):
-                if i >= num_records:
-                    break
+                # if i >= num_records:
+                #     break
                 
                 record_parts = []
                 for header, value in zip(headers, row):
@@ -57,7 +57,8 @@ def create_prompt_json(prompt_file, csv_file, excel_file, output_file, num_recor
                         record_parts.append(f"{display_header}:{value}")
                 
                 record_str = ", ".join(record_parts)
-                final_prompt = f"{base_prompt}\\n\\n【企业贷款申请数据报告】\\n{record_str}"
+                final_prompt = (f"{base_prompt}\\n\\n【企业贷款申请数据报告】\\n{record_str}\\n【输出要求】"
+                                f"请用在思考和回答部分严格使用中文分析任务数据并在结尾做出判断，请将你的判断结果放置在【】中。判断结果的可选范围：违约标签：1表示违约，0表示未违约。")
                 prompts_list.append({"prompt": final_prompt})
 
     except FileNotFoundError:
@@ -75,11 +76,11 @@ def create_prompt_json(prompt_file, csv_file, excel_file, output_file, num_recor
 
 if __name__ == "__main__":
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    
+
     prompt_file_path = os.path.join(BASE_DIR, 'optimized_prompt.txt')
     csv_file_path = os.path.join(BASE_DIR, 'SBAcase.11.13.17.csv')
     excel_translation_file = os.path.join(BASE_DIR, '中英文对照.xlsx')
-    output_file_path = os.path.join(BASE_DIR, 'prompt_data.json')
-    records_to_process = 5
-    
+    output_file_path = os.path.join(BASE_DIR, 'prompt_data_all.json')
+    records_to_process = 3000
+
     create_prompt_json(prompt_file_path, csv_file_path, excel_translation_file, output_file_path, records_to_process)

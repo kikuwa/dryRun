@@ -109,6 +109,7 @@ def generate_expert_from_results():
         
     try:
         result = cot_service.generate_expert_cot_from_results(loan_id, expert_advice)
+        logger.info(f"result:{result}")
         return jsonify(result)
     except Exception as e:
         return jsonify({'error': str(e)}), 500

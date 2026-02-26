@@ -17,8 +17,8 @@ class CotSynthesisService:
         self.prompt_better_file = os.path.join(self.base_dir, 'data', 'prompt_better.txt')
         self.prompt_opt_file = os.path.join(self.base_dir, 'data', 'prompt_opt.txt')  
         self.api_key = ""
-        self.api_url = "http://100.100.135.172:8081/v1/chat/completions"
-        self.model = "qwen"
+        self.api_url = "http://100.100.135.172:8080/v1/chat/completions"
+        self.model = "pangu"
         self.feature_translation_file = os.path.join(self.base_dir, 'data', '贷款数据集字段翻译文档.xlsx')
         self.results_file = os.path.join(self.base_dir, 'data', 'results.json')
         self.feature_translations = self._load_feature_translations()
@@ -115,17 +115,22 @@ class CotSynthesisService:
         payload = {
             "model": self.model,
             "messages": messages,
-            "stream": False
+            "stream": False,
+            "max_tokens": 12000,
+            "temperature": 1.0,
+            "top_k": -1,
+            "top_p": 0.8,
+            "max_new_tokens": 4096
         }
         try:
+            logger.info("listlen->"+str(len(messages)))
+            # logger.info("post:" + str(messages[0]['content']))
             response = requests.post(self.api_url, headers=headers, json=payload, verify=False)
             if response.status_code == 200:
                 result = response.json()
-                choice = result['choices'][0]['message']
-                content = choice.get('content', '')
-                reasoning = choice.get('reasoning_content', '')
-                
-                return {"content": content, "reasoning": reasoning}
+                content = result.get('choices', [{}])[0].get('message', {}).get('content', '')
+                # logger.info(content)
+                return {"content": content}
             else:
                 logger.error(f"LLM API Error: {response.status_code} - {response.text}")
                 return {"error": f"Error: {response.status_code} - {response.text}"}
@@ -218,25 +223,33 @@ class CotSynthesisService:
         import re
         
         # 1. Remove <think>...</think> blocks (common in some reasoning models)
-        content = re.sub(r'<think>.*?</think>|[unused16].*?[unused17]','',content,flags=re.DOTALL)
-        
+        content = re.sub(
+            r'\[unused16\].*?\[unused17\]|.*?\[unused17\]|.*?\[unused16\]',
+            '',
+            content,
+            flags=re.DOTALL
+        )
+        content=content.replace('【0】','答案【否】')
+        content = content.replace('【1】', '答案【是】')
+        # content = re.sub(r'<think>.*?</think>|[unused16].*?[unused17]|.*?[unused17]|.*?[unused16]','',content,flags=re.DOTALL)
+        logger.info("=================="+content)
         # 2. Remove "【推理过程】...【结论】" pattern, keep only conclusion
         # Check for explicit markers added by model or prompt
-        if "【结论】" in content:
-            parts = content.split("【结论】")
-            # Return the last part, assuming it's the conclusion
-            return f"【结论】{parts[-1]}"
-        
-        if "【答案】" in content:
-            # If there is "【答案】", we might want to keep the text around it, 
-            # but if the user wants to strictly exclude reasoning which usually comes before...
-            # Let's try to find if there is a clear separation.
-            # If the prompt was "Summarize thinking process... output 【答案】...", 
-            # usually the answer is at the end.
-            # We will try to keep the part starting from the last major section or just return as is 
-            # if we can't safely determine. 
-            # However, to be safe and strict as requested:
-            pass
+        # if "【结论】" in content:
+        #     parts = content.split("【结论】")
+        #     # Return the last part, assuming it's the conclusion
+        #     return f"【结论】{parts[-1]}"
+        #
+        # if "【答案】" in content:
+        #     # If there is "【答案】", we might want to keep the text around it,
+        #     # but if the user wants to strictly exclude reasoning which usually comes before...
+        #     # Let's try to find if there is a clear separation.
+        #     # If the prompt was "Summarize thinking process... output 【答案】...",
+        #     # usually the answer is at the end.
+        #     # We will try to keep the part starting from the last major section or just return as is
+        #     # if we can't safely determine.
+        #     # However, to be safe and strict as requested:
+        #     pass
 
         return content.strip()
 
